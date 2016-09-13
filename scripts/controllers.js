@@ -11,6 +11,10 @@ var appControllers = angular.module('appControllers', [])
     $scope.importSummary = false;
     $scope.importSuccess = false;
     $scope.expand = false;
+    $scope.isImporting = false;
+    $scope.isPreviewing = false;
+    $scope.previewText = 'preview';
+    $scope.importText = 'import';
 
     //@todo Waiting for update from oslo
     var groups = ['WHO', 'HISP', 'OSLO'];
@@ -72,6 +76,8 @@ var appControllers = angular.module('appControllers', [])
     }
 
     $scope.previewOrImportPackage = function(action, packageId, packageHref) {
+
+
         $http.get(packageHref).then(function(response) {
 
             var data = response.data;
@@ -79,6 +85,11 @@ var appControllers = angular.module('appControllers', [])
 
             if(action == 'import') {
                 dryRun = false;
+                $scope.isImporting = true;
+                $scope.importText = 'Importing metadata....';
+            } else {
+                $scope.isPreviewing = true;
+                $scope.previewText = 'Importing metadata for preview....';
             }
 
             $http({
@@ -93,6 +104,14 @@ var appControllers = angular.module('appControllers', [])
                 compileImportConflicts(summary);
                 $scope.currentPackage = packageId;
                 $scope.importSuccess = true;
+
+                if(action == 'import') {
+                    $scope.importText = 'import';
+                    $scope.isImporting = false;
+                } else {
+                    $scope.isPreviewing = false;
+                    $scope.previewText = 'preview';
+                }
 
             }, function(error) {
                 console.log(error)

@@ -38,10 +38,16 @@
                             </ul>
                         </div>
                         <div class="panel-footer package-footer">
-                            <button class="btn btn-info btn-sm" ng-class="importingMetadata == true ? 'disabled' : ''" ng-click="previewOrImportPackage('preview', package.id, package.href)"><i class="fa fa-eye"></i> preview</button>
-                            <button class="btn btn-primary btn-sm" ng-click="previewOrImportPackage('import', package.id, package.href)"><i class="fa fa-download" aria-hidden="true"></i> Import</button>
+                            <button class="btn btn-info btn-sm" ng-class="isPreviewing == true ? 'disabled' : ''" ng-click="previewOrImportPackage('preview', package.id, package.href)">
+                                <i ng-if="isPreviewing" class="fa fa-spinner fa-pulse fa-fw"></i>
+                                <i ng-if="!isPreviewing" class="fa fa-eye"></i> {{previewText}}
+                            </button>
+                            <button class="btn btn-primary btn-sm" ng-class="isImporting == true ? 'disabled' : ''" ng-click="previewOrImportPackage('import', package.id, package.href)">
+                                <i ng-if="!isImporting" class="fa fa-download" aria-hidden="true"></i>
+                                <i ng-if="isImporting" class="fa fa-spinner fa-pulse fa-fw"></i> {{importText}}
+                            </button>
                             <br><a href="" ng-if="importSuccess && currentPackage == package.id" ng-click="showImportSummary()">View import summary</a>
-                            <uib-progressbar value="55"></uib-progressbar>
+
                         </div>
                     </div>
                 </div>
