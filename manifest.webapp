@@ -1,0 +1,21 @@
+{
+    "version": "0.1",
+    "name": "metabase",
+    "description": "DHIS 2 Remote metadata import",
+    "launch_path": "index.html",
+    "icons": {
+        "16": "icon.png",
+        "48": "icon.png",
+        "128": "icon.png"
+    },
+    "developer": {
+        "name": "Rajabu W. Mkomwa",
+        "url": ""
+    },
+    "default_locale": "en",
+    "activities": {
+        "dhis": {
+            "href": "*"
+        }
+    }
+}
