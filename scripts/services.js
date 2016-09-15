@@ -9,7 +9,7 @@ var appServices = angular.module('appServices', ['ngResource']);
 appServices.factory('packageService', function($http) {
     return {
         all: function() {
-            return $http.get('/api/synchronization/metadataRepo');
+            return $http.get(dhis2.settings.baseUrl+'/../api/synchronization/metadataRepo');
         }
     }
 });

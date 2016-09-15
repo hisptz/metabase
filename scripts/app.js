@@ -18,7 +18,7 @@ var app = angular.module('app',
                         'angular-spinkit'
                     ])
               
-.value('DHIS2URL', '/dhis2/')
+.value('DHIS2URL', dhis2.settings.baseUrl)
 
 .config(function($translateProvider,$routeProvider) {
 	

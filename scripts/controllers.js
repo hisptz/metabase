@@ -93,7 +93,7 @@ var appControllers = angular.module('appControllers', [])
             }
 
             $http({
-                url: '/api/metadata',
+                url: dhis2.settings.baseUrl+'/../api/metadata',
                 method: 'POST',
                 data: data,
                 params: {'dryRun': dryRun, strategy: 'CREATE_AND_UPDATE'}
