@@ -11,7 +11,10 @@
 		<script type="text/javascript">
 			window.dhis2 = window.dhis2 || {};
 			dhis2.settings = dhis2.settings || {};
-			dhis2.settings.baseUrl = '/';
+			//Use below for ROOT instance i.e  url with "/" only
+			dhis2.settings.baseUrl = '../../..';
+			//Use below for demo instance i.e url with "/demo" only or change to your instance name
+			//dhis2.settings.baseUrl = '../../../demo';
 		</script>
         <script type="text/javascript" src="../../../dhis-web-commons/javascripts/jQuery/jquery.min.js"></script>
         <script type="text/javascript" src="../../../dhis-web-commons/javascripts/jQuery/ui/jquery-ui.min.js"></script>
