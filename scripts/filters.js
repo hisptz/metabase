@@ -29,4 +29,26 @@ appFilters.filter('readableMetadata', function() {
         });
         return readableName.join("");
     }
-})
+    })
+    .filter('abbreviate', function() {
+
+        return function(title) {
+            var abbr = [];
+            var  i = 0;
+            for (var n in title) {
+                if(n == 0) {
+                    abbr[i] = title[n].toUpperCase();
+                    i++;
+                } else {
+                    if(title[n] == ' ') {
+                        n++;
+                        abbr[i] = title[n].toUpperCase();
+                        break;
+                    }
+                }
+            }
+
+            return abbr.join('');
+
+        }
+    });

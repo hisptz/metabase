@@ -14,7 +14,7 @@
 			//Use below for ROOT instance i.e  url with "/" only
 			//dhis2.settings.baseUrl = '../../..';
 			//Use below for demo instance i.e url with "/demo" only or change to your instance name
-			dhis2.settings.baseUrl = '../../../demo';
+			dhis2.settings.baseUrl = '../../../';
 		</script>
         <script type="text/javascript" src="../../../dhis-web-commons/javascripts/jQuery/jquery.min.js"></script>
         <script type="text/javascript" src="../../../dhis-web-commons/javascripts/jQuery/ui/jquery-ui.min.js"></script>
@@ -50,6 +50,13 @@
         <script type="text/javascript" src="scripts/controllers.js"></script>
         <script type="text/javascript" src="scripts/filters.js"></script>
 
+        <!--controllers-->
+        <script src="scripts/controllers/mainControllers.js"></script>
+        <script src="scripts/controllers/packageController.js"></script>
+        <script src="scripts/controllers/previewController.js"></script>
+        <!--services-->
+        <script src="scripts/services/mainServices.js"></script>
+
         <!-- Menu scripts -->
         <script type="text/javascript" src="../../../dhis-web-commons/javascripts/dhis2/dhis2.translate.js"></script>
         <script type="text/javascript" src="../../../dhis-web-commons/javascripts/dhis2/dhis2.menu.js"></script>
@@ -64,7 +71,7 @@
     </head>
 
     <body>
-    <d2-header-bar></d2-header-bar>
+    <d2-header-bar ng-if="$root.showNav"></d2-header-bar>
     <div style="padding-left:10px;padding-top:60px;">
 		<div ng-view></div>
 	</div>

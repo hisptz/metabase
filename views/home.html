@@ -2,24 +2,24 @@
     <div class="form-group" style="margin-top: 7px;">
         <!--<input type="text" class="form-control" placeholder="search app..">-->
     </div>
-    <ul class="nav nav-stacked nav-pills">
-        <li ng-repeat="(index, value) in groups" ng-class="current_group == value ? 'active' : ''"><a href="" ng-click="setCurrent(value)">{{value}}</a></li>
+
+    <ul class="nav nav-stacked metabase-nav">
+        <li class="sidebar-header"><h4><i class="fa fa-th-list" aria-hidden="true"></i> Categories</h4></li>
+        <li ng-repeat="(index, value) in categories"><a href="#/packages/{{value}}" >{{value}}</a></li>
     </ul>
 </div>
-<div class="container">
+<div ng-if="showPackages" class="container">
     <div class="row">
-        <three-bounce-spinner ng-if="loading"></three-bounce-spinner>
-        <div class="col-sm-offset-2 col-sm-10" ng-if="!loading">
-            <h5 style="font-size: 30px;">Packages</h5>
-            &nbsp;
-            <div ng-if="!importSummary" class="row">
-                <div class="col-sm-4" style="padding: 10px;" ng-repeat="package in packages | filter: current_group">
+        <div class="col-sm-offset-2 col-sm-10">
+            <!--<h5 style="font-size: 30px;">Packages</h5>-->
+            <div class="row">
+                <div class="col-sm-4" style="padding: 10px;" ng-repeat="package in packages">
                     <div class="panel panel-primary">
                         <div class="panel-heading">
                             <div class="panel-title">
                                 <div class="row">
                                     <div class="col-sm-2">
-                                        <span class="badge folder-icon"><i class="fa fa-folder fa-2x" aria-hidden="true"></i></span>
+                                        <app-icon title="package.name | abbreviate"></app-icon>
                                     </div>
                                     <div class="col-sm-10">
                                         <span style="font-size: 15px;">{{package.name}}</span><br>
@@ -30,76 +30,32 @@
                             </div>
                         </div>
                         <div class="panel-body">
+                            <!--<div class="panel panel-default metadata-summary" style="">-->
+                                <!--<div class="panel-body">-->
+                                    <!--summary <br>-->
+                                    <!--summary <br>-->
+                                <!--</div>-->
+                            <!--</div>-->
                             <p class="text-justify">{{package.description}}</p>
                             <ul class="list-inline">
-                                <li ng-repeat="(index, value) in package.metadata">
-                                    <span class="badge">{{value}} {{index | readableMetadata}}</span>
+                                <li ng-repeat="(index, value) in package.metadata.metadataCount">
+                                    <span class="badge metabase-badge"><a href="" ng-click="showMetadataDetails(package.metadata.metadataList[index])">{{value}} {{index | readableMetadata}}</a></span>
                                 </li>
                             </ul>
                         </div>
                         <div class="panel-footer package-footer">
-                            <button class="btn btn-info btn-sm" ng-class="isPreviewing == true ? 'disabled' : ''" ng-click="previewOrImportPackage('preview', package.id, package.href)">
-                                <i ng-if="isPreviewing" class="fa fa-spinner fa-pulse fa-fw"></i>
-                                <i ng-if="!isPreviewing" class="fa fa-eye"></i> {{previewText}}
+                            <button class="btn btn-info btn-sm" ng-click="initializePreviewOrImport('preview',package)">
+                                <i class="fa fa-eye"></i> preview
                             </button>
-                            <button class="btn btn-primary btn-sm" ng-class="isImporting == true ? 'disabled' : ''" ng-click="previewOrImportPackage('import', package.id, package.href)">
-                                <i ng-if="!isImporting" class="fa fa-download" aria-hidden="true"></i>
-                                <i ng-if="isImporting" class="fa fa-spinner fa-pulse fa-fw"></i> {{importText}}
+                            <button class="btn btn-primary btn-sm" ng-click="initializePreviewOrImport('import',package)">
+                                <i class="fa fa-download" aria-hidden="true"></i> import
                             </button>
-                            <br><a href="" ng-if="importSuccess && currentPackage == package.id" ng-click="showImportSummary()">View import summary</a>
-
                         </div>
                     </div>
-                </div>
-
-            </div>
-            <div class="row" ng-if="importSummary">
-                <div class="col-sm-12">
-                    <h5>Import Summary</h5>
-                    <ul class="list-inline">
-                        <li><span class="badge">{{importCount.imported}} imported</span></li>
-                        <li><span class="badge">{{importCount.updated}} updated</span></li>
-                        <li><span class="badge">{{importCount.ignored}} ignored</span></li>
-                        <li><span class="badge">{{importCount.deleted}} deleted</span></li>
-                    </ul>
-
-                    <table class="table">
-                        <tr>
-                            <th>#</th>
-                            <th>Type</th>
-                            <th>Imported</th>
-                            <th>Updated</th>
-                            <th>Ignored</th>
-                            <th>Deleted</th>
-                        </tr>
-
-                        <tr ng-repeat="summary in importTypeSummaries">
-                            <td>{{$index+1}}</td>
-                            <td>{{summary.type}}</td>
-                            <td>{{summary.importCount.imported}}</td>
-                            <td>{{summary.importCount.updated}}</td>
-                            <td>{{summary.importCount.ignored}}</td>
-                            <td>{{summary.importCount.deleted}}</td>
-                        </tr>
-                    </table>
-
-                    <h5>Conflicts</h5>
-                    <table class="table">
-                        <tr>
-                            <th>#</th>
-                            <th>Type</th>
-                            <th>Element</th>
-                            <th>Description</th>
-                        </tr>
-                        <tr ng-repeat="conflict in conflicts">
-                            <td>{{$index+1}}</td>
-                            <td>{{conflict.type}}</td>
-                            <td>{{conflict.element}}</td>
-                            <td>{{conflict.description}}</td>
-                        </tr>
-                    </table>
                 </div>
             </div>
         </div>
     </div>
 </div>
+<div class="container" ng-if="isImporting" ng-include="'views/import-progress.html'"></div>
+<div class="container" ng-if="showDetails" ng-include="'views/metadata-details.html'"></div>

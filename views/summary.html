@@ -1,0 +1,50 @@
+
+    <div class="col-sm-12">
+        <button class="btn btn-primary btn-sm" ng-click="closeImportSummary()">
+            <i class="fa fa-arrow-left" aria-hidden="true"></i>
+            back
+        </button>
+        <h3>Import Summary</h3>
+        <hr>
+        <ul class="list-inline">
+            <li><span class="badge">{{overallImportCounts.imported}} imported</span></li>
+            <li><span class="badge">{{overallImportCounts.updated}} updated</span></li>
+            <li><span class="badge">{{overallImportCounts.ignored}} ignored</span></li>
+            <li><span class="badge">{{overallImportCounts.deleted}} deleted</span></li>
+        </ul>
+        <table class="table table-bordered">
+            <tr>
+                <th>#</th>
+                <th>Type</th>
+                <th>Imported</th>
+                <th>Updated</th>
+                <th>Ignored</th>
+                <th>Deleted</th>
+            </tr>
+
+            <tr ng-repeat="summary in importCountsPerMetadata">
+                <td>{{$index+1}}</td>
+                <td>{{summary.type}}</td>
+                <td>{{summary.count.imported}}</td>
+                <td>{{summary.count.updated}}</td>
+                <td>{{summary.count.ignored}}</td>
+                <td>{{summary.count.deleted}}</td>
+            </tr>
+        </table>
+
+        <h5>Conflicts</h5>
+        <table class="table table-bordered">
+            <tr>
+                <th>#</th>
+                <th>Type</th>
+                <th>Element</th>
+                <th>Description</th>
+            </tr>
+            <tr ng-repeat="conflict in importConflicts">
+                <td>{{$index+1}}</td>
+                <td>{{conflict.type}}</td>
+                <td>{{conflict.element}}</td>
+                <td>{{conflict.description}}</td>
+            </tr>
+        </table>
+    </div>

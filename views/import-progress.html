@@ -1,0 +1,16 @@
+<div class="row">
+    <div class="col-sm-10 col-sm-offset-2" style="margin-top: 10px;">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <div class="progress">
+                    <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar"
+                         aria-valuenow="{{progressValue}}" aria-valuemin="0" aria-valuemax="100" style="width:{{progressValue}}%">
+                        {{importProgressMessage}}
+                    </div>
+                </div>
+
+                <div class="row" ng-if="showImportSummary" ng-include="'views/summary.html'">
+            </div>
+        </div>
+    </div>
+</div>

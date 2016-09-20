@@ -8,8 +8,8 @@ var app = angular.module('app',
                      'ngCookies', 
                      'ngSanitize',
                      'appDirectives', 
-                     'appControllers', 
-                     'appServices',
+                     'metabaseControllers',
+                     'metabaseServices',
                      'appFilters',
                      'd2Services',
                      'd2Controllers',
@@ -22,10 +22,20 @@ var app = angular.module('app',
 
 .config(function($translateProvider,$routeProvider) {
 	
-	$routeProvider.when('/', {
-        templateUrl: 'views/home.html',
-        controller: 'MainController'
-    }).otherwise({
+	$routeProvider
+        .when('/', {
+        templateUrl: 'views/index.html',
+        controller: 'homeController'
+        })
+        .when('/packages/:category', {
+            templateUrl: 'views/home.html',
+            controller: 'packageController'
+        })
+        .when('/:category/:packageId/import-preview', {
+            templateUrl: 'views/import-progress.html',
+            controller: 'previewController'
+        })
+        .otherwise({
         redirectTo : '/'
     });
      

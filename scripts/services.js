@@ -4,20 +4,5 @@
 
 /* Services */
 
-var appServices = angular.module('appServices', ['ngResource']);
+var metabaseServices = angular.module('metabaseServices', ['mainServices']);
 
-appServices.factory('packageService', function($http) {
-    return {
-        all: function() {
-            return $http.get(dhis2.settings.baseUrl+'/../api/synchronization/metadataRepo');
-        }
-    }
-});
-
-appServices.factory('metadataService', function($http) {
-    return {
-      getByUrl: function(href) {
-          return $http.get(href);
-      }
-    }
-})
