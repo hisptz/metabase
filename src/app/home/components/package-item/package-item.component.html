@@ -1,0 +1,23 @@
+<div class="panel panel-default package-panel">
+  <div class="panel-body">
+    <div class="row">
+      <div class="col-md-12">
+        <h4 class="package-name">
+          <b>{{packageItemData.name}}</b>
+          <!--<span class="notification-box-success"><i class="fa fa-check"></i> imported</span>-->
+        </h4>
+        <span><small><b>Tags: </b></small></span>
+        <span *ngFor="let tag of packageItemData.tags; let i=index">
+                <small>{{i > 0 ?', ':''}}{{tag}}</small>
+              </span>
+        <p class="text-justify">{{packageItemData.description}}</p>
+        <div class="package-links">
+          <app-package-version-select [versions]="packageItemData.versions" (onVersionSelect)="selectedVersion = $event"></app-package-version-select>
+          <a routerLink="metadata-package/{{selectedVersion}}/{{packageItemData.id}}" class="btn btn-default btn-sm">view</a>
+          <a routerLink="metadata-package/{{selectedVersion}}/{{packageItemData.id}}/import" [queryParams]="{preview: true}" class="btn btn-default btn-sm">Preview</a>
+          <a routerLink="metadata-package/{{selectedVersion}}/{{packageItemData.id}}/import" class="btn btn-default btn-sm"><i class="fa fa-download"></i> Import</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

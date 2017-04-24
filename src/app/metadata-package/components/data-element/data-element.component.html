@@ -1,0 +1,22 @@
+<!--{{dataElements | json}}-->
+<table class="table table-bordered">
+  <thead>
+  <tr>
+    <th>#</th>
+    <th>Name</th>
+    <th>Aggregation type</th>
+    <th>Domain type</th>
+    <th>Value type</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let dataElement of dataElements | paginate: { itemsPerPage: 10, currentPage: p }; let i=index">
+    <td>{{i + 1}}</td>
+    <td>{{dataElement.name}}</td>
+    <td>{{dataElement.aggregationType}}</td>
+    <td>{{dataElement.domainType}}</td>
+    <td>{{dataElement.valueType}}</td>
+  </tr>
+  </tbody>
+</table>
+<pagination-controls (pageChange)="p = $event"></pagination-controls>

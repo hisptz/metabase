@@ -1,0 +1,88 @@
+.navbar {
+  border-radius: 0px;
+  height: 50px;
+}
+
+.navbar-nav > li > a {
+  color: #fff;
+}
+
+.navbar-nav > li > a:hover {
+  background-color: transparent;
+}
+
+.navbar-brand {
+  color: #fff;
+}
+.logo-link {
+  margin-right: 25px;
+}
+.title-link {
+  font-size: 15px;
+}
+
+.profile-btn {
+  height: 40px;
+  width: 40px;
+  margin-top: 4px;
+  margin-right: 15px;
+  padding-top: 10px;
+  padding-left: 7px;
+  padding-right: 8px;
+  border-radius: 40px;
+  font-size: 16px;
+  background-color: #eee;
+}
+
+.profile-btn:hover {
+  background-color: #ececec !important;
+}
+
+.search-input {
+  height: 40px;
+  border-style: none;
+  color: #fff;
+  border-bottom: solid 1px #fff;
+  margin-right: 10px;
+}
+
+.search-input:focus {
+  outline: none;
+}
+
+input::-webkit-input-placeholder {
+  color: #fff !important;
+}
+
+input:-moz-placeholder { /* Firefox 18- */
+  color: #fff !important;
+}
+
+input::-moz-placeholder {  /* Firefox 19+ */
+  color: #fff !important;
+}
+
+input:-ms-input-placeholder {
+  color: #fff !important;
+}
+
+.profile {
+  position: absolute;
+  top: 100%;
+  right: 20px;
+  z-index: 1000;
+  /*min-width: 160px;*/
+  /*padding: 5px 0;*/
+  /*margin: 2px 0 0;*/
+  font-size: 14px;
+  text-align: left;
+  list-style: none;
+  background-color: #fff;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+  border: 1px solid #ccc;
+  border: 1px solid rgba(0, 0, 0, .15);
+  /*border-radius: 4px;*/
+  -webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, .175);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, .175);
+}

@@ -1,0 +1,5 @@
+<select [(ngModel)]="selectedVersion" class="btn btn-default btn-sm version-input" (change)="getVersion()">
+  <option *ngFor="let versionData of versions; let i=index" [value]="versionData.version">
+    <a href="">V{{versionData.version}}</a>
+  </option>
+</select>

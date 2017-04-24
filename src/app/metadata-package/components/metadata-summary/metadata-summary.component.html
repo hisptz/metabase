@@ -1,0 +1,12 @@
+<div class="alert alert-info" *ngIf="loading">
+  <small>Loading Metadata summary please wait...</small>
+</div>
+<table class="table package-table" *ngIf="!loading">
+<tr>
+<th colspan="2"><h5 style="margin-top: 0px;"><b>Metadata Information</b></h5></th>
+</tr>
+<tr *ngFor="let item of metadata.items;">
+<th><small>{{item | readableName}}</small></th>
+<td><span class="notification-box-success">{{metadata.count[item]}}</span></td>
+</tr>
+</table>

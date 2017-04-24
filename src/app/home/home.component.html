@@ -1,0 +1,30 @@
+<section id="home-header">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <input type="text" [(ngModel)]="packageName" class="form-control" placeholder="Search for packages and apps">
+        </div>
+      </div>
+      <div class="col-md-3 col-md-offset-2">
+        <!--<settings></settings>-->
+      </div>
+    </div>
+  </div>
+</section>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-12">
+      <div style="padding-top: 10%; text-align: center;" *ngIf="loading">
+        <img src="assets/img/balls-5.svg" alt="">
+        <h4 style="margin-top: 50px;">Moving packages into position</h4>
+      </div>
+    </div>
+  </div>
+  <div class="row" style="margin-top: 70px;" *ngIf="!loading">
+    <!--<div class="alert alert-danger" *ngIf="package.error">{{package.message}}</div>-->
+    <div class="col-md-12" *ngFor="let packageData of packages | filter:packageName">
+      <app-package-item [packageItemData]="packageData"></app-package-item>
+    </div>
+  </div>
+</div>

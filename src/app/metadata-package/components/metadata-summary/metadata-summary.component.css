@@ -1,0 +1,9 @@
+.package-table > thead > tr > th,
+.package-table > tbody > tr > th,
+.package-table > tfoot > tr > th,
+.package-table > thead > tr > td,
+.package-table > tbody > tr > td,
+.package-table > tfoot > tr > td {
+  border-top-style: none;
+  border-bottom: solid 1px #eee;
+}

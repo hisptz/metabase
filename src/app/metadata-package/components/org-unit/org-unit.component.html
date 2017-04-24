@@ -1,0 +1,22 @@
+<!--{{orgUnits | json}}-->
+<table class="table table-bordered">
+  <thead>
+  <tr>
+    <th>#</th>
+    <th>Name</th>
+    <th>Parent</th>
+    <th>Opening Date</th>
+    <th>Status</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let orgUnit of orgUnits | paginate: { itemsPerPage: 10, currentPage: p }; let i=index">
+    <td>{{i + 1}}</td>
+    <td>{{orgUnit.name}}</td>
+    <td>{{orgUnit.parent.name}}</td>
+    <td>{{orgUnit.openingDate | amDateFormat:'LL'}}</td>
+    <td>&nbsp;</td>
+  </tr>
+  </tbody>
+</table>
+<pagination-controls (pageChange)="p = $event"></pagination-controls>

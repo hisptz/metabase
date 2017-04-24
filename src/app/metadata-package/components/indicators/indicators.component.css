@@ -1,0 +1,17 @@
+.indicator-table > thead > tr > th,
+.indicator-table > tbody > tr > th,
+.indicator-table > tfoot > tr > th,
+.indicator-table > thead > tr > td,
+.indicator-table > tbody > tr > td,
+.indicator-table > tfoot > tr > td {
+  border-top-style: none;
+  border-bottom: solid 1px #eee;
+}
+
+.fix-btn {
+  text-decoration: none;
+  cursor: pointer;
+}
+.status-list > li:hover .fix-btn {
+  visibility: visible;
+}
