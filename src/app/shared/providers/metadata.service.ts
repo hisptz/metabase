@@ -14,7 +14,7 @@ export class MetadataService {
   ) { }
 
   find(id: any, url: any):Observable<any> {
-    return this.store.selectById('metadata', id, url);
+    return this.store.selectByField('metadata', {name: 'id', value: id}, url);
   }
 
   compileMetadata(metadata): any {
@@ -103,7 +103,7 @@ export class MetadataService {
   private checkFromMetadata(item: string, metadataId: string, id: string): Observable<boolean> {
     let found: boolean = false;
     return Observable.create(observer => {
-      this.store.selectById('metadata', metadataId, null).subscribe(metadata => {
+      this.store.selectByField('metadata', {name: 'id', value: metadataId}, null).subscribe(metadata => {
         if(metadata.hasOwnProperty(item)) {
           for(let itemData of metadata[item]) {
             if(itemData.id == id) {
@@ -154,6 +154,7 @@ export class MetadataService {
          */
         this.checkFromMetadata(item,parentId,id).subscribe(metadataResult  => {
           if(metadataResult) {
+            console.log(metadataResult)
             observer.next({found: true, message: item.slice(0,-1) + ' with name ' + name + ' is available in the package'});
             observer.complete();
           } else {

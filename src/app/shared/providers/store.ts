@@ -20,33 +20,29 @@ export class Store {
    * @param resultKey
    * @returns {any}
    */
-  public select(item:string, url: string, resultKey: string =  null): Observable<any> {
+  public select(item:string, url: string = null, resultKey: string =  null): Observable<any> {
     return Observable.create(observer => {
       if(this.dataStore[item].length > 0) {
         observer.next(this.dataStore[item]);
         observer.complete();
       } else {
-        //observer.next([{loading: true, message: 'Moving ' + item + ' into position....'}]);
-        this.loadAndSave(item, url, 'array', null, resultKey).subscribe(data => {
-          observer.next(data);
+        if(url == null) {
+          observer.next([]);
           observer.complete();
-        }, error => {
-          console.log('Error Notification');
-          observer.error();
-        })
+        } else {
+          this.loadAndSave(item, url, 'array', null, resultKey).subscribe(data => {
+            observer.next(data);
+            observer.complete();
+          }, error => {
+            console.log('Error Notification');
+            observer.error();
+          })
+        }
+
       }
     });
   }
 
-  public selectByField(item: string, field: string, value: any): Observable<any> {
-    let result = this.dataStore[item].filter(data => data[field] == value);
-    if(result.length == 0) {
-      result = 'Not found';
-    } else if(result.length == 1) {
-      result = result[0]
-    }
-    return Observable.of(result);
-  }
 
   /**
    *
@@ -56,20 +52,31 @@ export class Store {
    * @param resultType
    * @returns {any}
    */
-  public selectById(item: string, id: any, url: string, resultKey: string = null, resultType: string = 'object'): Observable<any> {
+  public selectByField(item: string, field: any, url: string = null, resultKey: string = null, resultType: string = 'object'): Observable<any> {
     return Observable.create(observer => {
-      let result = this.dataStore[item].filter(data => data.id == id);
+      let result = this.dataStore[item].filter(data => data[field.name] == field.value);
       if(result.length == 0) {
-        this.loadAndSave(item, url, resultType ,id, resultKey).subscribe(data => {
-          let result = resultType == 'array' ? data.filter(dataValue => dataValue.id == id)[0]: data;
-          observer.next(result);
+        if(url == null) {
+          observer.next({});
           observer.complete();
-        }, error => {
-          console.log('Error Notification');
-          observer.error();
-        });
+        } else {
+          if(field.name == 'id') {
+            this.loadAndSave(item, url, resultType ,field.value, resultKey).subscribe((data: any) => {
+              let result = resultType == 'array' ? data.filter(dataValue => dataValue[field.name] == field.value) : [data];
+              observer.next(result.length > 1 ? result: result[0]);
+              observer.complete();
+            }, error => {
+              console.log('Error Notification');
+              observer.error();
+            });
+          } else {
+            observer.next({});
+            observer.complete();
+          }
+
+        }
       } else {
-        observer.next(result[0]);
+        observer.next(result.length > 1 ? result: result[0]);
         observer.complete();
       }
     })

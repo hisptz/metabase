@@ -27,7 +27,7 @@ export class MetadataPackageService {
   }
 
   public find(id: any): Observable<any> {
-    return this.store.selectById('packages',id, this._url,'packages','array');
+    return this.store.selectByField('packages',{name: 'id', value: id}, this._url,'packages','array');
   }
 
   public loadAll(): void {

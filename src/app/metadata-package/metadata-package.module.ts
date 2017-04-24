@@ -13,6 +13,7 @@ import { IndicatorsComponent } from './components/indicators/indicators.componen
 import { IndicatorTypeComponent } from './components/indicator-type/indicator-type.component';
 import { OrgUnitComponent } from './components/org-unit/org-unit.component';
 import { DataElementComponent } from './components/data-element/data-element.component';
+import {IndicatorService} from "./providers/indicator.service";
 
 @NgModule({
   imports: [
@@ -31,6 +32,9 @@ import { DataElementComponent } from './components/data-element/data-element.com
     IndicatorTypeComponent,
     OrgUnitComponent,
     DataElementComponent
+  ],
+  providers: [
+    IndicatorService
   ]
 })
 export class MetadataPackageModule { }

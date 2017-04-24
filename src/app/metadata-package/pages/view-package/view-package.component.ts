@@ -25,7 +25,6 @@ export class ViewPackageComponent implements OnInit{
       this.metadataPackageService.find(params['id']).subscribe(metadataPackage => {
         this.loading = false;
         this.metadataPackage = metadataPackage;
-
         this.routeDetails = [
           {
             name: this.metadataPackage.name,

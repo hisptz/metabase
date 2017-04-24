@@ -1,6 +1,7 @@
 import {Component, OnInit, Input} from '@angular/core';
 import {MetadataService} from "../../../shared/providers/metadata.service";
 import {Observable} from "rxjs";
+import {IndicatorService} from "../../providers/indicator.service";
 
 @Component({
   selector: 'app-indicators',
@@ -16,10 +17,14 @@ export class IndicatorsComponent implements OnInit {
   isFixBlockOpen: boolean = false;
   fixBlockItem: string;
   constructor(
-    private metadataService: MetadataService
+    private metadataService: MetadataService,
+    private indicatorService: IndicatorService
   ) { }
 
   ngOnInit() {
+    this.indicatorService.sanitizeIndicators(this.indicators, this.metadataId).subscribe(sanitizedIndicators => {
+
+    });
     this.indicators.forEach(indicator => {
       indicator.status = [];
       /**
