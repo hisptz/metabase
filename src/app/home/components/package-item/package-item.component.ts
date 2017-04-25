@@ -1,4 +1,5 @@
 import {Component, OnInit, Input} from '@angular/core';
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-package-item',
@@ -9,9 +10,15 @@ export class PackageItemComponent implements OnInit {
 
   @Input() packageItemData: any;
   selectedVersion: number;
-  constructor() { }
+  constructor(
+    private router: Router
+  ) { }
 
   ngOnInit() {
+  }
+
+  viewPackage() {
+    this.router.navigate(['metadata-package/' + this.selectedVersion + '/' + this.packageItemData.id])
   }
 
 }

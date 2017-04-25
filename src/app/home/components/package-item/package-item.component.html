@@ -1,4 +1,4 @@
-<div class="panel panel-default package-panel">
+<div class="panel panel-default package-panel" (click)="viewPackage()" style="cursor: pointer">
   <div class="panel-body">
     <div class="row">
       <div class="col-md-12">
@@ -13,9 +13,9 @@
         <p class="text-justify">{{packageItemData.description}}</p>
         <div class="package-links">
           <app-package-version-select [versions]="packageItemData.versions" (onVersionSelect)="selectedVersion = $event"></app-package-version-select>
-          <a routerLink="metadata-package/{{selectedVersion}}/{{packageItemData.id}}" class="btn btn-default btn-sm">view</a>
-          <a routerLink="metadata-package/{{selectedVersion}}/{{packageItemData.id}}/import" [queryParams]="{preview: true}" class="btn btn-default btn-sm">Preview</a>
-          <a routerLink="metadata-package/{{selectedVersion}}/{{packageItemData.id}}/import" class="btn btn-default btn-sm"><i class="fa fa-download"></i> Import</a>
+          <a routerLink="metadata-package/{{selectedVersion}}/{{packageItemData.id}}" class="btn btn-default">view</a>
+          <a routerLink="metadata-package/{{selectedVersion}}/{{packageItemData.id}}/import" [queryParams]="{preview: true}" class="btn btn-default">Import Preview</a>
+          <a routerLink="metadata-package/{{selectedVersion}}/{{packageItemData.id}}/import" class="btn btn-default"><i class="fa fa-cloud-download"></i> Import</a>
         </div>
       </div>
     </div>

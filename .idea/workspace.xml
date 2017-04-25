@@ -2,19 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="662b90d2-71f0-42bd-8c5c-02c61f36e671" name="Default" comment="">
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/app/metadata-package/components/metadata-details/metadata-details.component.css" afterPath="$PROJECT_DIR$/src/app/metadata-package/pages/metadata-details/metadata-details.component.css" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/app/metadata-package/components/metadata-details/metadata-details.component.html" afterPath="$PROJECT_DIR$/src/app/metadata-package/pages/metadata-details/metadata-details.component.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/app/metadata-package/components/metadata-details/metadata-details.component.spec.ts" afterPath="$PROJECT_DIR$/src/app/metadata-package/pages/metadata-details/metadata-details.component.spec.ts" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/app/metadata-package/components/metadata-details/metadata-details.component.ts" afterPath="$PROJECT_DIR$/src/app/metadata-package/pages/metadata-details/metadata-details.component.ts" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/metadata-package/components/metadata-summary/metadata-summary.component.html" afterPath="$PROJECT_DIR$/src/app/metadata-package/components/metadata-summary/metadata-summary.component.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/metadata-package/components/metadata-summary/metadata-summary.component.ts" afterPath="$PROJECT_DIR$/src/app/metadata-package/components/metadata-summary/metadata-summary.component.ts" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/metadata-package/metadata-package-routing.module.ts" afterPath="$PROJECT_DIR$/src/app/metadata-package/metadata-package-routing.module.ts" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/metadata-package/metadata-package.module.ts" afterPath="$PROJECT_DIR$/src/app/metadata-package/metadata-package.module.ts" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/app.component.html" afterPath="$PROJECT_DIR$/src/app/app.component.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/home/components/package-item/package-item.component.html" afterPath="$PROJECT_DIR$/src/app/home/components/package-item/package-item.component.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/home/components/package-item/package-item.component.ts" afterPath="$PROJECT_DIR$/src/app/home/components/package-item/package-item.component.ts" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/home/home.component.css" afterPath="$PROJECT_DIR$/src/app/home/home.component.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/home/home.component.html" afterPath="$PROJECT_DIR$/src/app/home/home.component.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/metadata-package/pages/view-package/view-package.component.html" afterPath="$PROJECT_DIR$/src/app/metadata-package/pages/view-package/view-package.component.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/metadata-package/pages/view-package/view-package.component.ts" afterPath="$PROJECT_DIR$/src/app/metadata-package/pages/view-package/view-package.component.ts" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/shared/providers/metadata-package.service.ts" afterPath="$PROJECT_DIR$/src/app/shared/providers/metadata-package.service.ts" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/shared/providers/store.ts" afterPath="$PROJECT_DIR$/src/app/shared/providers/store.ts" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/shared/components/package-version-select/package-version-select.component.css" afterPath="$PROJECT_DIR$/src/app/shared/components/package-version-select/package-version-select.component.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/shared/components/package-version-select/package-version-select.component.html" afterPath="$PROJECT_DIR$/src/app/shared/components/package-version-select/package-version-select.component.html" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -38,40 +34,83 @@
       <file leaf-file-name="view-package.component.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/app/metadata-package/pages/view-package/view-package.component.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="283">
-              <caret line="63" column="68" lean-forward="false" selection-start-line="63" selection-start-column="68" selection-end-line="63" selection-end-column="68" />
+            <state relative-caret-position="103">
+              <caret line="53" column="102" lean-forward="false" selection-start-line="53" selection-start-column="102" selection-end-line="53" selection-end-column="102" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="indicators.component.ts" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/app/metadata-package/components/indicators/indicators.component.ts">
+      <file leaf-file-name="home.component.html" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/app/home/home.component.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1339">
-              <caret line="80" column="7" lean-forward="false" selection-start-line="80" selection-start-column="7" selection-end-line="80" selection-end-column="7" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="view-package.component.ts" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/app/metadata-package/pages/view-package/view-package.component.ts">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="307">
-              <caret line="40" column="34" lean-forward="false" selection-start-line="40" selection-start-column="34" selection-end-line="40" selection-end-column="158" />
+            <state relative-caret-position="252">
+              <caret line="14" column="26" lean-forward="false" selection-start-line="14" selection-start-column="26" selection-end-line="14" selection-end-column="26" />
               <folding>
-                <element signature="e#0#74#0" expanded="true" />
+                <element signature="n#style#0;n#h4#0;n#div#0;n#div#0;n#div#0;n#section#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#img#0;n#h4#0;n#div#0;n#div#0;n#div#0;n#section#0;n#!!top" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="metadata-details.component.ts" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/app/metadata-package/pages/metadata-details/metadata-details.component.ts">
+      <file leaf-file-name="home.component.css" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/app/home/home.component.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="181">
-              <caret line="25" column="36" lean-forward="false" selection-start-line="25" selection-start-column="36" selection-end-line="25" selection-end-column="36" />
+            <state relative-caret-position="36">
+              <caret line="2" column="16" lean-forward="false" selection-start-line="2" selection-start-column="16" selection-end-line="2" selection-end-column="16" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="app.component.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/app/app.component.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="package-item.component.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/app/home/components/package-item/package-item.component.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="180">
+              <caret line="16" column="156" lean-forward="false" selection-start-line="16" selection-start-column="156" selection-end-line="16" selection-end-column="156" />
+              <folding>
+                <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="package-version-select.component.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/app/shared/components/package-version-select/package-version-select.component.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="60" lean-forward="false" selection-start-line="0" selection-start-column="60" selection-end-line="0" selection-end-column="60" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="package-version-select.component.css" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/app/shared/components/package-version-select/package-version-select.component.css">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="36">
+              <caret line="2" column="2" lean-forward="false" selection-start-line="2" selection-start-column="2" selection-end-line="2" selection-end-column="2" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="package-item.component.ts" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/app/home/components/package-item/package-item.component.ts">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="288">
+              <caret line="23" column="1" lean-forward="false" selection-start-line="23" selection-start-column="1" selection-end-line="23" selection-end-column="1" />
               <folding>
                 <element signature="e#0#55#0" expanded="true" />
               </folding>
@@ -79,27 +118,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="metadata-package.service.ts" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/app/shared/providers/metadata-package.service.ts">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="239">
-              <caret line="27" column="41" lean-forward="false" selection-start-line="27" selection-start-column="41" selection-end-line="27" selection-end-column="41" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="metadata.service.ts" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/app/shared/providers/metadata.service.ts">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="198">
-              <caret line="15" column="43" lean-forward="false" selection-start-line="15" selection-start-column="43" selection-end-line="15" selection-end-column="43" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="metadata-details.component.html" pinned="false" current-in-tab="true">
+      <file leaf-file-name="metadata-details.component.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/app/metadata-package/pages/metadata-details/metadata-details.component.html">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="252">
@@ -112,21 +131,11 @@
       <file leaf-file-name="store.ts" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/app/shared/providers/store.ts">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="150">
-              <caret line="56" column="24" lean-forward="false" selection-start-line="56" selection-start-column="24" selection-end-line="56" selection-end-column="24" />
+            <state relative-caret-position="990">
+              <caret line="55" column="42" lean-forward="false" selection-start-line="55" selection-start-column="42" selection-end-line="55" selection-end-column="42" />
               <folding>
                 <element signature="e#0#41#0" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="indicators.component.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/app/metadata-package/components/indicators/indicators.component.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="96" lean-forward="false" selection-start-line="0" selection-start-column="96" selection-end-line="0" selection-end-column="96" />
-              <folding />
             </state>
           </provider>
         </entry>
@@ -145,16 +154,23 @@
         <option value="$PROJECT_DIR$/src/app/metadata-package/components/indicators/indicators.component.ts" />
         <option value="$PROJECT_DIR$/src/app/metadata-package/providers/indicator.service.ts" />
         <option value="$PROJECT_DIR$/src/app/metadata-package/components/metadata-details/metadata-details.component.html" />
-        <option value="$PROJECT_DIR$/src/app/metadata-package/pages/view-package/view-package.component.html" />
         <option value="$PROJECT_DIR$/src/app/metadata-package/components/metadata-summary/metadata-summary.component.html" />
         <option value="$PROJECT_DIR$/src/app/metadata-package/components/metadata-summary/metadata-summary.component.ts" />
         <option value="$PROJECT_DIR$/src/app/metadata-package/pages/view-package/view-package.component.ts" />
         <option value="$PROJECT_DIR$/src/app/metadata-package/metadata-package-routing.module.ts" />
-        <option value="$PROJECT_DIR$/src/app/shared/providers/store.ts" />
         <option value="$PROJECT_DIR$/src/app/metadata-package/pages/metadata-details/metadata-details.component.ts" />
         <option value="$PROJECT_DIR$/src/app/shared/providers/metadata-package.service.ts" />
         <option value="$PROJECT_DIR$/src/app/shared/providers/metadata.service.ts" />
         <option value="$PROJECT_DIR$/src/app/metadata-package/pages/metadata-details/metadata-details.component.html" />
+        <option value="$PROJECT_DIR$/src/app/shared/providers/store.ts" />
+        <option value="$PROJECT_DIR$/src/app/metadata-package/pages/view-package/view-package.component.html" />
+        <option value="$PROJECT_DIR$/src/app/home/components/package-item/package-item.component.ts" />
+        <option value="$PROJECT_DIR$/src/app/home/components/package-item/package-item.component.html" />
+        <option value="$PROJECT_DIR$/src/app/shared/components/package-version-select/package-version-select.component.html" />
+        <option value="$PROJECT_DIR$/src/app/shared/components/package-version-select/package-version-select.component.css" />
+        <option value="$PROJECT_DIR$/src/app/app.component.html" />
+        <option value="$PROJECT_DIR$/src/app/home/home.component.css" />
+        <option value="$PROJECT_DIR$/src/app/home/home.component.html" />
       </list>
     </option>
   </component>
@@ -229,7 +245,125 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="assets" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="metabase" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="metabase" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="assets" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="img" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="metabase" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="metabase" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="metabase" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="metabase" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="shared" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="metabase" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="metabase" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="shared" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="components" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="package-version-select" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="metabase" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="metabase" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="shared" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="components" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -576,12 +710,12 @@
       <workItem from="1493013196567" duration="1097000" />
       <workItem from="1493014308229" duration="246000" />
       <workItem from="1493014912844" duration="23496000" />
-      <workItem from="1493093547474" duration="12393000" />
+      <workItem from="1493093547474" duration="14200000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="37232000" />
+    <option name="totallyTimeSpent" value="39039000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="24" width="1366" height="744" extended-state="6" />
@@ -741,14 +875,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/app/home/components/package-item/package-item.component.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-71">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/app/home/home.component.ts">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="163">
@@ -797,30 +923,12 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/app/metadata-package/pages/view-package/view-package.component.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="283">
-          <caret line="63" column="68" lean-forward="false" selection-start-line="63" selection-start-column="68" selection-end-line="63" selection-end-column="68" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/app/metadata-package/pages/view-package/view-package.component.ts">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="307">
           <caret line="40" column="34" lean-forward="false" selection-start-line="40" selection-start-column="34" selection-end-line="40" selection-end-column="158" />
           <folding>
             <element signature="e#0#74#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/app/shared/providers/store.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="56" column="24" lean-forward="false" selection-start-line="56" selection-start-column="24" selection-end-line="56" selection-end-column="24" />
-          <folding>
-            <element signature="e#0#41#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -872,6 +980,87 @@
         <state relative-caret-position="252">
           <caret line="14" column="9" lean-forward="true" selection-start-line="14" selection-start-column="9" selection-end-line="14" selection-end-column="9" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/shared/providers/store.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="990">
+          <caret line="55" column="42" lean-forward="false" selection-start-line="55" selection-start-column="42" selection-end-line="55" selection-end-column="42" />
+          <folding>
+            <element signature="e#0#41#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/metadata-package/pages/view-package/view-package.component.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="103">
+          <caret line="53" column="102" lean-forward="false" selection-start-line="53" selection-start-column="102" selection-end-line="53" selection-end-column="102" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/home/components/package-item/package-item.component.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="288">
+          <caret line="23" column="1" lean-forward="false" selection-start-line="23" selection-start-column="1" selection-end-line="23" selection-end-column="1" />
+          <folding>
+            <element signature="e#0#55#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/home/components/package-item/package-item.component.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="16" column="156" lean-forward="false" selection-start-line="16" selection-start-column="156" selection-end-line="16" selection-end-column="156" />
+          <folding>
+            <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/shared/components/package-version-select/package-version-select.component.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="60" lean-forward="false" selection-start-line="0" selection-start-column="60" selection-end-line="0" selection-end-column="60" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/shared/components/package-version-select/package-version-select.component.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="36">
+          <caret line="2" column="2" lean-forward="false" selection-start-line="2" selection-start-column="2" selection-end-line="2" selection-end-column="2" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/app.component.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/home/home.component.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="36">
+          <caret line="2" column="16" lean-forward="false" selection-start-line="2" selection-start-column="16" selection-end-line="2" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/home/home.component.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="252">
+          <caret line="14" column="26" lean-forward="false" selection-start-line="14" selection-start-column="26" selection-end-line="14" selection-end-column="26" />
+          <folding>
+            <element signature="n#style#0;n#h4#0;n#div#0;n#div#0;n#div#0;n#section#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#img#0;n#h4#0;n#div#0;n#div#0;n#div#0;n#section#0;n#!!top" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
