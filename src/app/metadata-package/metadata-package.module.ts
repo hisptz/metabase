@@ -7,7 +7,7 @@ import { ViewPackageComponent } from './pages/view-package/view-package.componen
 import {SharedModule} from "../shared/shared.module";
 import { MetadataSummaryComponent } from './components/metadata-summary/metadata-summary.component';
 import { ImportPackageComponent } from './pages/import-package/import-package.component';
-import { MetadataDetailsComponent } from './components/metadata-details/metadata-details.component';
+import { MetadataDetailsComponent } from './pages/metadata-details/metadata-details.component';
 import {TabsModule} from "ng2-bootstrap";
 import { IndicatorsComponent } from './components/indicators/indicators.component';
 import { IndicatorTypeComponent } from './components/indicator-type/indicator-type.component';

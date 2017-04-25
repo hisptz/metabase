@@ -1,7 +1,8 @@
 import {Component, OnInit, ViewChild, AfterViewInit} from '@angular/core';
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {MetadataPackageService} from "../../../shared/providers/metadata-package.service";
 import {MetadataSummaryComponent} from "../../components/metadata-summary/metadata-summary.component";
+import {MetadataService} from "../../../shared/providers/metadata.service";
 
 @Component({
   selector: 'app-view-package',
@@ -14,9 +15,13 @@ export class ViewPackageComponent implements OnInit{
   loading: boolean = true;
   selectedVersion: number;
   routeDetails: any[] = [];
+  metadata: any;
+  loadingMetadata: boolean = true;
   constructor(
     private route: ActivatedRoute,
-    private metadataPackageService: MetadataPackageService
+    private router: Router,
+    private metadataPackageService: MetadataPackageService,
+    private metadataService: MetadataService
   ) { }
 
   ngOnInit() {
@@ -31,7 +36,14 @@ export class ViewPackageComponent implements OnInit{
             url: this.route.snapshot,
             active: true
           }
-        ]
+        ];
+
+        this.metadataService.find(this.metadataPackage.id + '_' + this.selectedVersion,this.getMetadataUrl(this.metadataPackage.versions,this.selectedVersion))
+          .subscribe(metadata => {
+            this.loadingMetadata = false;
+            this.metadata = this.metadataService.compileMetadata(metadata);
+            this.router.navigate(['metadata-package/' + this.selectedVersion + '/' + this.metadataPackage.id + '/' + this.metadata.items[0]])
+          })
       });
     })
   }

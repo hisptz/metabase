@@ -22,34 +22,11 @@ export class MetadataPackageService {
   }
 
   public all(): Observable<any> {
-    // return this._packages.asObservable();
     return this.store.select('packages', this._url, 'packages');
   }
 
   public find(id: any): Observable<any> {
     return this.store.selectByField('packages',{name: 'id', value: id}, this._url,'packages','array');
-  }
-
-  public loadAll(): void {
-    if(this._packagePool.length > 0) {
-      this._packages.next(this._packagePool);
-    } else {
-      this.http.get(this._url).map(res => {
-        let packages: any = res.json().packages;
-        packages.forEach(packageData => {
-          // packageData.latestVersion = this.findLatestVersion(packageData);
-        });
-        return packages;
-      })
-        .catch(this.constants.handleError)
-        .subscribe(packages => {
-          this._packagePool = packages;
-          this._packages.next(packages)
-        }, error => {
-          this._packages.next([{error: true, message: 'error has occured'}]);
-          this.subscription.unsubscribe();
-        })
-    }
   }
 
 }

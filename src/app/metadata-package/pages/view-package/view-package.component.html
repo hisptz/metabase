@@ -12,7 +12,7 @@
           </tr>
           <tr>
             <th width="40%"><small>Package by:</small></th>
-            <td><small><a href="{{metadataPackage?.url}}">{{metadataPackage?.organization}}</a></small></td>
+            <td><small><a href="{{metadataPackage?.url}}" target="_blank">{{metadataPackage?.organization}}</a></small></td>
           </tr>
           <tr>
             <th width="40%"><small>License:</small></th>
@@ -56,7 +56,18 @@
         </div>
         <div class="row">
           <div class="col-md-12">
-            <app-metadata-details *ngIf="!loading" [metadataId]="metadataPackage.id + '_' + selectedVersion" [metadataUrl]="getMetadataUrl(metadataPackage.versions,selectedVersion)"></app-metadata-details>
+            <div class="alert alert-info" *ngIf="loadingMetadata">
+              <small>Loading Metadata details please wait...</small>
+            </div>
+            <nav class="navbar navbar-default" *ngIf="!loadingMetadata">
+              <ul class="nav navbar-nav">
+                <li *ngFor="let item of metadata.items; let i=index" routerLinkActive="active">
+                  <a routerLink="{{item}}">{{item | readableName}}</a>
+                </li>
+              </ul>
+            </nav>
+            <router-outlet></router-outlet>
+            <!--<app-metadata-details *ngIf="!loading" [metadataId]="metadataPackage.id + '_' + selectedVersion" [metadataUrl]="getMetadataUrl(metadataPackage.versions,selectedVersion)"></app-metadata-details>-->
           </div>
         </div>
       </div>

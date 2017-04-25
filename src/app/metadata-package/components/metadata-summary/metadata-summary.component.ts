@@ -1,6 +1,6 @@
 import {Component, OnInit, Input} from '@angular/core';
 import {MetadataService} from "../../../shared/providers/metadata.service";
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 
 
 @Component({
@@ -16,7 +16,8 @@ export class MetadataSummaryComponent implements OnInit {
   loading: boolean = true;
   constructor(
     private metadataService: MetadataService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -27,6 +28,10 @@ export class MetadataSummaryComponent implements OnInit {
         this.metadata = this.metadataService.compileMetadata(meta);
       })
     })
+  }
+
+  viewMetadata(metadataName) {
+    this.router.navigate(['metadata-package/' + this.route.snapshot.params['version'] + '/' + this.route.snapshot.params['id'] + '/' + metadataName]);
   }
 
 

@@ -149,6 +149,7 @@ export class Store {
                 data.id = id;
               }
               this.dataStore[item].push(data);
+              console.log(this.dataStore[item])
             }
 
             /**
