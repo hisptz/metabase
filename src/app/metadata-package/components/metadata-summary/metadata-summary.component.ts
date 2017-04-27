@@ -10,9 +10,8 @@ import {ActivatedRoute, Router} from "@angular/router";
 })
 export class MetadataSummaryComponent implements OnInit {
 
-  @Input() metadataId: string;
+  @Input() metadata: any;
   @Input() metadataUrl: string;
-  metadata: any;
   loading: boolean = true;
   constructor(
     private metadataService: MetadataService,
@@ -21,12 +20,8 @@ export class MetadataSummaryComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.route.params.forEach(params => {
+    this.route.params.subscribe(params => {
       this.loading = true;
-      this.metadataService.find(this.metadataId,this.metadataUrl).subscribe(meta => {
-        this.loading = false;
-        this.metadata = this.metadataService.compileMetadata(meta);
-      })
     })
   }
 

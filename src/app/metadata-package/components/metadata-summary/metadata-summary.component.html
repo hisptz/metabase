@@ -8,9 +8,9 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let item of metadata.items;" (click)="viewMetadata(item)" style="cursor: pointer">
+    <tr *ngFor="let item of metadata.metadataItems;" (click)="viewMetadata(item)" style="cursor: pointer">
       <th><small>{{item | readableName}}</small></th>
-      <td><span class="notification-box-success">{{metadata.count[item]}}</span></td>
+      <td><span class="notification-box-success">{{metadata.metadataCount[item]}}</span></td>
     </tr>
   </tbody>
 </table>

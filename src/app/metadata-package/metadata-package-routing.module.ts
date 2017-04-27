@@ -8,7 +8,7 @@ import {MetadataDetailsComponent} from "./pages/metadata-details/metadata-detail
 const routes: Routes = [
   {path: '', component: MetadataPackageComponent, children: [
     {path: '', component: ViewPackageComponent, children: [
-      {path: ':metadata', component: MetadataDetailsComponent},
+      {path: ':metadataId', component: MetadataDetailsComponent},
     ]},
     {path: 'import', component: ImportPackageComponent}
   ]}

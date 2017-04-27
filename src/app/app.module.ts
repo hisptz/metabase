@@ -7,6 +7,8 @@ import { AppComponent } from './app.component';
 import {SharedModule} from "./shared/shared.module";
 import {AppRoutingModule} from "./app.routing.module";
 import {MetadataPackageService} from "./shared/providers/metadata-package.service";
+import { StoreModule } from  '@ngrx/store';
+import {metadataPackageReducer} from "./store/metadata-package";
 @NgModule({
   declarations: [
     AppComponent
@@ -16,7 +18,8 @@ import {MetadataPackageService} from "./shared/providers/metadata-package.servic
     FormsModule,
     HttpModule,
     SharedModule,
-    AppRoutingModule
+    AppRoutingModule,
+    StoreModule.provideStore({metadataPackage: metadataPackageReducer})
   ],
   providers: [MetadataPackageService],
   bootstrap: [AppComponent]

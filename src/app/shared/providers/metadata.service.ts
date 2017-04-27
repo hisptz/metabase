@@ -3,6 +3,8 @@ import {Store} from "./store";
 import {Observable} from "rxjs";
 import {isArray} from "rxjs/util/isArray";
 import {Http, Response} from "@angular/http";
+import {MetadataPackageService} from "./metadata-package.service";
+import {MetadataPackage} from "../../store/models/metadata-package";
 
 @Injectable()
 export class MetadataService {
@@ -10,11 +12,53 @@ export class MetadataService {
   api: string = '../../../api/25/';
   constructor(
     private store: Store,
+    private metadataPackageService: MetadataPackageService,
     private http: Http
   ) { }
 
   find(id: any, url: any):Observable<any> {
     return this.store.selectByField('metadata', {name: 'id', value: id}, url);
+  }
+
+  getByPackage(metadataPackageId: string, metadataVersion: number): Observable<any> {
+    return Observable.create(observer => {
+      this.metadataPackageService.find(metadataPackageId).subscribe((metadataPackage: MetadataPackage) => {
+        if(metadataPackage.hasOwnProperty('versions')) {
+          for(let versionItem of metadataPackage.versions) {
+            if(versionItem.version == metadataVersion) {
+              if(versionItem.hasOwnProperty('metadata')) {
+                observer.next(versionItem.metadata);
+                observer.complete();
+              } else {
+                this.http.get(versionItem.href).map((res: Response) => res.json())
+                  .catch(error => Observable.throw(new Error(error)))
+                  .subscribe(response => {
+                    versionItem.metadata = this.compileMetadata(response);
+
+                    /**
+                     * Also update the store
+                     */
+                    this.metadataPackageService.update(metadataPackage);
+
+                    /**
+                     * return compiled metadata
+                     */
+                    observer.next(versionItem.metadata);
+                    observer.complete();
+                  }, metadataError => {
+                    observer.error(metadataError);
+                  })
+              }
+            break;
+            }
+          }
+        } else {
+          console.warn('version is not present in the package')
+        }
+      }, error => {
+        observer.error(error);
+      });
+    })
   }
 
   compileMetadata(metadata): any {
@@ -27,10 +71,9 @@ export class MetadataService {
       }
     });
     return {
-      id: metadata.id,
-      items: metadataItems,
-      count: metadataCount,
-      metadata: metadata
+      metadataItems: metadataItems,
+      metadataCount: metadataCount,
+      metadataDetails: metadata
     };
   }
 

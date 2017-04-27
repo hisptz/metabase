@@ -32,11 +32,26 @@
             <th width="40%"><small>Version:</small></th>
             <td>
               <app-package-version-select [selectedVersion]="selectedVersion" [versions]="metadataPackage?.versions" (onVersionSelect)="getSelectedVersion($event)"></app-package-version-select>
-              <a routerLink="/metadata-package/{{selectedVersion}}/{{metadataPackage.id}}" class="btn btn-default btn-sm">view</a>
+              <a routerLink="/metadata-package/{{selectedVersion}}/{{metadataPackage.id}}" class="btn btn-default">view</a>
             </td>
           </tr>
         </table>
-        <app-metadata-summary *ngIf="!loading" [metadataId]="metadataPackage.id + '_' + selectedVersion" [metadataUrl]="getMetadataUrl(metadataPackage.versions,selectedVersion)"></app-metadata-summary>
+        <div class="alert alert-info" *ngIf="loadingMetadata">
+          <small>Loading Metadata summary please wait...</small>
+        </div>
+        <table class="table package-table table-hover" *ngIf="!loadingMetadata">
+          <thead>
+          <tr>
+            <th colspan="2"><h5 style="margin-top: 0px;"><b>Metadata Information</b></h5></th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let item of metadata.metadataItems;" (click)="viewMetadata(item)" style="cursor: pointer">
+            <th><small>{{item | readableName}}</small></th>
+            <td><span class="notification-box-success">{{metadata.metadataCount[item]}}</span></td>
+          </tr>
+          </tbody>
+        </table>
       </div>
     </div>
   </div>
@@ -61,13 +76,12 @@
             </div>
             <nav class="navbar navbar-default" *ngIf="!loadingMetadata">
               <ul class="nav navbar-nav">
-                <li *ngFor="let item of metadata.items; let i=index" routerLinkActive="active">
+                <li *ngFor="let item of metadata.metadataItems; let i=index" routerLinkActive="active">
                   <a routerLink="{{item}}">{{item | readableName}}</a>
                 </li>
               </ul>
             </nav>
             <router-outlet></router-outlet>
-            <!--<app-metadata-details *ngIf="!loading" [metadataId]="metadataPackage.id + '_' + selectedVersion" [metadataUrl]="getMetadataUrl(metadataPackage.versions,selectedVersion)"></app-metadata-details>-->
           </div>
         </div>
       </div>

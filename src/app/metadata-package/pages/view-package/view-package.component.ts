@@ -26,10 +26,17 @@ export class ViewPackageComponent implements OnInit{
 
   ngOnInit() {
     this.route.params.subscribe(params => {
+      this.loading = true;
+      this.loadingMetadata = true;
       this.selectedVersion = params['version'];
       this.metadataPackageService.find(params['id']).subscribe(metadataPackage => {
         this.loading = false;
         this.metadataPackage = metadataPackage;
+
+        /**
+         * Prepare attribute for breadcrumb
+         * @type {[{name; url: ActivatedRouteSnapshot; active: boolean}]}
+         */
         this.routeDetails = [
           {
             name: this.metadataPackage.name,
@@ -38,11 +45,11 @@ export class ViewPackageComponent implements OnInit{
           }
         ];
 
-        this.metadataService.find(this.metadataPackage.id + '_' + this.selectedVersion,this.getMetadataUrl(this.metadataPackage.versions,this.selectedVersion))
+        this.metadataService.getByPackage(metadataPackage.id,this.selectedVersion)
           .subscribe(metadata => {
             this.loadingMetadata = false;
-            this.metadata = this.metadataService.compileMetadata(metadata);
-            this.router.navigate(['metadata-package/' + this.selectedVersion + '/' + this.metadataPackage.id + '/' + this.metadata.items[0]])
+            this.metadata = metadata;
+            this.router.navigate(['metadata-package/' + this.selectedVersion + '/' + this.metadataPackage.id + '/' + this.metadata.metadataItems[0]])
           })
       });
     })
@@ -52,15 +59,8 @@ export class ViewPackageComponent implements OnInit{
     this.selectedVersion = version;
   }
 
-  getMetadataUrl(versions: Array<any>, selectedVersion: number) {
-    let url: string = "";
-    for(let ver of versions) {
-      if(ver.version == selectedVersion) {
-        url = ver.href;
-        break;
-      }
-    }
-    return url;
+  viewMetadata(metadataName) {
+    this.router.navigate(['metadata-package/' + this.route.snapshot.params['version'] + '/' + this.route.snapshot.params['id'] + '/' + metadataName]);
   }
 
 }

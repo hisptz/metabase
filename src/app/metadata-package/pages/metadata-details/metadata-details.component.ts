@@ -12,35 +12,24 @@ export class MetadataDetailsComponent implements OnInit {
 
   @Input() metadataId: string;
   metadata: Array<any> = [];
+  metadataType: string;
   loading: boolean = true;
   constructor(
     private metadataService: MetadataService,
-    private metadataPackageService: MetadataPackageService,
     private route: ActivatedRoute
   ) { }
 
   ngOnInit() {
     this.route.params.subscribe(param => {
       this.loading = true;
+      this.metadataType = param['metadataId'];
       let params = this.route.snapshot.parent.params;
-      this.metadataPackageService.find(params['id']).subscribe(metadataPackage => {
-        this.metadataService.find(metadataPackage.id + '_' + params['version'],this.getMetadataUrl(metadataPackage.versions,params['version'])).subscribe(metadata => {
-          this.loading = false;
-          this.metadata = this.metadataService.compileMetadata(metadata);
-        })
+      this.metadataService.getByPackage(params['id'],params['version']).subscribe(metadata => {
+        this.loading = false;
+        this.metadata = metadata;
+        console.log(metadata)
       })
     });
-  }
-
-  getMetadataUrl(versions: Array<any>, selectedVersion: number) {
-    let url: string = "";
-    for(let ver of versions) {
-      if(ver.version == selectedVersion) {
-        url = ver.href;
-        break;
-      }
-    }
-    return url;
   }
 
 }

@@ -1,15 +1,33 @@
-<tabset *ngIf="!loading">
-  <tab *ngFor="let item of metadata.items">
-    <template tabHeading>
-      {{item | readableName}}
-    </template>
-    <div class="row">
-      <div class="col-md-12" style="padding-top: 10px;">
-        <app-indicators *ngIf="item == 'indicators'" [indicators]="metadata.metadata[item]" [metadataId]="metadata.id"></app-indicators>
-        <app-indicator-type *ngIf="item == 'indicatorTypes'" [indicatorTypes]="metadata.metadata[item]"></app-indicator-type>
-        <app-org-unit *ngIf="item == 'organisationUnits'" [orgUnits]="metadata.metadata[item]"></app-org-unit>
-        <app-data-element *ngIf="item == 'dataElements'" [dataElements]="metadata.metadata[item]"></app-data-element>
-      </div>
-    </div>
-  </tab>
-</tabset>
+<table class="table table-striped" *ngIf="!loading">
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>Name</th>
+      <th>Last updated</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let metadataItem of metadata.metadataDetails[metadataType]; let i = index">
+      <td>{{i + 1}}</td>
+      <td>{{metadataItem.name}}</td>
+      <td>{{metadataItem.lastUpdated | date}}</td>
+    </tr>
+  </tbody>
+</table>
+
+
+<!--<tabset *ngIf="!loading">-->
+  <!--<tab *ngFor="let item of metadata.items">-->
+    <!--<template tabHeading>-->
+      <!--{{item | readableName}}-->
+    <!--</template>-->
+    <!--<div class="row">-->
+      <!--<div class="col-md-12" style="padding-top: 10px;">-->
+        <!--<app-indicators *ngIf="item == 'indicators'" [indicators]="metadata.metadata[item]" [metadataId]="metadata.id"></app-indicators>-->
+        <!--<app-indicator-type *ngIf="item == 'indicatorTypes'" [indicatorTypes]="metadata.metadata[item]"></app-indicator-type>-->
+        <!--<app-org-unit *ngIf="item == 'organisationUnits'" [orgUnits]="metadata.metadata[item]"></app-org-unit>-->
+        <!--<app-data-element *ngIf="item == 'dataElements'" [dataElements]="metadata.metadata[item]"></app-data-element>-->
+      <!--</div>-->
+    <!--</div>-->
+  <!--</tab>-->
+<!--</tabset>-->

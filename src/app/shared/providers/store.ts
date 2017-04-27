@@ -55,7 +55,11 @@ export class Store {
   public selectByField(item: string, field: any, url: string = null, resultKey: string = null, resultType: string = 'object'): Observable<any> {
     return Observable.create(observer => {
       let result = this.dataStore[item].filter(data => data[field.name] == field.value);
-      if(result.length == 0) {
+      console.log(result.length)
+      if(result.length > 0) {
+        observer.next(result.length > 1 ? result: result[0]);
+        observer.complete();
+      } else {
         if(url == null) {
           observer.next({});
           observer.complete();
@@ -75,9 +79,6 @@ export class Store {
           }
 
         }
-      } else {
-        observer.next(result.length > 1 ? result: result[0]);
-        observer.complete();
       }
     })
   }
@@ -126,7 +127,8 @@ export class Store {
    * @returns {any}
    */
   private loadAndSave(item: string, url: string, resultType: string, id: any, resultKey: string = null): Observable<any> {
-      return Observable.create(observer => {
+    console.log(url);
+    return Observable.create(observer => {
         this.http.get(url)
           .map((res: Response) => res.json())
           .catch(error => Observable.throw( new Error(error)))
@@ -149,7 +151,6 @@ export class Store {
                 data.id = id;
               }
               this.dataStore[item].push(data);
-              console.log(this.dataStore[item])
             }
 
             /**
