@@ -11,6 +11,8 @@ export class HomeComponent implements OnInit {
 
   loading: boolean = true;
   packages: Array<any>;
+  hasError: boolean = false;
+  errorMessage: string;
   constructor(private packageService: MetadataPackageService) { }
 
   ngOnInit() {
@@ -18,8 +20,11 @@ export class HomeComponent implements OnInit {
       .subscribe(packages => {
         this.packages = packages;
         this.loading = false;
+      }, error => {
+        this.loading = false;
+        this.hasError = true;
+        this.errorMessage = error.message;
       });
-    // this.packageService.loadAll();
   }
 
 

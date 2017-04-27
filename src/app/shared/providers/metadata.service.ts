@@ -33,7 +33,7 @@ export class MetadataService {
                 this.http.get(versionItem.href).map((res: Response) => res.json())
                   .catch(error => Observable.throw(new Error(error)))
                   .subscribe(response => {
-                    versionItem.metadata = this.compileMetadata(response);
+                    versionItem.metadata = this.getCompiledMetadata(response);
 
                     /**
                      * Also update the store
@@ -61,19 +61,36 @@ export class MetadataService {
     })
   }
 
-  compileMetadata(metadata): any {
+  getCompiledMetadata(metadata): any {
     let metadataCount: any = {};
     let metadataItems: Array<string> = [];
+    let metadataDetails: any = {};
     Object.keys(metadata).map(key => {
       if(isArray(metadata[key])) {
         metadataItems.push(key);
         metadataCount[key] = metadata[key].length;
+        let sanitizedMetadata : any[] = [];
+        if(metadata[key].length > 0) {
+          metadata[key].forEach(metadataItem => {
+            sanitizedMetadata.push({
+              id: metadataItem.id,
+              name: metadataItem.name,
+              code: metadataItem.hasOwnProperty('code') ? metadataItem.code : 'None',
+              created: metadataItem.created,
+              lastUpdated: metadataItem.lastUpdated,
+              originalVersion: metadataItem,
+              inSystemVersion: {},
+              importableVersion: {}
+            });
+          })
+        }
+        metadataDetails[key] = sanitizedMetadata;
       }
     });
     return {
       metadataItems: metadataItems,
       metadataCount: metadataCount,
-      metadataDetails: metadata
+      metadataDetails: metadataDetails
     };
   }
 
@@ -169,17 +186,69 @@ export class MetadataService {
     })
   }
 
-  private checkFromSystem(item: string, id: string) {
+  checkFromSystem(item: string, metadata: any) {
     return Observable.create(observer => {
-      this.http.get(this.api + item + '/' + id + '.json')
+      switch(item) {
+        case 'indicatorTypes': {
+          this.checkIndicatorType(metadata).subscribe(indicatorType => {
+            observer.next(indicatorType);
+            observer.complete();
+          });
+        }
+
+        default: {
+          this.http.get(this.api + item + '/' + metadata.id + '.json')
+            .map((res: Response) => res.json())
+            .catch(this.handleError)
+            .subscribe(result => {
+              metadata.available = true;
+              observer.next(metadata);
+              observer.complete();
+            }, error => {
+              metadata.available = false;
+              observer.next(metadata);
+              observer.complete();
+            })
+        }
+      }
+
+    })
+  }
+
+  checkIndicatorType(indicatorType: any): Observable<any> {
+    return Observable.create(observer => {
+      this.http.get(this.api + 'indicatorTypes/' + indicatorType.id + '.json')
         .map((res: Response) => res.json())
-        .catch(error => Observable.throw(new Error(error)))
-        .subscribe(result => {
-          observer.next(true);
+        .catch(this.handleError)
+        .subscribe(indicatorTypeResponse => {
+          indicatorType.inSystemVersion = indicatorTypeResponse;
+          indicatorType.available = true;
+          observer.next(indicatorType);
           observer.complete();
         }, error => {
-          observer.next(false);
-          observer.complete();
+          this.http.get(this.api + 'indicatorTypes.json?paging=false')
+            .map((res: Response) => res.json())
+            .catch(this.handleError)
+            .subscribe((response: any) => {
+              let inSystemIndicatorType: any = {};
+              if(response.indicatorTypes.length > 0) {
+                for(let indicatorTypeItem of response.indicatorTypes) {
+                  if((indicatorTypeItem.factor == indicatorType.factor) && (indicatorTypeItem.number == indicatorType.number)) {
+                    inSystemIndicatorType = indicatorTypeItem;
+                    break;
+                  }
+                }
+              }
+              if(inSystemIndicatorType.hasOwnProperty('id')) {
+                indicatorType.inSystemVersion = inSystemIndicatorType;
+                indicatorType.available = true;
+              } else {
+                indicatorType.available = false;
+              }
+
+              observer.next(indicatorType);
+              observer.complete();
+            })
         })
     })
   }
@@ -230,6 +299,19 @@ export class MetadataService {
         })
       }
     })
+  }
+
+  handleError (error: Response | any) {
+    // In a real world app, we might use a remote logging infrastructure
+    let errMsg: any;
+    if (error instanceof Response) {
+      console.log(error)
+      const body = error.json() || '';
+      errMsg = body;
+    } else {
+      errMsg = error.message ? error.message : error.toString();
+    }
+    return Observable.throw(errMsg);
   }
 
 }

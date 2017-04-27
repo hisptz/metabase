@@ -1,6 +1,6 @@
 import {Component, OnInit, Input} from '@angular/core';
 import {MetadataService} from "../../../shared/providers/metadata.service";
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {MetadataPackageService} from "../../../shared/providers/metadata-package.service";
 
 @Component({
@@ -11,12 +11,14 @@ import {MetadataPackageService} from "../../../shared/providers/metadata-package
 export class MetadataDetailsComponent implements OnInit {
 
   @Input() metadataId: string;
-  metadata: Array<any> = [];
+  metadata: any;
   metadataType: string;
+  currentMetadata: any = null;
   loading: boolean = true;
   constructor(
     private metadataService: MetadataService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -27,9 +29,23 @@ export class MetadataDetailsComponent implements OnInit {
       this.metadataService.getByPackage(params['id'],params['version']).subscribe(metadata => {
         this.loading = false;
         this.metadata = metadata;
-        console.log(metadata)
+        /**
+         * check availability
+         */
+        this.metadata.metadataDetails[this.metadataType].forEach(metadataItem => {
+          if(!metadataItem.hasOwnProperty('available')) {
+            this.metadataService.checkFromSystem(this.metadataType, metadataItem).subscribe(result => {
+              metadataItem = result;
+              console.log(metadata.metadataDetails);
+            })
+          }
+        });
       })
     });
+  }
+
+  viewMetadataDetails(metadataId) {
+    this.currentMetadata = metadataId;
   }
 
 }

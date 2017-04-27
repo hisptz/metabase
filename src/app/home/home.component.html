@@ -25,9 +25,12 @@
         <img src="assets/img/balls-5.svg" alt="">
         <h4 style="margin-top: 50px;">Moving packages into position</h4>
       </div>
+      <div *ngIf="hasError" class="alert alert-danger">
+        {{errorMessage}}
+      </div>
     </div>
   </div>
-  <div class="row" style="margin-top: 70px;" *ngIf="!loading">
+  <div class="row" style="margin-top: 70px;" *ngIf="!loading &&  !hasError">
     <!--<div class="alert alert-danger" *ngIf="package.error">{{package.message}}</div>-->
     <div class="col-md-12" *ngFor="let packageData of packages | filter:packageName">
       <app-package-item [packageItemData]="packageData"></app-package-item>

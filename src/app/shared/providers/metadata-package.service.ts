@@ -26,13 +26,9 @@ export class MetadataPackageService {
           observer.complete();
         } else {
           this.http.get(this._url).map((res: Response) => res.json())
-            .catch(error => Observable.throw( new Error(error)))
+            .catch(this.handleError)
             .subscribe(response => {
-              if(response.packages.length > 0) {
-                response.packages.forEach(packageData => {
-                  this.store.dispatch({ type: ADD_PACKAGE, payload: packageData});
-                })
-              }
+              this.store.dispatch({ type: ADD_PACKAGE, payload: response.packages});
               observer.next(response.packages);
               observer.complete();
             }, error => {
@@ -61,4 +57,16 @@ export class MetadataPackageService {
     this.store.dispatch({type: UPDATE_PACKAGE, payload: metadataPackage});
   }
 
+  handleError (error: Response | any) {
+    // In a real world app, we might use a remote logging infrastructure
+    let errMsg: any;
+    if (error instanceof Response) {
+      console.log(error)
+      const body = error.json() || '';
+      errMsg = body;
+    } else {
+      errMsg = error.message ? error.message : error.toString();
+    }
+    return Observable.throw(errMsg);
+  }
 }

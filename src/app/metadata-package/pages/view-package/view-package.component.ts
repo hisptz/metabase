@@ -49,7 +49,7 @@ export class ViewPackageComponent implements OnInit{
           .subscribe(metadata => {
             this.loadingMetadata = false;
             this.metadata = metadata;
-            this.router.navigate(['metadata-package/' + this.selectedVersion + '/' + this.metadataPackage.id + '/' + this.metadata.metadataItems[0]])
+            this.router.navigate(['metadata-package/' + this.selectedVersion + '/' + this.metadataPackage.id + '/metadata/' + this.metadata.metadataItems[0]])
           })
       });
     })
@@ -60,7 +60,7 @@ export class ViewPackageComponent implements OnInit{
   }
 
   viewMetadata(metadataName) {
-    this.router.navigate(['metadata-package/' + this.route.snapshot.params['version'] + '/' + this.route.snapshot.params['id'] + '/' + metadataName]);
+    this.router.navigate(['metadata-package/' + this.route.snapshot.params['version'] + '/metadata/' + this.route.snapshot.params['id'] + '/' + metadataName]);
   }
 
 }

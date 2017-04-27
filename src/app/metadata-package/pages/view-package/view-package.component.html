@@ -77,7 +77,7 @@
             <nav class="navbar navbar-default" *ngIf="!loadingMetadata">
               <ul class="nav navbar-nav">
                 <li *ngFor="let item of metadata.metadataItems; let i=index" routerLinkActive="active">
-                  <a routerLink="{{item}}">{{item | readableName}}</a>
+                  <a routerLink="metadata/{{item}}">{{item | readableName}}</a>
                 </li>
               </ul>
             </nav>

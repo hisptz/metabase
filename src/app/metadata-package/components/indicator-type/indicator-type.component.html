@@ -1,18 +1,13 @@
-<table class="table table-bordered">
-  <thead>
-  <tr>
-    <th>#</th>
-    <th>Name</th>
-    <th>Factor</th>
-    <th>Number</th>
-  </tr>
-  </thead>
-  <tbody>
-  <tr *ngFor="let indicatorType of indicatorTypes; let i=index">
-    <td>{{i + 1}}</td>
-    <td>{{indicatorType.name}}</td>
-    <td>{{indicatorType.factor}}</td>
-    <td>{{indicatorType.number ? 'Yes' : 'No'}}</td>
-  </tr>
-  </tbody>
-</table>
+<div class="row">
+  <div class="col-md-12">
+    <p class="text-justify">
+      <b>{{originalIndicatorType.name}}</b> is
+      {{originalIndicatorType.number ? ' a number ': ' an '}} indicator type with factor <b>{{originalIndicatorType.factor}}</b>.
+      <span *ngIf="indicatorType.available">
+      This indicator type is available in the system with
+      {{indicatorType.originalVersion.name == indicatorType.inSystemVersion.name ? ' the same name and factor as the one currently in the system ' : ' different name. This indicator type is the same as ' + indicatorType.inSystemVersion.name + ' currently in the system'}}.
+    </span>
+    </p>
+
+  </div>
+</div>

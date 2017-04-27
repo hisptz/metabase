@@ -14,6 +14,7 @@ import { IndicatorTypeComponent } from './components/indicator-type/indicator-ty
 import { OrgUnitComponent } from './components/org-unit/org-unit.component';
 import { DataElementComponent } from './components/data-element/data-element.component';
 import {IndicatorService} from "./providers/indicator.service";
+import { ProgressComponent } from './components/progress/progress.component';
 
 @NgModule({
   imports: [
@@ -31,7 +32,8 @@ import {IndicatorService} from "./providers/indicator.service";
     IndicatorsComponent,
     IndicatorTypeComponent,
     OrgUnitComponent,
-    DataElementComponent
+    DataElementComponent,
+    ProgressComponent
   ],
   providers: [
     IndicatorService

@@ -1,42 +1,18 @@
-<table class="table table-bordered table-condensed table-hover" *ngIf="currentIndicator == null">
-  <thead>
-    <tr>
-      <th>#</th>
-      <th>Name</th>
-      <th>Status</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr style="cursor: pointer;" *ngFor="let indicator of indicatorData | paginate: { itemsPerPage: 10, currentPage: p }; let i=index" (click)="view(indicator)">
-      <td>{{i + 1}}</td>
-      <td>{{indicator.name}}</td>
-      <td>
-        <ol>
-          <li *ngFor="let stat of indicator.status">
-            <span class="text-{{stat.type}}">{{stat.message}}</span>
-          </li>
-        </ol>
-      </td>
-    </tr>
-  </tbody>
-</table>
-<pagination-controls *ngIf="currentIndicator == null" (pageChange)="p = $event"></pagination-controls>
-<div class="panel panel-default" *ngIf="currentIndicator != null">
-  <div class="panel-body">
-    <a (click)="close()" class="close"><i class="fa fa-close"></i></a>
-    <h4 class="page-header" style="margin-top: 2px;">{{currentIndicator.name}}</h4>
+<div class="row" *ngIf="currentIndicator != null">
+  <div class="col-md-12">
+    <!--<h4 class="page-header" style="margin-top: 2px;">{{currentIndicator.name}}</h4>-->
     <div class="row">
       <div class="col-md-12">
-        <p>
+        <p class="text-justify">
           <b>{{currentIndicator.name}}</b> is a <b>{{currentIndicator.indicatorType.name}}</b> indicator with the numerator described as <b>{{currentIndicator.numeratorDescription}}</b> and denominator described as <b>{{currentIndicator.denominatorDescription}}</b>. This indicator was first created on <b>{{currentIndicator.created | amDateFormat:'LL'}}</b> by <b>{{currentIndicator.user.name}}</b>
         </p>
-        <p *ngIf="currentIndicator.annualized">
+        <p class="text-justify" *ngIf="currentIndicator.annualized">
           It’s figure is annualized to support analysis in less than year period(monthly,quarterly,semi-annually)
         </p>
       </div>
     </div>
     <div class="row">
-      <div class="col-md-6">
+      <div class="col-md-12">
         <p>A quick scan of this indicator showed that;</p>
         <ul class="list-unstyled status-list">
           <li *ngFor="let stat of currentIndicator.status" class="text-{{stat.type}}">
