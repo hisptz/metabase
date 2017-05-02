@@ -7,10 +7,12 @@ import {Component, OnInit, Input} from '@angular/core';
 })
 export class DataElementComponent implements OnInit {
 
-  @Input() dataElements: Array<any>
+  @Input() dataElement: any = null;
   constructor() { }
 
   ngOnInit() {
+
+    console.log(this.dataElement)
   }
 
 }

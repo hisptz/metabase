@@ -7,7 +7,7 @@ import {Component, OnInit, Input} from '@angular/core';
 })
 export class OrgUnitComponent implements OnInit {
 
-  @Input() orgUnits: Array<any>;
+  @Input() orgUnit: any = null;
   constructor() { }
 
   ngOnInit() {

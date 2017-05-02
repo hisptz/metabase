@@ -14,27 +14,20 @@ export class IndicatorService {
   sanitizeIndicators(indicators: any[], metadataId) {
     let sanitizedIndicators = [];
     return Observable.create(observer => {
-      this.store.selectByField('indicators',{name: 'metadataId', value: metadataId}).subscribe(indicatorResult => {
-        if(indicatorResult[Symbol.iterator] == 'function') {
-          observer.next(indicatorResult);
-          observer.complete();
-        } else {
-          if(indicators.length > 0) {
-            indicators.forEach(indicator => {
+      if(indicators.length > 0) {
+        indicators.forEach(indicator => {
 
-              /**
-               * Supply metadataId for easy accessibility
-               */
-              indicator.metadataId = metadataId;
+          /**
+           * Supply metadataId for easy accessibility
+           */
+          indicator.metadataId = metadataId;
 
-              this._getIndicatorFormulaStatus('numerator', this._getIndicatorFormulaParameters(indicator.numerator),indicator);
-              // this._getIndicatorFormulaParameters(indicator.numerator));
-            });
-          } else {
-            //todo empty data
-          }
-        }
-      });
+          this._getIndicatorFormulaStatus('numerator', this._getIndicatorFormulaParameters(indicator.numerator),indicator);
+          // this._getIndicatorFormulaParameters(indicator.numerator));
+        });
+      } else {
+        //todo empty data
+      }
     })
 
   }

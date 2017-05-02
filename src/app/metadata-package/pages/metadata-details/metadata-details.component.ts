@@ -24,6 +24,7 @@ export class MetadataDetailsComponent implements OnInit {
   ngOnInit() {
     this.route.params.subscribe(param => {
       this.loading = true;
+      this.currentMetadata = null;
       this.metadataType = param['metadataId'];
       let params = this.route.snapshot.parent.params;
       this.metadataService.getByPackage(params['id'],params['version']).subscribe(metadata => {

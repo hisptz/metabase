@@ -1,22 +1,5 @@
-<!--{{dataElements | json}}-->
-<table class="table table-bordered">
-  <thead>
-  <tr>
-    <th>#</th>
-    <th>Name</th>
-    <th>Aggregation type</th>
-    <th>Domain type</th>
-    <th>Value type</th>
-  </tr>
-  </thead>
-  <tbody>
-  <tr *ngFor="let dataElement of dataElements | paginate: { itemsPerPage: 10, currentPage: p }; let i=index">
-    <td>{{i + 1}}</td>
-    <td>{{dataElement.name}}</td>
-    <td>{{dataElement.aggregationType}}</td>
-    <td>{{dataElement.domainType}}</td>
-    <td>{{dataElement.valueType}}</td>
-  </tr>
-  </tbody>
-</table>
-<pagination-controls (pageChange)="p = $event"></pagination-controls>
+<div class="row" *ngIf="dataElement != null">
+  <div class="col-md-12">
+    <p class="text-justify">{{dataElement.originalVersion.name}} is a data element of data aggregation <strong style="text-transform: lowercase;">{{dataElement.originalVersion.aggregationType}}</strong> and only taking <strong style="text-transform: lowercase;">{{dataElement.originalVersion.domainType}}</strong> data. As the culture of helping user not entering unrecognized data, this data element takes <strong style="text-transform: lowercase;">{{dataElement.originalVersion.valueType}}</strong> values from the user input</p>
+  </div>
+</div>

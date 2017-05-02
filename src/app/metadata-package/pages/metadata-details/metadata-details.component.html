@@ -1,18 +1,18 @@
 <app-progress></app-progress>
 <div class="row">
-  <div class="{{currentMetadata == null ? 'col-md-12' : 'col-md-6'}}">
+  <div class="{{currentMetadata == null ? 'col-md-12' : 'col-md-5'}}">
     <table class="table table-striped table-hover" *ngIf="!loading">
       <thead>
       <tr>
-        <th>#</th>
+        <th *ngIf="currentMetadata == null">#</th>
         <th>Name</th>
         <th *ngIf="currentMetadata == null">Code</th>
         <th *ngIf="currentMetadata == null">Status</th>
       </tr>
       </thead>
       <tbody>
-      <tr (click)="viewMetadataDetails(metadataItem)" style="cursor: pointer;" *ngFor="let metadataItem of metadata.metadataDetails[metadataType]; let i = index">
-        <td>{{i + 1}}</td>
+      <tr (click)="viewMetadataDetails(metadataItem)" class="{{currentMetadata != null && currentMetadata.id == metadataItem.id ? 'text-primary' : ''}}" style="cursor: pointer;" *ngFor="let metadataItem of metadata.metadataDetails[metadataType]; let i = index">
+        <td *ngIf="currentMetadata == null">{{i + 1}}</td>
         <td>{{metadataItem.name}}</td>
         <td *ngIf="currentMetadata == null">{{metadataItem.code}}</td>
         <td *ngIf="currentMetadata == null">
@@ -27,11 +27,13 @@
       </tbody>
     </table>
   </div>
-  <div class="col-md-6" *ngIf="currentMetadata != null">
+  <div class="col-md-7" *ngIf="currentMetadata != null">
+    <button class="btn btn-default btn-sm metadata-close-btn" (click)="currentMetadata = null">Close</button>
     <h4 class="page-header" style="margin-top: 2px;">{{currentMetadata.name}}</h4>
     <app-indicators *ngIf="metadataType == 'indicators'" [indicators]="currentMetadata"></app-indicators>
     <app-indicator-type *ngIf="metadataType == 'indicatorTypes'" [indicatorType]="currentMetadata"></app-indicator-type>
-    <button class="btn btn-default pull-right" (click)="currentMetadata = null">Close</button>
+    <app-data-element *ngIf="metadataType == 'dataElements'" [dataElement]="currentMetadata"></app-data-element>
+    <app-org-unit *ngIf="metadataType == 'organisationUnits'" [orgUnit]="currentMetadata"></app-org-unit>
   </div>
 </div>
 
