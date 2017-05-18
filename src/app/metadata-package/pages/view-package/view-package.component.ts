@@ -13,6 +13,10 @@ export class ViewPackageComponent implements OnInit{
 
   metadataPackage: any = {};
   loading: boolean = true;
+  packageHasError: boolean = false;
+  metadataHasError: boolean = false;
+  packageErrorMessage: string;
+  metadataErrorMessage: string;
   selectedVersion: number;
   routeDetails: any[] = [];
   metadata: any;
@@ -50,7 +54,16 @@ export class ViewPackageComponent implements OnInit{
             this.loadingMetadata = false;
             this.metadata = metadata;
             this.router.navigate(['metadata-package/' + this.selectedVersion + '/' + this.metadataPackage.id + '/metadata/' + this.metadata.metadataItems[0]])
+          }, error => {
+            this.loadingMetadata = false;
+            this.metadataHasError = true;
+            this.metadataErrorMessage = error.message;
           })
+      }, packageError => {
+        this.loading = false;
+        this.packageHasError = true;
+        this.packageErrorMessage = packageError.message;
+
       });
     })
   }

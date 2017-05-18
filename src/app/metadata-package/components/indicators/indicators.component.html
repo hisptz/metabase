@@ -1,52 +1,76 @@
 <div class="row" *ngIf="currentIndicator != null">
   <div class="col-md-12">
-    <!--<h4 class="page-header" style="margin-top: 2px;">{{currentIndicator.name}}</h4>-->
-    <div class="row">
-      <div class="col-md-12">
-        <p class="text-justify">
-          <b>{{currentIndicator.name}}</b> is a <b>{{currentIndicator.indicatorType.name}}</b> indicator with the numerator described as <b>{{currentIndicator.numeratorDescription}}</b> and denominator described as <b>{{currentIndicator.denominatorDescription}}</b>. This indicator was first created on <b>{{currentIndicator.created | amDateFormat:'LL'}}</b> by <b>{{currentIndicator.user.name}}</b>
-        </p>
-        <p class="text-justify" *ngIf="currentIndicator.annualized">
-          It’s figure is annualized to support analysis in less than year period(monthly,quarterly,semi-annually)
-        </p>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-md-12">
-        <p>A quick scan of this indicator showed that;</p>
-        <ul class="list-unstyled status-list">
-          <li *ngFor="let stat of currentIndicator.status" class="text-{{stat.type}}">
-            <span *ngIf="stat.type == 'success'">
-              <i class="fa fa-check"></i>
-            {{stat.message}}
-            </span>
-            <a *ngIf="stat.type == 'danger'" (click)="openFixBlock(stat.item)" class="text-danger fix-btn">
-              <i class="fa fa-exclamation-triangle"></i>
-              {{stat.message}}
-            </a>
-          </li>
-        </ul>
-      </div>
-      <div class="col-md-6" *ngIf="isFixBlockOpen">
-        <div class="panel panel-default">
-          <div class="panel-body">
-            <a (click)="isFixBlockOpen = false" class="close"><i class="fa fa-close"></i></a>
-            <h4 class="page-header" style="margin-top: 2px;">Fix {{fixBlockItem}} conflict</h4>
-            <!--user conflict fixing block-->
-            <ul class="list-unstyled">
-              <li class="form-group">
-                <input type="radio" name="option">
-                Option one
-              </li>
-              <li>
-                <input type="radio" name="option">
-                Option two
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
-
+    <table class="table table-condensed table-striped">
+      <tr>
+        <th width="30%">Numerator</th>
+        <td width="70%"><code>{{currentIndicator.numerator}}</code></td>
+      </tr>
+      <tr *ngIf="currentIndicator.numeratorDescription">
+        <th width="20%">Numerator Description</th>
+        <td width="70%">{{currentIndicator.numeratorDescription}}</td>
+      </tr>
+      <tr>
+        <th width="20%">Denominator</th>
+        <td width="70%"><code>{{currentIndicator.denominator}}</code></td>
+      </tr>
+      <tr *ngIf="currentIndicator.denominatorDescription">
+        <th width="20%">Numerator Description</th>
+        <td width="70%">{{currentIndicator.denominatorDescription}}</td>
+      </tr>
+      <tr *ngIf="currentIndicator.indicatorType.name">
+        <th width="20%">Type</th>
+        <td width="70%">{{currentIndicator.indicatorType.name}}</td>
+      </tr>
+    </table>
   </div>
+  <!--<div class="col-md-12">-->
+    <!--&lt;!&ndash;<h4 class="page-header" style="margin-top: 2px;">{{currentIndicator.name}}</h4>&ndash;&gt;-->
+    <!--<div class="row">-->
+      <!--<div class="col-md-12">-->
+        <!--<p class="text-justify">-->
+          <!--<b>{{currentIndicator.name}}</b> is a <b>{{currentIndicator.indicatorType.name}}</b> indicator with the numerator described as <b>{{currentIndicator.numeratorDescription}}</b> and denominator described as <b>{{currentIndicator.denominatorDescription}}</b>. This indicator was first created on <b>{{currentIndicator.created | amDateFormat:'LL'}}</b> by <b>{{currentIndicator.user.name}}</b>-->
+        <!--</p>-->
+        <!--<p class="text-justify" *ngIf="currentIndicator.annualized">-->
+          <!--It’s figure is annualized to support analysis in less than year period(monthly,quarterly,semi-annually)-->
+        <!--</p>-->
+      <!--</div>-->
+    <!--</div>-->
+    <!--<div class="row">-->
+      <!--<div class="col-md-12">-->
+        <!--<p>A quick scan of this indicator showed that;</p>-->
+        <!--<ul class="list-unstyled status-list">-->
+          <!--<li *ngFor="let stat of currentIndicator.status" class="text-{{stat.type}}">-->
+            <!--<span *ngIf="stat.type == 'success'">-->
+              <!--<i class="fa fa-check"></i>-->
+            <!--{{stat.message}}-->
+            <!--</span>-->
+            <!--<a *ngIf="stat.type == 'danger'" (click)="openFixBlock(stat.item)" class="text-danger fix-btn">-->
+              <!--<i class="fa fa-exclamation-triangle"></i>-->
+              <!--{{stat.message}}-->
+            <!--</a>-->
+          <!--</li>-->
+        <!--</ul>-->
+      <!--</div>-->
+      <!--<div class="col-md-6" *ngIf="isFixBlockOpen">-->
+        <!--<div class="panel panel-default">-->
+          <!--<div class="panel-body">-->
+            <!--<a (click)="isFixBlockOpen = false" class="close"><i class="fa fa-close"></i></a>-->
+            <!--<h4 class="page-header" style="margin-top: 2px;">Fix {{fixBlockItem}} conflict</h4>-->
+            <!--&lt;!&ndash;user conflict fixing block&ndash;&gt;-->
+            <!--<ul class="list-unstyled">-->
+              <!--<li class="form-group">-->
+                <!--<input type="radio" name="option">-->
+                <!--Option one-->
+              <!--</li>-->
+              <!--<li>-->
+                <!--<input type="radio" name="option">-->
+                <!--Option two-->
+              <!--</li>-->
+            <!--</ul>-->
+          <!--</div>-->
+        <!--</div>-->
+      <!--</div>-->
+    <!--</div>-->
+
+  <!--</div>-->
 </div>

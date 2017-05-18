@@ -1,5 +1,19 @@
-<div class="row" *ngIf="dataElement != null">
+<div class="row" *ngIf="displayVersion != null">
   <div class="col-md-12">
-    <p class="text-justify">{{dataElement.originalVersion.name}} is a data element of data aggregation <strong style="text-transform: lowercase;">{{dataElement.originalVersion.aggregationType}}</strong> and only taking <strong style="text-transform: lowercase;">{{dataElement.originalVersion.domainType}}</strong> data. As the culture of helping user not entering unrecognized data, this data element takes <strong style="text-transform: lowercase;">{{dataElement.originalVersion.valueType}}</strong> values from the user input</p>
+    <table class="table table-condensed table-striped">
+      <tr *ngIf="displayVersion.description">
+        <th width="30%">Description</th>
+        <td>{{displayVersion.description}}</td>
+      </tr>
+      <tr *ngIf="displayVersion.domainType">
+        <th width="30%">Domain</th>
+        <td>{{displayVersion.domainType}}</td>
+      </tr>
+      <tr *ngIf="displayVersion.aggregationType">
+        <th width="30%">Aggregation</th>
+        <td>{{displayVersion.aggregationType}}</td>
+      </tr>
+    </table>
+    <!--<p class="text-justify">{{dataElement.originalVersion.name}} is a data element of data aggregation <strong style="text-transform: lowercase;">{{dataElement.originalVersion.aggregationType}}</strong> and only taking <strong style="text-transform: lowercase;">{{dataElement.originalVersion.domainType}}</strong> data. As the culture of helping user not entering unrecognized data, this data element takes <strong style="text-transform: lowercase;">{{dataElement.originalVersion.valueType}}</strong> values from the user input</p>-->
   </div>
 </div>

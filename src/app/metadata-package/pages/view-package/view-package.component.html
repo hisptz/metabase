@@ -6,7 +6,10 @@
         <div class="alert alert-info" *ngIf="loading">
           <small>Loading Package summary please wait...</small>
         </div>
-        <table class="table package-table" *ngIf="!loading">
+        <div class="alert alert-danger" *ngIf="packageHasError">
+          <small>{{packageErrorMessage}}</small>
+        </div>
+        <table class="table package-table" *ngIf="!loading  && !packageHasError">
           <tr>
             <td colspan="2"><h5 style="margin-top: 0px;"><b>{{metadataPackage?.name}}</b></h5></td>
           </tr>
@@ -39,7 +42,7 @@
         <div class="alert alert-info" *ngIf="loadingMetadata">
           <small>Loading Metadata summary please wait...</small>
         </div>
-        <table class="table package-table table-hover" *ngIf="!loadingMetadata">
+        <table class="table package-table table-hover" *ngIf="!loadingMetadata && !metadataHasError">
           <thead>
           <tr>
             <th colspan="2"><h5 style="margin-top: 0px;"><b>Metadata Information</b></h5></th>
@@ -61,7 +64,10 @@
         <div class="alert alert-info" *ngIf="loading">
           <small>Loading Package description please wait...</small>
         </div>
-        <div class="row" *ngIf="!loading">
+        <div class="alert alert-info" *ngIf="packageHasError">
+          <small>{{packageErrorMessage}}</small>
+        </div>
+        <div class="row" *ngIf="!loading && !packageHasError">
           <div class="col-md-12" style="margin-bottom: 10px;">
             <h5><b>Description</b></h5>
             <p class="text-justify">{{metadataPackage.description}}</p>
@@ -74,7 +80,10 @@
             <div class="alert alert-info" *ngIf="loadingMetadata">
               <small>Loading Metadata details please wait...</small>
             </div>
-            <nav class="navbar navbar-default" *ngIf="!loadingMetadata">
+            <div class="alert alert-danger" *ngIf="metadataHasError">
+              <small>{{metadataErrorMessage}}</small>
+            </div>
+            <nav class="navbar navbar-default" *ngIf="!loadingMetadata && !metadataHasError">
               <ul class="nav navbar-nav">
                 <li *ngFor="let item of metadata.metadataItems; let i=index" routerLinkActive="active">
                   <a routerLink="metadata/{{item}}">{{item | readableName}}</a>

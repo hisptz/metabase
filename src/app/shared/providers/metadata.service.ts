@@ -30,24 +30,28 @@ export class MetadataService {
                 observer.next(versionItem.metadata);
                 observer.complete();
               } else {
-                this.http.get(versionItem.href).map((res: Response) => res.json())
-                  .catch(error => Observable.throw(new Error(error)))
-                  .subscribe(response => {
-                    versionItem.metadata = this.getCompiledMetadata(response);
+                if(versionItem.hasOwnProperty('href')) {
+                  this.http.get(versionItem.href).map((res: Response) => res.json())
+                    .catch(error => Observable.throw(new Error(error)))
+                    .subscribe(response => {
+                      versionItem.metadata = this.getCompiledMetadata(response);
 
-                    /**
-                     * Also update the store
-                     */
-                    this.metadataPackageService.update(metadataPackage);
+                      /**
+                       * Also update the store
+                       */
+                      this.metadataPackageService.update(metadataPackage);
 
-                    /**
-                     * return compiled metadata
-                     */
-                    observer.next(versionItem.metadata);
-                    observer.complete();
-                  }, metadataError => {
-                    observer.error(metadataError);
-                  })
+                      /**
+                       * return compiled metadata
+                       */
+                      observer.next(versionItem.metadata);
+                      observer.complete();
+                    }, metadataError => {
+                      observer.error(metadataError);
+                    })
+                } else {
+                  observer.error({message: 'Reference to metadata files is not specified, or may be referenced by another name. Make sure reference attribute is "href"'})
+                }
               }
             break;
             }
@@ -96,7 +100,8 @@ export class MetadataService {
 
   importMetadata(dryRun: boolean, metadata: any): Observable<any> {
     return Observable.create(observer => {
-      this.http.post('../../../api/25/metadata?dryRun='+ dryRun + '&strategy=CREATE_AND_UPDATE', metadata)
+      let importMode = dryRun ? 'VALIDATE': 'COMMIT';
+      this.http.post('../../../api/25/metadata?importMode='+ importMode + '&strategy=CREATE_AND_UPDATE', metadata)
         .map(res => res.json())
         .subscribe(importResult => {
           observer.next(this.compileImportSummary(importResult));

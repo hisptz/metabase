@@ -18,13 +18,47 @@
   <div class="col-md-12">
     <h3 class="page-header" style="margin-top: 2px;">{{summaryTitle}}</h3>
   </div>
-  <div class="col-md-7">
+  <div class="col-md-12">
+    <div class="alert alert-success" *ngIf="importSummary.importConflicts.length == 0">
+      <h4>No conflicts</h4>
+    </div>
+
+    <!--import summary-->
     <div class="panel panel-default">
       <div class="panel-body">
+        <h4 class="page-header" style="margin-top: 2px;">{{isPreview ? 'Importing will make the following changes to the system' : 'Importing made the following changes to the system'}}</h4>
+        <table class="table table-bordered">
+          <thead>
+          <tr>
+            <th>#</th>
+            <th>Item</th>
+            <th class="text-success">Add{{isPreview ? '' : 'ed'}}</th>
+            <th class="text-info">Update{{isPreview ? '' : 'd'}}</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let importSum of importSummary.importCountsPerMetadata; let i=index">
+            <td>{{i + 1}}</td>
+            <td>{{importSum.type}}</td>
+            <td class="text-success">{{importSum.count.created}}</td>
+            <td class="text-info">{{importSum.count.updated}}</td>
+          </tr>
+          <tr>
+            <th></th>
+            <th>Total</th>
+            <th class="text-success">{{importSummary.overallImportCounts.created}}</th>
+            <th class="text-info">{{importSummary.overallImportCounts.updated}}</th>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <!--end of import summary-->
+
+    <!--conflicts-->
+    <div class="panel panel-default" *ngIf="importSummary.importConflicts.length > 0">
+      <div class="panel-body">
         <h4 class="page-header" style="margin-top: 2px;">{{isPreview ? 'Preview' : 'Import'}} conflicts</h4>
-        <div class="alert alert-success" *ngIf="importSummary.importConflicts.length == 0">
-          <h4>All items have been imported successfully!</h4>
-        </div>
         <table class="table table-bordered table-hover" *ngIf="importSummary.importConflicts.length > 0">
           <thead>
           <tr>
@@ -48,39 +82,6 @@
         <pagination-controls (pageChange)="p = $event"></pagination-controls>
       </div>
     </div>
-  </div>
-  <div class="col-md-5">
-    <div class="panel panel-default">
-      <div class="panel-body">
-        <h4 class="page-header" style="margin-top: 2px;">{{isPreview ? 'Preview' : 'Import'}} counts</h4>
-        <table class="table table-bordered">
-          <thead>
-          <tr>
-            <th>Item</th>
-            <th class="text-success">Created</th>
-            <th class="text-info">Updated</th>
-            <th class="text-warning">Ignored</th>
-            <th class="text-danger">Deleted</th>
-          </tr>
-          </thead>
-          <tbody>
-          <tr *ngFor="let importSum of importSummary.importCountsPerMetadata">
-            <td>{{importSum.type}}</td>
-            <td class="text-success">{{importSum.count.created}}</td>
-            <td class="text-info">{{importSum.count.updated}}</td>
-            <td class="text-warning">{{importSum.count.ignored}}</td>
-            <td class="text-danger">{{importSum.count.deleted}}</td>
-          </tr>
-          <tr>
-            <th>Total</th>
-            <th class="text-success">{{importSummary.overallImportCounts.created}}</th>
-            <th class="text-info">{{importSummary.overallImportCounts.updated}}</th>
-            <th class="text-warning">{{importSummary.overallImportCounts.ignored}}</th>
-            <th class="text-danger">{{importSummary.overallImportCounts.deleted}}</th>
-          </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
+    <!--end of conflicts-->
   </div>
 </div>

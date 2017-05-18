@@ -8,11 +8,11 @@ import {Component, OnInit, Input} from '@angular/core';
 export class DataElementComponent implements OnInit {
 
   @Input() dataElement: any = null;
+  displayVersion: any;
   constructor() { }
 
   ngOnInit() {
-
-    console.log(this.dataElement)
+    this.displayVersion = this.dataElement.originalVersion;
   }
 
 }

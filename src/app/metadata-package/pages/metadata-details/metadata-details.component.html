@@ -4,18 +4,18 @@
     <table class="table table-striped table-hover" *ngIf="!loading">
       <thead>
       <tr>
-        <th *ngIf="currentMetadata == null">#</th>
-        <th>Name</th>
-        <th *ngIf="currentMetadata == null">Code</th>
-        <th *ngIf="currentMetadata == null">Status</th>
+        <th *ngIf="currentMetadata == null" width="5%">#</th>
+        <th width="80%">Name</th>
+        <!--<th *ngIf="currentMetadata == null">Code</th>-->
+        <th *ngIf="currentMetadata == null" width="15%">Status</th>
       </tr>
       </thead>
       <tbody>
       <tr (click)="viewMetadataDetails(metadataItem)" class="{{currentMetadata != null && currentMetadata.id == metadataItem.id ? 'text-primary' : ''}}" style="cursor: pointer;" *ngFor="let metadataItem of metadata.metadataDetails[metadataType]; let i = index">
-        <td *ngIf="currentMetadata == null">{{i + 1}}</td>
-        <td>{{metadataItem.name}}</td>
-        <td *ngIf="currentMetadata == null">{{metadataItem.code}}</td>
-        <td *ngIf="currentMetadata == null">
+        <td *ngIf="currentMetadata == null" width="5%">{{i + 1}}</td>
+        <td width="80%">{{metadataItem.name}}</td>
+        <!--<td *ngIf="currentMetadata == null">{{metadataItem.code}}</td>-->
+        <td *ngIf="currentMetadata == null" width="15%">
           <small *ngIf="metadataItem.available == undefined"><img src="assets/img/balls-3.svg" style="height: 25px; width: 25px;" alt="">Checking availability</small>
           <span *ngIf="metadataItem.available" tooltip="tooltip" class="text-success"><i class="fa fa-check"></i> Available</span>
           <span *ngIf="metadataItem.available == false" class="text-danger">

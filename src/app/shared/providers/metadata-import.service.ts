@@ -9,7 +9,8 @@ export class MetadataImportService {
   ) { }
 
   importMetadata(dryRun: boolean, metadata: any) {
-    this.http.post('../../../api/metadata?dryRun='+ dryRun + '&strategy=CREATE_AND_UPDATE', metadata)
+    let importMode = dryRun ? 'VALIDATE': 'COMMIT';
+    this.http.post('../../../api/metadata?importMode='+ importMode + '&strategy=CREATE_AND_UPDATE', metadata)
       .map(res => res.json())
       .subscribe(importResult => {
         console.log(this.compileImportSummary(importResult))
