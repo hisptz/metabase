@@ -7,24 +7,28 @@ import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
 })
 export class PackageVersionSelectComponent implements OnInit {
 
+  @Input() versions: any = [];
   @Input() selectedVersion: number;
-  @Input() versions: any;
+
   @Output() onVersionSelect: EventEmitter<number> = new EventEmitter<number>();
   constructor() { }
 
   ngOnInit() {
     if(this.selectedVersion == undefined) {
-      this.selectedVersion = this.findLatestVersion(this.versions);
+      this.selectedVersion = this.findLatestVersion(this.versions ? this.versions : []);
     }
     this.onVersionSelect.emit(this.selectedVersion);
   }
 
-  findLatestVersion(versions: any): any {
+  findLatestVersion(versions: any[]): any {
     let versionArray = [];
-    versions.forEach(version => {
-      versionArray.push(version.version);
-    });
-    versionArray = versionArray.sort((a, b) => b - a);
+    if(versions.length > 0) {
+      versions.forEach(version => {
+        versionArray.push(version.version);
+      });
+
+      versionArray = versionArray.sort((a, b) => b - a);
+    }
     return versionArray[0];
   }
 

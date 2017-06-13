@@ -1,10 +1,10 @@
-import { Metabase2Page } from './app.po';
+import { StoreSeedAppPage } from './app.po';
 
-describe('metabase2 App', () => {
-  let page: Metabase2Page;
+describe('store-seed-app App', () => {
+  let page: StoreSeedAppPage;
 
   beforeEach(() => {
-    page = new Metabase2Page();
+    page = new StoreSeedAppPage();
   });
 
   it('should display message saying app works', () => {

@@ -1,12 +1,16 @@
 {
   "/api": {
-    "target": "http://localhost:8080/dhis",
+    "target": "https://play.dhis2.org/demo/",
+    "target1": "http://localhost:8080/dhis",
     "secure": "false",
-    "auth":"rajabumkomwa:DHIS2016"
+    "auth":"system:System123",
+    "changeOrigin":true
   },
   "/": {
-    "target": "http://localhost:8080/dhis",
+    "target": "https://play.dhis2.org/demo/",
+    "target1": "http://localhost:8080/dhis",
     "secure": "false",
-    "auth":"rajabumkomwa:DHIS2016"
+    "auth":"system:System123",
+    "changeOrigin":true
   }
 }

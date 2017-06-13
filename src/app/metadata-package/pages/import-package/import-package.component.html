@@ -1,4 +1,4 @@
-<app-breadcrumb *ngIf="loadedItems > 0" [routeItems]="routeDetails"></app-breadcrumb>
+<app-breadcrumb [routeItems]="routeDetails"></app-breadcrumb>
 <div class="row" *ngIf="totalItems > 0">
   <div class="col-md-10 col-sm-10 col-xs-9">
     <small>{{progress}}</small>
@@ -16,13 +16,6 @@
 </div>
 <div class="row" *ngIf="importCompleted">
   <div class="col-md-12">
-    <h3 class="page-header" style="margin-top: 2px;">{{summaryTitle}}</h3>
-  </div>
-  <div class="col-md-12">
-    <div class="alert alert-success" *ngIf="importSummary.importConflicts.length == 0">
-      <h4>No conflicts</h4>
-    </div>
-
     <!--import summary-->
     <div class="panel panel-default">
       <div class="panel-body">
@@ -51,37 +44,12 @@
           </tr>
           </tbody>
         </table>
+        <div class="form-group" *ngIf="isPreview && importCompleted">
+          <button class="btn btn-primary" (click)="completeImport()">Continue with Import</button>
+          <button class="btn btn-warning" (click)="cancelImport()">Cancel</button>
+        </div>
       </div>
     </div>
     <!--end of import summary-->
-
-    <!--conflicts-->
-    <div class="panel panel-default" *ngIf="importSummary.importConflicts.length > 0">
-      <div class="panel-body">
-        <h4 class="page-header" style="margin-top: 2px;">{{isPreview ? 'Preview' : 'Import'}} conflicts</h4>
-        <table class="table table-bordered table-hover" *ngIf="importSummary.importConflicts.length > 0">
-          <thead>
-          <tr>
-            <th>#</th>
-            <th>Item type</th>
-            <th>Conflicts</th>
-          </tr>
-          </thead>
-          <tbody>
-          <tr *ngFor="let conflict of importSummary.importConflicts | paginate: { itemsPerPage: 10, currentPage: p }; let i=index">
-            <td>{{i + 1}}</td>
-            <td>{{conflict.type}}</td>
-            <td>
-              <ol>
-                <li *ngFor="let description of conflict.description">{{description.message}}</li>
-              </ol>
-            </td>
-          </tr>
-          </tbody>
-        </table>
-        <pagination-controls (pageChange)="p = $event"></pagination-controls>
-      </div>
-    </div>
-    <!--end of conflicts-->
   </div>
 </div>

@@ -1,0 +1,84 @@
+<div class="panel panel-primary repository-section" [ngStyle]="{width: sectionWidth}">
+  <div class="panel-heading">
+    Repositories
+    <a class="pull-right" (click)="close()" style="color: #fff !important; cursor: pointer;">&times;</a>
+  </div>
+  <div class="panel-body">
+    <!--<a (click)="showForm = true" *ngIf="!showForm" class="btn btn-primary btn-sm" style="margin-bottom: 5px;">Add repository</a>-->
+    <!--<div class="panel panel-default" *ngIf="showForm">-->
+      <!--<div class="panel-body">-->
+        <!--<form action="">-->
+          <!--<div class="form-group">-->
+            <!--<label class="control-label">Repository name</label>-->
+            <!--<input type="text" class="form-control input-sm">-->
+          <!--</div>-->
+          <!--<div class="form-group">-->
+            <!--<label class="control-label">Repository link</label>-->
+            <!--<input type="text" class="form-control input-sm">-->
+          <!--</div>-->
+          <!--<div class="form-group">-->
+            <!--<button class="btn btn-primary btn-sm">Create</button>-->
+            <!--<button class="btn btn-warning btn-sm" (click)="showForm = false">Cancel</button>-->
+          <!--</div>-->
+        <!--</form>-->
+      <!--</div>-->
+    <!--</div>-->
+    <table class="table table-hover table-condensed" style="margin-bottom: 0px;">
+      <tbody>
+      <tr *ngFor="let repository of repositories$ | async">
+        <td width="5%"><input type="checkbox" [(ngModel)]="repository.selected" (change)="toggleRepositorySelection(repository)"></td>
+        <td width="80%"><small>{{repository.name}}</small></td>
+        <td width="5%"><a href="" class="btn btn-sm"><i class="fa fa-edit"></i></a></td>
+        <td width="5%">
+          <a (click)="removeRepository(repository)" class="btn btn-sm pull-right text-danger"><i class="fa fa-trash"></i></a>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+    <form class="table table-condensed" #repositoryForm="ngForm">
+      <tr>
+        <td width="5%">
+          <a (click)="toggleForm()" style="cursor: pointer;" class="btn btn-sm text-muted"><i class="fa {{showForm ? 'fa-times': 'fa-plus'}}"></i></a>
+        </td>
+        <td width="40%" *ngIf="showForm">
+          <div class="form-group {{name.errors && (name.dirty || name.touched) ? 'has-error' : 'has-success'}}">
+            <input
+              type="text"
+              class="form-control input-sm"
+              placeholder="Enter name"
+              [(ngModel)]="newRepository.name"
+              name="name"
+              #name="ngModel"
+              required
+            >
+            <span class="help-block" *ngIf="name.errors && (name.dirty || name.touched)">
+              <div [hidden]="!name.errors.required">Name is required</div>
+            </span>
+          </div>
+        </td>
+        <td width="50%" *ngIf="showForm">
+          <div class="form-group {{url.errors && (url.dirty || url.touched) ? 'has-error' : 'has-success'}}">
+            <input
+              type="url"
+              class="form-control input-sm"
+              placeholder="Enter url"
+              name="url"
+              [(ngModel)]="newRepository.url"
+              #url="ngModel"
+              required
+              pattern="https?://.+"
+            >
+            <span class="help-block" *ngIf="url.errors && (url.dirty || url.touched)">
+              <div [hidden]="!url.errors.required">URL is required</div>
+              <div [hidden]="!url.errors.pattern">Must be a valid URL!</div>
+            </span>
+          </div>
+        </td>
+        <td width="5%" *ngIf="showForm">
+          <button type="submit" class="btn btn-sm btn-primary" [disabled]="!repositoryForm.form.valid || !repositoryForm.form.touched" (click)="saveRepository(newRepository)"><i class="fa fa-plus"></i></button>
+        </td>
+      </tr>
+    </form>
+
+  </div>
+</div>

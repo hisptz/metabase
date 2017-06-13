@@ -8,17 +8,15 @@ import {Router} from "@angular/router";
 })
 export class PackageItemComponent implements OnInit {
 
-  @Input() packageItemData: any;
+  @Input() metadataPackage: any;
   selectedVersion: number;
-  constructor(
-    private router: Router
-  ) { }
+  constructor(private router: Router) { }
 
   ngOnInit() {
   }
 
   viewPackage() {
-    this.router.navigate(['metadata-package/' + this.selectedVersion + '/' + this.packageItemData.id])
+    this.router.navigate(['metadata-package/' + this.selectedVersion + '/' + this.metadataPackage.id])
   }
 
 }

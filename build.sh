@@ -1,4 +1,3 @@
 #!/usr/bin/env bash
-ng build --prod
+ng build --prod --aot
 mv dist/assets/manifest.webapp dist/
-cp -r dist/* /opt/dhis/config/apps/metabase2/

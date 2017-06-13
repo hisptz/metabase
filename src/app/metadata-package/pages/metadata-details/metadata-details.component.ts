@@ -1,7 +1,9 @@
-import {Component, OnInit, Input} from '@angular/core';
-import {MetadataService} from "../../../shared/providers/metadata.service";
-import {ActivatedRoute, Router} from "@angular/router";
-import {MetadataPackageService} from "../../../shared/providers/metadata-package.service";
+import { Component, OnInit } from '@angular/core';
+import {ActivatedRoute} from "@angular/router";
+import {ApplicationState} from "../../../store/application-state";
+import {Store} from "@ngrx/store";
+import {Observable} from "rxjs";
+import {currentMetadataSelector} from "../../../store/selectors/current-metadata.selector";
 
 @Component({
   selector: 'app-metadata-details',
@@ -10,39 +12,22 @@ import {MetadataPackageService} from "../../../shared/providers/metadata-package
 })
 export class MetadataDetailsComponent implements OnInit {
 
-  @Input() metadataId: string;
-  metadata: any;
   metadataType: string;
+  metadata$: Observable<any>;
   currentMetadata: any = null;
-  loading: boolean = true;
   constructor(
-    private metadataService: MetadataService,
     private route: ActivatedRoute,
-    private router: Router
-  ) { }
+    private store: Store<ApplicationState>
+  ) {
+   this.metadata$ = store.select(currentMetadataSelector)
+  }
 
   ngOnInit() {
-    this.route.params.subscribe(param => {
-      this.loading = true;
+    this.route.params.subscribe(params => {
+      console.log(params)
+      this.metadataType = params['metadataId'];
       this.currentMetadata = null;
-      this.metadataType = param['metadataId'];
-      let params = this.route.snapshot.parent.params;
-      this.metadataService.getByPackage(params['id'],params['version']).subscribe(metadata => {
-        this.loading = false;
-        this.metadata = metadata;
-        /**
-         * check availability
-         */
-        this.metadata.metadataDetails[this.metadataType].forEach(metadataItem => {
-          if(!metadataItem.hasOwnProperty('available')) {
-            this.metadataService.checkFromSystem(this.metadataType, metadataItem).subscribe(result => {
-              metadataItem = result;
-              console.log(metadata.metadataDetails);
-            })
-          }
-        });
-      })
-    });
+    })
   }
 
   viewMetadataDetails(metadataId) {

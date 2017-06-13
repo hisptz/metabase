@@ -3,19 +3,18 @@
     <div class="row">
       <div class="col-md-12">
         <h4 class="package-name">
-          <b>{{packageItemData.name}}</b>
+          <b>{{metadataPackage?.name}}</b>
           <!--<span class="notification-box-success"><i class="fa fa-check"></i> imported</span>-->
         </h4>
         <span><small><b>Tags: </b></small></span>
-        <span *ngFor="let tag of packageItemData.tags; let i=index">
+        <span *ngFor="let tag of metadataPackage?.tags; let i=index">
                 <small>{{i > 0 ?', ':''}}{{tag}}</small>
               </span>
-        <p class="text-justify">{{packageItemData.description}}</p>
+        <p class="text-justify">{{metadataPackage.description}}</p>
         <div class="package-links">
-          <app-package-version-select [versions]="packageItemData.versions" (onVersionSelect)="selectedVersion = $event"></app-package-version-select>
-          <a routerLink="metadata-package/{{selectedVersion}}/{{packageItemData.id}}" class="btn btn-default">view</a>
-          <a routerLink="metadata-package/{{selectedVersion}}/{{packageItemData.id}}/import" [queryParams]="{preview: true}" class="btn btn-default">Import Preview</a>
-          <a routerLink="metadata-package/{{selectedVersion}}/{{packageItemData.id}}/import" class="btn btn-default"><i class="fa fa-cloud-download"></i> Import</a>
+          <app-package-version-select [versions]="metadataPackage?.versions" (onVersionSelect)="selectedVersion = $event"></app-package-version-select>
+          <a routerLink="metadata-package/{{selectedVersion}}/{{metadataPackage.id}}" class="btn btn-default">view</a>
+          <app-import-button [selectedVersion]="selectedVersion" [metadataPackageId]="metadataPackage.id" [versions]="metadataPackage.versions"></app-import-button>
         </div>
       </div>
     </div>

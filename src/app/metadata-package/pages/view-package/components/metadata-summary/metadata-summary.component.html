@@ -1,0 +1,13 @@
+<table class="table package-table table-hover" *ngIf="metadata">
+  <thead>
+  <tr>
+    <th colspan="2"><h5 style="margin-top: 0px;"><b>Metadata Information</b></h5></th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let item of metadata?.metadataItems;" (click)="viewMetadata(item)" style="cursor: pointer">
+    <th><small>{{item | readableName}}</small></th>
+    <td><span class="notification-box-success">{{metadata?.metadataCount[item]}}</span></td>
+  </tr>
+  </tbody>
+</table>

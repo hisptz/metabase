@@ -1,79 +1,77 @@
-import {Component, OnInit, ViewChild, AfterViewInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
-import {MetadataPackageService} from "../../../shared/providers/metadata-package.service";
-import {MetadataSummaryComponent} from "../../components/metadata-summary/metadata-summary.component";
-import {MetadataService} from "../../../shared/providers/metadata.service";
+import {Store} from "@ngrx/store";
+import {ApplicationState} from "../../../store/application-state";
+import {CurrentMetadataPackageChangeAction, LoadMetadataAction} from "../../../store/actions";
+import {Observable} from "rxjs";
+import {currentMetadataPackageSelector} from "../../../store/selectors/current-metadata-package.selector";
+import {currentMetadataSelector} from "../../../store/selectors/current-metadata.selector";
+import {currentMetadataUrlSelector} from "../../../store/selectors/current-metadata-url.selector";
+import {loadedMetadataSelector} from "../../../store/selectors/loaded-metadata.selector";
+import * as _ from 'lodash';
 
 @Component({
   selector: 'app-view-package',
-  templateUrl: './view-package.component.html',
-  styleUrls: ['./view-package.component.css']
+  templateUrl: 'view-package.component.html',
+  styleUrls: ['view-package.component.css']
 })
-export class ViewPackageComponent implements OnInit{
+export class ViewPackageComponent implements OnInit {
 
-  metadataPackage: any = {};
-  loading: boolean = true;
-  packageHasError: boolean = false;
-  metadataHasError: boolean = false;
-  packageErrorMessage: string;
-  metadataErrorMessage: string;
+  metadataPackage$: Observable<any>;
+  metadata$: Observable<any>;
   selectedVersion: number;
-  routeDetails: any[] = [];
-  metadata: any;
-  loadingMetadata: boolean = true;
+  routeDetails: any;
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private metadataPackageService: MetadataPackageService,
-    private metadataService: MetadataService
-  ) { }
+    private store: Store<ApplicationState>
+  ) {
+    this.metadataPackage$ = store.select(currentMetadataPackageSelector);
+    this.metadata$ = store.select(currentMetadataSelector);
+  }
 
   ngOnInit() {
     this.route.params.subscribe(params => {
-      this.loading = true;
-      this.loadingMetadata = true;
       this.selectedVersion = params['version'];
-      this.metadataPackageService.find(params['id']).subscribe(metadataPackage => {
-        this.loading = false;
-        this.metadataPackage = metadataPackage;
+      this.store.dispatch(new CurrentMetadataPackageChangeAction({id: params['id'], version: params['version']}));
 
-        /**
-         * Prepare attribute for breadcrumb
-         * @type {[{name; url: ActivatedRouteSnapshot; active: boolean}]}
-         */
-        this.routeDetails = [
-          {
-            name: this.metadataPackage.name,
-            url: this.route.snapshot,
-            active: true
+      this.metadataPackage$.subscribe((metadataPackage: any) => {
+        if(metadataPackage) {
+
+          /**
+           * Prepare attribute for breadcrumb
+           * @type {[{name; url: ActivatedRouteSnapshot; active: boolean}]}
+           */
+          this.routeDetails = [
+            {
+              name: metadataPackage.name,
+              url: this.route.snapshot,
+              active: true
+            }
+          ];
+
+          const currentMetadataPackageVersion: any = _.find(metadataPackage.versions, ['version', this.selectedVersion]);
+          if(currentMetadataPackageVersion) {
+            if(!currentMetadataPackageVersion.hasOwnProperty('metadata') && currentMetadataPackageVersion.hasOwnProperty('href')) {
+              const metadataDetails: any = {
+                packageId: metadataPackage.id,
+                packageVersion: this.selectedVersion,
+                metadataUrl: currentMetadataPackageVersion.href
+              };
+              this.store.dispatch(new LoadMetadataAction(metadataDetails));
+            }
           }
-        ];
-
-        this.metadataService.getByPackage(metadataPackage.id,this.selectedVersion)
-          .subscribe(metadata => {
-            this.loadingMetadata = false;
-            this.metadata = metadata;
-            this.router.navigate(['metadata-package/' + this.selectedVersion + '/' + this.metadataPackage.id + '/metadata/' + this.metadata.metadataItems[0]])
-          }, error => {
-            this.loadingMetadata = false;
-            this.metadataHasError = true;
-            this.metadataErrorMessage = error.message;
-          })
-      }, packageError => {
-        this.loading = false;
-        this.packageHasError = true;
-        this.packageErrorMessage = packageError.message;
-
+        }
       });
-    })
-  }
 
-  getSelectedVersion(version) {
-    this.selectedVersion = version;
-  }
-
-  viewMetadata(metadataName) {
-    this.router.navigate(['metadata-package/' + this.route.snapshot.params['version'] + '/metadata/' + this.route.snapshot.params['id'] + '/' + metadataName]);
+      this.metadata$.subscribe((metadata: any) => {
+        if(metadata.metadataItems && metadata.metadataItems.length > 0) {
+          if(!params['metadataId']) {
+            this.router.navigate(['metadata-package/' + params['version'] + '/' + params['id'] + '/metadata/' + metadata.metadataItems[0]]);
+          }
+        }
+      })
+    });
   }
 
 }

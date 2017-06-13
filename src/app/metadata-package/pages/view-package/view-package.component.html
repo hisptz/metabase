@@ -1,91 +1,28 @@
-<app-breadcrumb *ngIf="!loading" [routeItems]="routeDetails"></app-breadcrumb>
-<div class="row">
+<app-breadcrumb *ngIf="metadataPackage$" [routeItems]="routeDetails"></app-breadcrumb>
+<div class="row" *ngIf="metadataPackage$">
   <div class="col-md-3">
     <div class="panel panel-default">
       <div class="panel-body">
-        <div class="alert alert-info" *ngIf="loading">
-          <small>Loading Package summary please wait...</small>
-        </div>
-        <div class="alert alert-danger" *ngIf="packageHasError">
-          <small>{{packageErrorMessage}}</small>
-        </div>
-        <table class="table package-table" *ngIf="!loading  && !packageHasError">
-          <tr>
-            <td colspan="2"><h5 style="margin-top: 0px;"><b>{{metadataPackage?.name}}</b></h5></td>
-          </tr>
-          <tr>
-            <th width="40%"><small>Package by:</small></th>
-            <td><small><a href="{{metadataPackage?.url}}" target="_blank">{{metadataPackage?.organization}}</a></small></td>
-          </tr>
-          <tr>
-            <th width="40%"><small>License:</small></th>
-            <td><small><a href="{{metadataPackage?.license.url}}" target="_blank">{{metadataPackage?.license.name}}</a></small></td>
-          </tr>
-          <tr>
-            <th width="40%"><small>Tags:</small></th>
-            <td>
-              <ul class="list-inline">
-                <li *ngFor="let tag of metadataPackage?.tags">
-                  <span class="badge">{{tag}}</span>
-                </li>
-              </ul>
-            </td>
-          </tr>
-          <tr>
-            <th width="40%"><small>Version:</small></th>
-            <td>
-              <app-package-version-select [selectedVersion]="selectedVersion" [versions]="metadataPackage?.versions" (onVersionSelect)="getSelectedVersion($event)"></app-package-version-select>
-              <a routerLink="/metadata-package/{{selectedVersion}}/{{metadataPackage.id}}" class="btn btn-default">view</a>
-            </td>
-          </tr>
-        </table>
-        <div class="alert alert-info" *ngIf="loadingMetadata">
-          <small>Loading Metadata summary please wait...</small>
-        </div>
-        <table class="table package-table table-hover" *ngIf="!loadingMetadata && !metadataHasError">
-          <thead>
-          <tr>
-            <th colspan="2"><h5 style="margin-top: 0px;"><b>Metadata Information</b></h5></th>
-          </tr>
-          </thead>
-          <tbody>
-          <tr *ngFor="let item of metadata.metadataItems;" (click)="viewMetadata(item)" style="cursor: pointer">
-            <th><small>{{item | readableName}}</small></th>
-            <td><span class="notification-box-success">{{metadata.metadataCount[item]}}</span></td>
-          </tr>
-          </tbody>
-        </table>
+        <app-package-summary [metadataPackage]="metadataPackage$ | async" [selectedVersion]="selectedVersion"></app-package-summary>
+        <app-metadata-summary *ngIf="metadata$ | async" [metadata]="metadata$ | async"></app-metadata-summary>
       </div>
     </div>
   </div>
   <div class="col-md-9">
     <div class="panel panel-default">
       <div class="panel-body">
-        <div class="alert alert-info" *ngIf="loading">
-          <small>Loading Package description please wait...</small>
-        </div>
-        <div class="alert alert-info" *ngIf="packageHasError">
-          <small>{{packageErrorMessage}}</small>
-        </div>
-        <div class="row" *ngIf="!loading && !packageHasError">
+        <div class="row">
           <div class="col-md-12" style="margin-bottom: 10px;">
             <h5><b>Description</b></h5>
-            <p class="text-justify">{{metadataPackage.description}}</p>
-            <a [routerLink]="['import']" [queryParams]="{preview: true}" class="btn btn-default">Preview Import</a>
-            <a [routerLink]="['import']" class="btn btn-default"><i class="fa fa-cloud-download"></i> Import</a>
+            <p class="text-justify">{{(metadataPackage$ | async).description}}</p>
+            <app-import-button [metadataPackageId]="(metadataPackage$ | async).id" [selectedVersion]="selectedVersion" [versions]="(metadataPackage$ | async).versions"></app-import-button>
           </div>
         </div>
-        <div class="row">
+        <div class="row" *ngIf="metadata$ | async">
           <div class="col-md-12">
-            <div class="alert alert-info" *ngIf="loadingMetadata">
-              <small>Loading Metadata details please wait...</small>
-            </div>
-            <div class="alert alert-danger" *ngIf="metadataHasError">
-              <small>{{metadataErrorMessage}}</small>
-            </div>
-            <nav class="navbar navbar-default" *ngIf="!loadingMetadata && !metadataHasError">
+            <nav class="navbar navbar-default">
               <ul class="nav navbar-nav">
-                <li *ngFor="let item of metadata.metadataItems; let i=index" routerLinkActive="active">
+                <li *ngFor="let item of (metadata$ | async).metadataItems; let i=index" routerLinkActive="active">
                   <a routerLink="metadata/{{item}}">{{item | readableName}}</a>
                 </li>
               </ul>

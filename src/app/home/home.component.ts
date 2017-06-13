@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {MetadataPackageService} from "../shared/providers/metadata-package.service";
+import {ApplicationState} from "../store/application-state";
+import {Store} from "@ngrx/store";
 import {Observable} from "rxjs";
+import {metadataPackagesSelector} from "../store/selectors/metadata-packages.selector";
 
 @Component({
   selector: 'app-home',
@@ -9,23 +11,16 @@ import {Observable} from "rxjs";
 })
 export class HomeComponent implements OnInit {
 
-  loading: boolean = true;
-  packages: Array<any>;
-  hasError: boolean = false;
-  errorMessage: string;
-  constructor(private packageService: MetadataPackageService) { }
-
-  ngOnInit() {
-    this.packageService.all()
-      .subscribe(packages => {
-        this.packages = packages;
-        this.loading = false;
-      }, error => {
-        this.loading = false;
-        this.hasError = true;
-        this.errorMessage = error.message;
-      });
+  metadataPackages$: Observable<any>;
+  showRepositorySection: boolean = false;
+  showForm: boolean = false;
+  packageName: string;
+  constructor(private store: Store<ApplicationState>) {
+    this.metadataPackages$ = store.select(metadataPackagesSelector);
   }
 
+  ngOnInit() {
+
+  }
 
 }

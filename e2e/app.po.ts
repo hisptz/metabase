@@ -1,6 +1,6 @@
 import { browser, element, by } from 'protractor';
 
-export class Metabase2Page {
+export class StoreSeedAppPage {
   navigateTo() {
     return browser.get('/');
   }
