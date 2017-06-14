@@ -8,6 +8,7 @@ export const REPOSITORIES_ADDED_ACTION = 'REPOSITORIES_ADDED_ACTION';
 export const REMOVE_REPOSITORIES_ACTION = 'REMOVE_REPOSITORIES_ACTION';
 export const REPOSITORIES_REMOVED_ACTION = 'REPOSITORIES_REMOVED_ACTION';
 export const LOAD_METADATA_PACKAGES_ACTION = 'LOAD_METADATA_PACKAGES_ACTION';
+export const UPDATE_METADATA_PACKAGES_ACTION = 'UPDATE_METADATA_PACKAGES_ACTION';
 export const METADATA_PACKAGES_LOADED_ACTION = 'METADATA_PACKAGES_LOADED_ACTION';
 export const LOAD_IMPORTED_METADATA_PACKAGES_ACTION = 'LOAD_IMPORTED_METADATA_PACKAGES_ACTION';
 export const ADD_IMPORTED_METADATA_PACKAGES_ACTION = 'ADD_IMPORTED_METADATA_PACKAGES_ACTION';
@@ -18,6 +19,7 @@ export const LOAD_METADATA_ACTION = 'LOAD_METADATA_ACTION';
 export const METADATA_LOADED_ACTION = 'METADATA_LOADED_ACTION';
 export const ERROR_OCCURRED_ACTION = 'ERROR_OCCURRED_ACTION';
 export const CLEAR_MESSAGE_ACTION = 'CLEAR_MESSAGE_ACTION';
+export const QUERY_PARAMS_CHANGE_ACTION = 'QUERY_PARAMS_CHANGE_ACTION';
 
 export class LoadRepositoriesAction implements Action {
   readonly type = LOAD_REPOSITORIES_ACTION;
@@ -119,6 +121,15 @@ export class ImportedMetadataPackagesAddedAction implements Action {
   constructor(public payload: any) {}
 }
 
+export class QueryParamsChangeAction implements Action {
+  readonly type = QUERY_PARAMS_CHANGE_ACTION;
+  constructor(public payload: any) {}
+}
+
+export class UpdateMetadataPackageAction implements Action {
+  readonly type = UPDATE_METADATA_PACKAGES_ACTION;
+  constructor(public payload: any) {}
+}
 
 
 

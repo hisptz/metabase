@@ -16,7 +16,16 @@ export class PackageItemComponent implements OnInit {
   }
 
   viewPackage() {
-    this.router.navigate(['metadata-package/' + this.selectedVersion + '/' + this.metadataPackage.id])
+
+  }
+
+  navigate(pageHref, event,queryItem?) {
+    if(!queryItem) {
+      this.router.navigate([pageHref])
+    } else {
+      this.router.navigate([pageHref], {queryParams: queryItem});
+    }
+    event.stopPropagation();
   }
 
 }

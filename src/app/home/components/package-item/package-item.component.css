@@ -15,7 +15,7 @@
 
 .package-name {
   margin-top: 4px;
-  margin-bottom: 0px;
+  margin-bottom: 2px;
 }
 
 .package-block {
@@ -31,4 +31,13 @@
 
 .package-panel:hover .package-links {
   display: block;
+}
+
+.tag-link {
+  padding: 2px;
+  text-decoration: none;
+}
+
+.tag-link:hover {
+  transform: scale(1.1);
 }

@@ -26,8 +26,8 @@ export class ImportButtonComponent implements OnInit {
     this.store.select(importedMetadataPackagesSelector).subscribe((importedMetadataPackages: any[]) => {
       if(this.metadataPackageId && this.selectedVersion && importedMetadataPackages) {
         this.loading = false;
-        const importedPackage: any = importedMetadataPackages.filter(metadataPackage => { return metadataPackage === this.metadataPackageId + '_' + this.selectedVersion});
-        if(importedPackage.length > 0) {
+        const importedPackageIndex: any = _.indexOf(importedMetadataPackages,this.metadataPackageId + '_' + this.selectedVersion);
+        if(importedPackageIndex != -1) {
           this.imported = true;
           if(this.versions) {
             this.latestVersion = this.findLatestVersion(this.versions);

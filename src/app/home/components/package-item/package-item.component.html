@@ -1,14 +1,18 @@
-<div class="panel panel-default package-panel" (click)="viewPackage()" style="cursor: pointer">
+<div class="panel panel-default package-panel" (click)="navigate('metadata-package/' + selectedVersion + '/' + metadataPackage.id, $event)" style="cursor: pointer">
   <div class="panel-body">
     <div class="row">
       <div class="col-md-12">
         <h4 class="package-name">
+          <img [src]="metadataPackage?.icons[0][48]" alt="" style="height: 20px; width: 20px;">
           <b>{{metadataPackage?.name}}</b>
           <!--<span class="notification-box-success"><i class="fa fa-check"></i> imported</span>-->
         </h4>
         <span><small><b>Tags: </b></small></span>
         <span *ngFor="let tag of metadataPackage?.tags; let i=index">
-                <small>{{i > 0 ?', ':''}}{{tag}}</small>
+                <small>
+                  {{i > 0 ?', ':''}}
+                  <a class="text-primary tag-link" (click)="navigate('/', $event, {tag: tag})" style="cursor: pointer; z-index: 1000;">{{tag}}</a>
+                </small>
               </span>
         <p class="text-justify">{{metadataPackage.description}}</p>
         <div class="package-links">

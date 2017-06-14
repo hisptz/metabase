@@ -15,7 +15,7 @@
     <td>
       <ul class="list-inline">
         <li *ngFor="let tag of metadataPackage?.tags">
-          <span class="badge">{{tag}}</span>
+          <span class="badge"><a [routerLink]="['/']" [queryParams]="{ tag: tag }" style="color: #ffffff;">{{tag}}</a></span>
         </li>
       </ul>
     </td>

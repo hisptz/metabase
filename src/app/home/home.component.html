@@ -8,8 +8,8 @@
         </h4>
       </div>
       <div class="col-md-6">
-        <div class="form-group" *ngIf="(metadataPackages$ | async).length > 0">
-          <input type="text" [(ngModel)]="packageName" class="form-control" placeholder="Search for packages and apps">
+        <div class="form-group">
+          <input type="text" [(ngModel)]="searchText" (keyup)="search(searchText)" class="form-control" placeholder="Search for packages and apps">
         </div>
       </div>
       <div class="col-md-4" style="position: relative;">
@@ -19,7 +19,6 @@
         </div>
         <app-repositories-section
           *ngIf="showRepositorySection"
-          (onRepositoriesUpdate)="updateRepositories($event)"
           (onClose)="showRepositorySection = !$event"
         >
         </app-repositories-section>

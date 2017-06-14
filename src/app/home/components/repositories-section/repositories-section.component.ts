@@ -8,8 +8,7 @@ import {AddRepositoriesAction, RemoveRepositoriesAction, UpdateRepositoriesActio
 @Component({
   selector: 'app-repositories-section',
   templateUrl: './repositories-section.component.html',
-  styleUrls: ['./repositories-section.component.css'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./repositories-section.component.css']
 })
 export class RepositoriesSectionComponent implements OnInit {
 
@@ -23,6 +22,7 @@ export class RepositoriesSectionComponent implements OnInit {
   showForm: boolean;
   sectionWidth: string = '350px';
   newRepository: any = {};
+  repositoryToEdit: any = {};
   constructor(
     private store: Store<ApplicationState>
   ) {
@@ -33,12 +33,14 @@ export class RepositoriesSectionComponent implements OnInit {
   }
 
   updateRepository(updatedRepository) {
-    this.store.dispatch(new UpdateRepositoriesAction(updatedRepository))
+    this.store.dispatch(new UpdateRepositoriesAction(updatedRepository));
+    this.repositoryToEdit = {};
   }
 
   saveRepository(newRepository) {
     this.showForm = false;
     this.store.dispatch(new AddRepositoriesAction(newRepository));
+    this.newRepository = {}
   }
 
   removeRepository(repository) {
@@ -57,5 +59,15 @@ export class RepositoriesSectionComponent implements OnInit {
 
     this.sectionWidth = this.showForm ? '350px' : '600px';
     this.showForm = !this.showForm;
+  }
+
+  toggleEditForm(repository) {
+    this.sectionWidth = '600px';
+    if(this.repositoryToEdit.id === repository.id) {
+      this.repositoryToEdit = {};
+      this.sectionWidth = '350px';
+    } else {
+      this.repositoryToEdit = repository;
+    }
   }
 }
