@@ -1,5 +1,5 @@
 import { NgModule }     from '@angular/core';
-import {Routes, RouterModule, PreloadAllModules} from '@angular/router';
+import {PreloadAllModules, RouterModule, Routes} from '@angular/router';
 
 export const routes: Routes = [
   { path: '', loadChildren: 'app/home/home.module#HomeModule'},

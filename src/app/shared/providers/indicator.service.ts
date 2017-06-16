@@ -37,7 +37,7 @@ export class IndicatorService {
     /**
      * Get indicator type
      */
-    dependencies.push({type: 'indicatorType', details: indicator.indicatorType})
+    dependencies.push({type: 'indicatorType', details: indicator.indicatorType});
 
     /**
      * Get indicator user if any

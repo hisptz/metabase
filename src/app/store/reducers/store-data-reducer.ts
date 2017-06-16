@@ -57,21 +57,30 @@ export function storeDataReducer(state: StoreData = INITIAL_STORE_DATA, action) 
     }
 
     case 'METADATA_LOADED_ACTION': {
-      const newState: any = _.clone(state);
-
-      newState.originalMetadataPackages.forEach((metadataPackage: any) => {
-        if(metadataPackage.id == action.payload.packageId) {
-          metadataPackage.versions.forEach((versionItem: any) => {
-            if(versionItem.version == action.payload.packageVersion) {
-              versionItem.metadata = action.payload.metadata;
-            }
-          });
-        }
-      });
-
-      return newState;
+      return handleLoadedOrUpdatedMetadata(state, action);
     }
+
+    case 'METADATA_UPDATED_ACTION': {
+      return handleLoadedOrUpdatedMetadata(state, action);
+    }
+
     default:
       return state;
   }
+}
+
+function handleLoadedOrUpdatedMetadata(state: StoreData, action: any) {
+  const newState: any = _.clone(state);
+
+  newState.originalMetadataPackages.forEach((metadataPackage: any) => {
+    if(metadataPackage.id == action.payload.packageId) {
+      metadataPackage.versions.forEach((versionItem: any) => {
+        if(versionItem.version == action.payload.packageVersion) {
+          versionItem.metadata = action.payload.metadata;
+        }
+      });
+    }
+  });
+
+  return newState;
 }

@@ -1,5 +1,7 @@
 export interface UiState {
   errorMessage: string;
+  importMessages: any[];
+  progressMessages: any[];
   currentMetadataPackage: {
     id: string;
     version: number;
@@ -13,5 +15,7 @@ export const INITIAL_UI_STATE = {
     id: undefined,
     version: 0
   },
-  loadedMetadata: []
+  importMessages: [],
+  loadedMetadata: [],
+  progressMessages: []
 };

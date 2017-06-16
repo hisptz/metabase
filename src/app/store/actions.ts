@@ -17,9 +17,17 @@ export const IMPORTED_METADATA_PACKAGES_LOADED_ACTION = 'IMPORTED_METADATA_PACKA
 export const CURRENT_METADATA_PACKAGE_CHANGE_ACTION = 'CURRENT_METADATA_PACKAGE_CHANGE_ACTION';
 export const LOAD_METADATA_ACTION = 'LOAD_METADATA_ACTION';
 export const METADATA_LOADED_ACTION = 'METADATA_LOADED_ACTION';
+export const METADATA_UPDATED_ACTION = 'METADATA_UPDATED_ACTION';
 export const ERROR_OCCURRED_ACTION = 'ERROR_OCCURRED_ACTION';
 export const CLEAR_MESSAGE_ACTION = 'CLEAR_MESSAGE_ACTION';
 export const QUERY_PARAMS_CHANGE_ACTION = 'QUERY_PARAMS_CHANGE_ACTION';
+export const CHECK_METADATA_EXISTENCE_ACTION = 'CHECK_METADATA_EXISTENCE_ACTION';
+export const METADATA_EXISTENCE_CHECKED_ACTION = 'METADATA_EXISTENCE_CHECKED_ACTION';
+export const UPDATE_METADATA_WITH_DEPENDENCY_ACTION = 'UPDATE_METADATA_WITH_DEPENDENCY_ACTION';
+export const METADATA_WITH_DEPENDENCY_UPDATED_ACTION = 'METADATA_WITH_DEPENDENCY_UPDATED_ACTION';
+export const GET_METADATA_IMPORTABLE_VERSION_ACTION = 'GET_METADATA_IMPORTABLE_VERSION_ACTION';
+export const METADATA_IMPORT_PREVIEW_ACTION = 'METADATA_IMPORT_PREVIEW_ACTION';
+export const METADATA_IMPORT_PREVIEW_COMPLETED_ACTION = 'METADATA_IMPORT_PREVIEW_COMPLETED_ACTION';
 
 export class LoadRepositoriesAction implements Action {
   readonly type = LOAD_REPOSITORIES_ACTION;
@@ -128,6 +136,46 @@ export class QueryParamsChangeAction implements Action {
 
 export class UpdateMetadataPackageAction implements Action {
   readonly type = UPDATE_METADATA_PACKAGES_ACTION;
+  constructor(public payload: any) {}
+}
+
+export class CheckMetadataExistenceAction implements Action {
+  readonly type = CHECK_METADATA_EXISTENCE_ACTION;
+  constructor(public payload: any) {}
+}
+
+export class MetadataExistenceCheckedAction implements Action {
+  readonly type = METADATA_EXISTENCE_CHECKED_ACTION;
+  constructor(public payload: any) {}
+}
+
+export class UpdateMetadataWithDependencyAction implements Action {
+  readonly type = UPDATE_METADATA_WITH_DEPENDENCY_ACTION;
+  constructor(public payload: any) {}
+}
+
+export class MetadataWithDependencyUpdatedAction implements Action {
+  readonly type = METADATA_WITH_DEPENDENCY_UPDATED_ACTION;
+  constructor(public payload: any) {};
+}
+
+export class MetadataUpdatedAction implements Action {
+  readonly type = METADATA_UPDATED_ACTION;
+  constructor(public payload: any) {}
+}
+
+export class GetMetadataImportableVersionAction implements Action {
+  readonly type = GET_METADATA_IMPORTABLE_VERSION_ACTION;
+  constructor(public payload: any) {}
+}
+
+export class MetadataImportPreviewAction implements Action {
+  readonly type = METADATA_IMPORT_PREVIEW_ACTION;
+  constructor(public payload: any) {}
+}
+
+export class MetadataImportPreviewCompletedAction implements Action {
+  readonly type = METADATA_IMPORT_PREVIEW_COMPLETED_ACTION;
   constructor(public payload: any) {}
 }
 

@@ -13,13 +13,6 @@ import {DataElementComponent} from "./pages/metadata-details/components/data-ele
 import {IndicatorsComponent} from "./pages/metadata-details/components/indicators/indicators.component";
 import {IndicatorTypeComponent} from "./pages/metadata-details/components/indicator-type/indicator-type.component";
 import {OrgUnitComponent} from "./pages/metadata-details/components/org-unit/org-unit.component";
-import {MetadataService} from "./providers/metadata.service";
-import {IndicatorService} from "./providers/indicator.service";
-import {IndicatorTypeService} from "./providers/indicator-type.service";
-import {DataElementService} from './providers/data-element.service';
-import {UserService} from './providers/user.service';
-import {CategoryOptionComboService} from './providers/category-option-combo.service';
-import {OrgUnitGroupService} from './providers/org-unit-group.service';
 import {DataTableModule} from 'angular2-datatable';
 import {FormsModule} from '@angular/forms';
 import { DataFilterPipe } from './pipes/data-filter.pipe';
@@ -35,13 +28,6 @@ import {BreadcrumbComponent} from './components/breadcrumb/breadcrumb.component'
   ],
   declarations: [MetadataPackageComponent, ViewPackageComponent, MetadataDetailsComponent, ImportPackageComponent, PackageSummaryComponent, MetadataSummaryComponent, DataElementComponent,IndicatorsComponent, IndicatorTypeComponent, OrgUnitComponent, DataFilterPipe, BreadcrumbComponent],
   providers: [
-    MetadataService,
-    IndicatorService,
-    IndicatorTypeService,
-    DataElementService,
-    UserService,
-    CategoryOptionComboService,
-    OrgUnitGroupService
   ]
 })
 export class MetadataPackageModule { }

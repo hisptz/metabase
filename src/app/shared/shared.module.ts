@@ -11,6 +11,14 @@ import { NotificationComponent } from './components/notification/notification.co
 import { ImportButtonComponent } from './components/import-button/import-button.component';
 import {RouterModule} from "@angular/router";
 import {ProgressComponent} from './components/progress/progress.component';
+import {MetadataService} from './providers/metadata.service';
+import {IndicatorService} from './providers/indicator.service';
+import {DataElementService} from './providers/data-element.service';
+import {IndicatorTypeService} from './providers/indicator-type.service';
+import {CategoryOptionComboService} from './providers/category-option-combo.service';
+import {UserService} from './providers/user.service';
+import {OrgUnitGroupService} from './providers/org-unit-group.service';
+import {OrganisationunitService} from './providers/organisationunit.service';
 
 @NgModule({
   imports: [
@@ -19,7 +27,19 @@ import {ProgressComponent} from './components/progress/progress.component';
     RouterModule
   ],
   declarations: [PackageVersionSelectComponent, ReadableNamePipe, FilterPipe, NotificationComponent, ImportButtonComponent, ProgressComponent],
-  providers: [HttpClientService, RepositoriesService,MetadataPackageService],
+  providers: [
+    HttpClientService,
+    RepositoriesService,
+    MetadataPackageService,
+    MetadataService,
+    IndicatorService,
+    IndicatorTypeService,
+    DataElementService,
+    UserService,
+    CategoryOptionComboService,
+    OrgUnitGroupService,
+    OrganisationunitService
+  ],
   exports: [PackageVersionSelectComponent,ReadableNamePipe, FilterPipe,NotificationComponent, ImportButtonComponent, ProgressComponent]
 })
 export class SharedModule { }

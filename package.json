@@ -22,6 +22,7 @@
     "@angular/router": "^4.0.0",
     "@ngrx/core": "^1.2.0",
     "@ngrx/effects": "^2.0.3",
+    "@ngrx/router": "^1.0.0-beta.2",
     "@ngrx/store": "^2.2.2",
     "@ngrx/store-devtools": "^3.2.4",
     "@swimlane/ngx-datatable": "^9.1.0",
@@ -31,6 +32,7 @@
     "font-awesome": "^4.7.0",
     "fuse.js": "^3.0.4",
     "lodash": "^4.17.4",
+    "ng2-pagination": "^2.0.1",
     "ng2-super-table": "^0.1.1",
     "rxjs": "^5.1.0",
     "zone.js": "^0.8.4"

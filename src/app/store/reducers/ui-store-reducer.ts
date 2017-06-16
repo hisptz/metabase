@@ -21,6 +21,81 @@ export function uiStateReducer(state: UiState = INITIAL_UI_STATE, action) {
       return newState;
     }
 
+    case 'METADATA_LOADED_ACTION': {
+      const newState = _.clone(state);
+      const newProgressMessages = _.clone(newState.progressMessages)
+      newProgressMessages.push({message: 'Metadata details loaded'});
+      newState.progressMessages = _.clone(newProgressMessages)
+      return newState;
+    }
+
+    case 'LOAD_METADATA_ACTION': {
+      const newState = _.clone(state);
+      if(newState.progressMessages.length === 0) {
+        const newProgressMessages = _.clone(newState.progressMessages)
+        newProgressMessages.push({message: 'Loading Metadata details'});
+        newState.progressMessages = _.clone(newProgressMessages)
+      }
+
+      return newState;
+    }
+
+    case 'CHECK_METADATA_EXISTENCE_ACTION': {
+      const newState = _.clone(state);
+      const newProgressMessages = _.clone(newState.progressMessages)
+      newProgressMessages.push({message: 'Checking metadata availability'});
+      newState.progressMessages = _.clone(newProgressMessages)
+      return newState;
+    }
+
+    case 'METADATA_EXISTENCE_CHECKED_ACTION': {
+      const newState = _.clone(state);
+      const newProgressMessages = _.clone(newState.progressMessages);
+      newProgressMessages.push({message: 'Metadata availability check completed'});
+      newState.progressMessages = _.clone(newProgressMessages);
+      return newState;
+    }
+
+    case 'UPDATE_METADATA_WITH_DEPENDENCY_ACTION': {
+      const newState = _.clone(state);
+      const newProgressMessages = _.clone(newState.progressMessages);
+      newProgressMessages.push({message: 'Analyzing and checking Metadata Dependencies availability'});
+      newState.progressMessages = _.clone(newProgressMessages);
+      return newState;
+    }
+
+    case 'METADATA_WITH_DEPENDENCY_UPDATED_ACTION': {
+      const newState = _.clone(state);
+      const newProgressMessages = _.clone(newState.progressMessages);
+      newProgressMessages.push({message: 'Metadata Dependencies analysis completed'});
+      newState.progressMessages = _.clone(newProgressMessages);
+      return newState;
+    }
+
+    case 'GET_METADATA_IMPORTABLE_VERSION_ACTION': {
+      const newState = _.clone(state);
+      const newProgressMessages = _.clone(newState.progressMessages);
+      newProgressMessages.push({message: 'Compiling Metadata importable version'});
+      newState.progressMessages = _.clone(newProgressMessages);
+      return newState;
+    }
+
+    case 'METADATA_IMPORT_PREVIEW_ACTION': {
+      const newState = _.clone(state);
+      const newProgressMessages = _.clone(newState.progressMessages);
+      newProgressMessages.push({message: 'Previewing Metadata'});
+      newState.progressMessages = _.clone(newProgressMessages);
+      return newState;
+    }
+
+    case 'METADATA_IMPORT_PREVIEW_COMPLETED_ACTION': {
+      const newState = _.clone(state);
+      const newProgressMessages = _.clone(newState.progressMessages);
+      newProgressMessages.push({message: 'Metadata preview completed'});
+      newState.progressMessages = _.clone(newProgressMessages);
+      return newState;
+    }
+
     default:
       return state;
   }

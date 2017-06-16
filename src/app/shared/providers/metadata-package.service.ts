@@ -69,12 +69,12 @@ export class MetadataPackageService {
             sanitizedMetadata.push({
               id: metadataItem.id,
               name: metadataItem.name,
-              code: metadataItem.hasOwnProperty('code') ? metadataItem.code : 'None',
+              code: metadataItem.code,
               created: metadataItem.created,
               lastUpdated: metadataItem.lastUpdated,
               originalVersion: metadataItem,
-              inSystemVersion: {},
-              importableVersion: {}
+              inSystemVersion: null,
+              importableVersion: null
             });
           })
         }
