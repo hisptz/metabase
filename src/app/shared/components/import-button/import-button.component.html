@@ -1,4 +1,5 @@
 <a href="" *ngIf="!loading && imported && !toUpdate" class="btn btn-success disabled">Imported</a>
+<a *ngIf="!loading && imported && !toUpdate" routerLink="/metadata-package/{{selectedVersion}}/{{metadataPackageId}}/import" class="btn btn-default"><i class="fa fa-cloud-download"></i> Recheck anyway</a>
 <a *ngIf="!loading && toUpdate" routerLink="/metadata-package/{{latestVersion}}/{{metadataPackageId}}/import" class="btn btn-default"><i class="fa fa-cloud-download"></i> Preview Import</a>
 <a *ngIf="!loading && !imported" routerLink="/metadata-package/{{selectedVersion}}/{{metadataPackageId}}/import" class="btn btn-default"><i class="fa fa-cloud-download"></i> Preview and Import</a>
 <a href="" *ngIf="loading" class="btn btn-default disabled">Loading</a>

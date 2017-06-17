@@ -14,12 +14,21 @@ export class RepositoriesService {
     private http: HttpClientService,
     private utilities: UtilitiesService
   ) {
-    this.defaultRepository = {
-      id: 1,
-      name: 'HISP Tanzania Repository',
-      url: 'https://raw.githubusercontent.com/hisptz/dhis2-metadata-repo/master/packages.json',
-      selected: true
-    };
+    this.defaultRepository = [
+      {
+        id: 1,
+        name: 'DHIS2 UiO',
+        url: 'https://raw.githubusercontent.com/dhis2/dhis2-metadata-repo/master/repo/26/index.json',
+        selected: true
+      },
+      {
+        id: 2,
+        name: 'DHIS2 HISPTZ',
+        url: 'https://raw.githubusercontent.com/hisptz/dhis2-metadata-repo/master/packages.json',
+        selected: true
+      }
+
+    ];
     this.datastoreUrl = 'dataStore/metabase/repositories';
   }
 
@@ -32,20 +41,20 @@ export class RepositoriesService {
             observer.next(repositories);
             observer.complete();
           } else {
-            return this.http.put(this.datastoreUrl, [this.defaultRepository])
+            return this.http.put(this.datastoreUrl, this.defaultRepository)
               .catch(this.utilities.handleError)
               .subscribe(updateResponse => {
-                observer.next([this.defaultRepository]);
+                observer.next(this.defaultRepository);
                 observer.complete();
               }, editError => {
                 observer.error(editError);
               });
           }
         }, error => {
-          this.http.post(this.datastoreUrl, [this.defaultRepository])
+          this.http.post(this.datastoreUrl, this.defaultRepository)
             .catch(this.utilities.handleError)
             .subscribe(() => {
-              observer.next([this.defaultRepository]);
+              observer.next(this.defaultRepository);
               observer.complete();
             }, addError => {
               observer.error(addError);
