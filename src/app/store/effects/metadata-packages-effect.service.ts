@@ -7,7 +7,9 @@ import {
   MetadataWithDependencyUpdatedAction, METADATA_EXISTENCE_CHECKED_ACTION, UpdateMetadataWithDependencyAction,
   METADATA_WITH_DEPENDENCY_UPDATED_ACTION, MetadataUpdatedAction, GetMetadataImportableVersionAction,
   GET_METADATA_IMPORTABLE_VERSION_ACTION, MetadataImportPreviewAction, METADATA_IMPORT_PREVIEW_ACTION,
-  MetadataImportPreviewCompletedAction, METADATA_IMPORT_PREVIEW_COMPLETED_ACTION
+  MetadataImportPreviewCompletedAction, METADATA_IMPORT_PREVIEW_COMPLETED_ACTION, METADATA_IMPORT_ACTION,
+  MetadataImportCompletedAction, METADATA_IMPORT_COMPLETED_ACTION, AddImportedMetadataPackagesAction,
+  METADATA_UPDATED_ACTION
 } from "../actions";
 import {Action} from "@ngrx/store";
 import {Observable} from "rxjs";
@@ -83,7 +85,7 @@ export class MetadataPackagesEffectService {
 
   @Effect() metadataPreview$: Observable<Action> = this.actions$
     .ofType(METADATA_IMPORT_PREVIEW_ACTION)
-    .switchMap(action => this.metadataService.metadataImportPreview(action.payload))
+    .switchMap(action => this.metadataService.metadataImport(action.payload))
     .map(metadata => new MetadataImportPreviewCompletedAction(metadata))
     .catch((error) => Observable.of(new ErrorOccurredAction(error)));
 
@@ -92,6 +94,20 @@ export class MetadataPackagesEffectService {
     .switchMap(action => Observable.of(action.payload))
     .map(metadata => new MetadataUpdatedAction(metadata));
 
+  @Effect() metadataImport$: Observable<Action> = this.actions$
+    .ofType(METADATA_IMPORT_ACTION)
+    .switchMap(action => this.metadataService.metadataImport(action.payload))
+    .map(metadata => new MetadataImportCompletedAction(metadata))
+    .catch((error) => Observable.of(new ErrorOccurredAction(error)));
 
+  @Effect() metadataImportCompleted$: Observable<Action> = this.actions$
+    .ofType(METADATA_IMPORT_COMPLETED_ACTION)
+    .switchMap(action => Observable.of(action.payload))
+    .map(metadata => new MetadataUpdatedAction(metadata));
+
+  @Effect() metadataUpdated$: Observable<Action> = this.actions$
+    .ofType(METADATA_UPDATED_ACTION)
+    .switchMap(action => Observable.of(action.payload))
+    .map(metadataPackage => new AddImportedMetadataPackagesAction(metadataPackage.packageId + '_' + metadataPackage.packageVersion))
 
 }

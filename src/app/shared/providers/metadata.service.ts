@@ -169,6 +169,7 @@ export class MetadataService {
           if(metadataResponseCount === metadataItemCount) {
             metadataPackage.metadata = _.clone(newMetadataObject);
             metadataPackage.metadata.checked = true;
+            metadataPackage.metadata.preview = true;
             metadataPackage.metadata.progressSummary = _.clone(newProgressSummary);
             observer.next(metadataPackage);
             observer.complete();
@@ -263,9 +264,9 @@ export class MetadataService {
     return importablePackage;
   }
 
-  metadataImportPreview(metadataPackage) {
+  metadataImport(metadataPackage) {
     return Observable.create(observer => {
-      this.importMetadata(true, metadataPackage.metadata.importablePackage)
+      this.importMetadata(metadataPackage.metadata.preview, metadataPackage.metadata.importablePackage)
         .subscribe(importResult => {
           metadataPackage.metadata.importResult = _.clone(importResult);
           observer.next(metadataPackage);

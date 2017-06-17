@@ -6,12 +6,11 @@ import {currentMetadataSelector} from "../../../store/selectors/current-metadata
 import {currentMetadataPackageSelector} from "../../../store/selectors/current-metadata-package.selector";
 import {
   LoadMetadataAction, CurrentMetadataPackageChangeAction,
-  AddImportedMetadataPackagesAction, CheckMetadataExistenceAction
+  AddImportedMetadataPackagesAction, CheckMetadataExistenceAction, MetadataImportAction
 } from "../../../store/actions";
 import * as _ from 'lodash';
 import {MetadataService} from "../../../shared/providers/metadata.service";
 import {Observable} from 'rxjs/Observable';
-import {currentImportablePackageSelector} from '../../../store/selectors/current-importable-package.selector';
 
 @Component({
   selector: 'app-import-package',
@@ -20,23 +19,19 @@ import {currentImportablePackageSelector} from '../../../store/selectors/current
 })
 export class ImportPackageComponent implements OnInit {
 
-  totalItems: number = 19;
   loadedItems: number = 0;
-  importCompleted: boolean = false;
   progress: string;
-  importSummary: any;
   routeDetails: any;
-  summaryTitle: string;
   isPreview: boolean = true;
   importablePackage: any;
   packageId: string;
   packageVersion: string;
   currentMetadata$: Observable<any>;
+  importing: boolean = false;
   constructor(
     private store: Store<ApplicationState>,
-    private route: ActivatedRoute,
-    private router: Router,
-    private metadataService: MetadataService
+    private route: ActivatedRoute
+
   ) {
     this.currentMetadata$ = this.store.select(currentMetadataSelector)
   }
@@ -88,37 +83,13 @@ export class ImportPackageComponent implements OnInit {
 
   }
 
-  calculateProgress(loaded,total) {
-    return total == 0 ? 0 :((loaded/total)*100).toFixed(0)
-  }
-
-  importMetadata(preview, metadata) {
-    this.metadataService.importMetadata(preview, metadata).subscribe(result => {
-      this.progress = preview ? 'Metadata preview completed': 'Metadata Import completed';
-      this.loadedItems++;
-      //this.totalItems = 0;
-      this.importCompleted = true;
-      this.summaryTitle = preview ? 'Preview summary' : 'Import summary';
-      this.importSummary = result;
-      if(!preview) {
-        this.totalItems = 0;
-        this.store.dispatch(new AddImportedMetadataPackagesAction(this.packageId + '_' + this.packageVersion))
-      }
-    })
-  }
-
   completeImport() {
-    this.importCompleted = false;
-    this.isPreview = false;
-    this.progress = 'Importing metadata';
-    this.loadedItems++;
-    this.importMetadata(false, this.importablePackage)
-  }
-
-  cancelImport() {
-    this.importCompleted = false;
-    this.totalItems = 0;
-    this.router.navigate(['/']);
+    this.currentMetadata$.subscribe(metadata => {
+      const newMetadata = _.clone(metadata);
+      newMetadata.preview = false;
+      this.importing = true;
+      this.store.dispatch(new MetadataImportAction({packageId: this.packageId, metadata: newMetadata, packageVersion: this.packageVersion}));
+    }).unsubscribe();
   }
 
 }

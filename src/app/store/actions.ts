@@ -28,6 +28,8 @@ export const METADATA_WITH_DEPENDENCY_UPDATED_ACTION = 'METADATA_WITH_DEPENDENCY
 export const GET_METADATA_IMPORTABLE_VERSION_ACTION = 'GET_METADATA_IMPORTABLE_VERSION_ACTION';
 export const METADATA_IMPORT_PREVIEW_ACTION = 'METADATA_IMPORT_PREVIEW_ACTION';
 export const METADATA_IMPORT_PREVIEW_COMPLETED_ACTION = 'METADATA_IMPORT_PREVIEW_COMPLETED_ACTION';
+export const METADATA_IMPORT_ACTION = 'METADATA_IMPORT_ACTION';
+export const METADATA_IMPORT_COMPLETED_ACTION = 'METADATA_IMPORT_COMPLETED_ACTION';
 
 export class LoadRepositoriesAction implements Action {
   readonly type = LOAD_REPOSITORIES_ACTION;
@@ -176,6 +178,16 @@ export class MetadataImportPreviewAction implements Action {
 
 export class MetadataImportPreviewCompletedAction implements Action {
   readonly type = METADATA_IMPORT_PREVIEW_COMPLETED_ACTION;
+  constructor(public payload: any) {}
+}
+
+export class MetadataImportAction implements Action {
+  readonly type = METADATA_IMPORT_ACTION;
+  constructor(public payload: any) {}
+}
+
+export class MetadataImportCompletedAction implements Action {
+  readonly type = METADATA_IMPORT_COMPLETED_ACTION;
   constructor(public payload: any) {}
 }
 

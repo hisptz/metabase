@@ -59,8 +59,8 @@
         </div>
         <!--end of conflicts-->
         <div class="form-group" *ngIf="(currentMetadata$ | async)?.importResult.isPreview && (currentMetadata$ | async)?.importResult.completed">
-          <button class="btn btn-primary" (click)="completeImport()">Continue with Import</button>
-          <button class="btn btn-warning" (click)="cancelImport()">Cancel</button>
+          <button class="btn btn-primary" (click)="completeImport()" [disabled]="importing">{{importing ? 'Importing Metadata':'Continue with Import'}}</button>
+          <a class="btn btn-warning" routerLink="/metadata-package/{{packageVersion}}/{{packageId}}">Cancel</a>
         </div>
       </div>
     </div>

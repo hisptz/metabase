@@ -12,6 +12,7 @@ export function uiStateReducer(state: UiState = INITIAL_UI_STATE, action) {
     case 'CURRENT_METADATA_PACKAGE_CHANGE_ACTION': {
       const newState: UiState = _.clone(state);
       newState.currentMetadataPackage = action.payload;
+      newState.progressMessages = [];
       return newState;
     }
 
@@ -23,7 +24,7 @@ export function uiStateReducer(state: UiState = INITIAL_UI_STATE, action) {
 
     case 'METADATA_LOADED_ACTION': {
       const newState = _.clone(state);
-      const newProgressMessages = _.clone(newState.progressMessages)
+      const newProgressMessages = _.clone(newState.progressMessages);
       newProgressMessages.push({message: 'Metadata details loaded'});
       newState.progressMessages = _.clone(newProgressMessages)
       return newState;
