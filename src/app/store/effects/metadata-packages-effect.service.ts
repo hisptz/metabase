@@ -105,8 +105,8 @@ export class MetadataPackagesEffectService {
     .switchMap(action => Observable.of(action.payload))
     .map(metadata => new MetadataUpdatedAction(metadata));
 
-  @Effect() metadataUpdated$: Observable<Action> = this.actions$
-    .ofType(METADATA_UPDATED_ACTION)
+  @Effect() metadataImportedAndUpdated$: Observable<Action> = this.actions$
+    .ofType(METADATA_IMPORT_COMPLETED_ACTION)
     .switchMap(action => Observable.of(action.payload))
     .map(metadataPackage => new AddImportedMetadataPackagesAction(metadataPackage.packageId + '_' + metadataPackage.packageVersion))
 

@@ -115,23 +115,23 @@ export class MetadataService {
 
   checkFromSystemForOtherTypes(metadata, metadataType): Observable<any> {
     let url: string = '';
-    const metadataId = metadata.originalVersion.id;
+    const metadataId = metadata.id;
     if(metadataId) {
       url = '../../../api/' + metadataType +'s/' + metadataId + '.json';
     }
 
     if(url === '') {
-      return Observable.of(metadata);
+      return Observable.of(null);
     }
 
     return Observable.create(observer => {
       this.http.get(url).map((res: Response) => res.json()).catch(error => Observable.throw(new Error(error)))
         .subscribe(response => {
-          metadata.inSystemVersion = response;
-          observer.next(metadata);
+          // metadata.inSystemVersion = response;
+          observer.next(response);
           observer.complete();
         }, () => {
-          observer.next(metadata);
+          observer.next(null);
           observer.complete();
         })
     })
@@ -196,7 +196,7 @@ export class MetadataService {
         }
 
         Observable.forkJoin(
-          metadataItemDetails.map(metadata => {return metadata !== null ? this.checkFromSystem(metadataItemType.slice(0,-1),metadata): Observable.of(null)})
+          metadataItemDetails.map(metadata => {return metadata !== null ? this.checkFromSystem(metadataItemType.slice(0,-1),metadata.originalVersion): Observable.of(null)})
         ).subscribe((result:any) => {
           metadataProgressSummary.metadataInSystemCount = result.filter(value => { return value !== null }).length;
           metadataResponseCount++;
