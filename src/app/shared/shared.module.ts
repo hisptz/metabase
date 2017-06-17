@@ -19,6 +19,7 @@ import {CategoryOptionComboService} from './providers/category-option-combo.serv
 import {UserService} from './providers/user.service';
 import {OrgUnitGroupService} from './providers/org-unit-group.service';
 import {OrganisationunitService} from './providers/organisationunit.service';
+import {UtilitiesService} from './providers/utilities.service';
 
 @NgModule({
   imports: [
@@ -38,7 +39,8 @@ import {OrganisationunitService} from './providers/organisationunit.service';
     UserService,
     CategoryOptionComboService,
     OrgUnitGroupService,
-    OrganisationunitService
+    OrganisationunitService,
+    UtilitiesService
   ],
   exports: [PackageVersionSelectComponent,ReadableNamePipe, FilterPipe,NotificationComponent, ImportButtonComponent, ProgressComponent]
 })

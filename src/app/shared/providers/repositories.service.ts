@@ -3,13 +3,17 @@ import {HttpClientService} from "./http-client.service";
 import {Observable} from "rxjs";
 import {Response} from "@angular/http";
 import * as _ from 'lodash';
+import {UtilitiesService} from './utilities.service';
 
 @Injectable()
 export class RepositoriesService {
 
   defaultRepository: any;
   datastoreUrl: string;
-  constructor(private http: HttpClientService) {
+  constructor(
+    private http: HttpClientService,
+    private utilities: UtilitiesService
+  ) {
     this.defaultRepository = {
       id: 1,
       name: 'HISP Tanzania Repository',
@@ -22,14 +26,14 @@ export class RepositoriesService {
   loadRepositories(): Observable<any> {
     return Observable.create(observer => {
       this.http.get(this.datastoreUrl)
-        .catch(error => Observable.throw(new Error(error)))
+        .catch(this.utilities.handleError)
         .subscribe((repositories: any[]) => {
           if(repositories.length > 0) {
             observer.next(repositories);
             observer.complete();
           } else {
             return this.http.put(this.datastoreUrl, [this.defaultRepository])
-              .catch(error => Observable.throw(new Error(error)))
+              .catch(this.utilities.handleError)
               .subscribe(updateResponse => {
                 observer.next([this.defaultRepository]);
                 observer.complete();
@@ -39,7 +43,7 @@ export class RepositoriesService {
           }
         }, error => {
           this.http.post(this.datastoreUrl, [this.defaultRepository])
-            .catch(error => Observable.throw(new Error(error)))
+            .catch(this.utilities.handleError)
             .subscribe(() => {
               observer.next([this.defaultRepository]);
               observer.complete();
@@ -60,7 +64,7 @@ export class RepositoriesService {
           if(existingRepository) {
             newRepositories[existingRepositoryIndex] = repositoryData;
             this.http.put(this.datastoreUrl, newRepositories)
-              .catch(error => Observable.throw(new Error(error)))
+              .catch(this.utilities.handleError)
               .subscribe(() => {
                 observer.next(newRepositories);
                 observer.complete();
@@ -82,7 +86,7 @@ export class RepositoriesService {
           if(existingRepositoryIndex != -1) {
             newRepositories.splice(existingRepositoryIndex,1);
             this.http.put(this.datastoreUrl, newRepositories)
-              .catch(error => Observable.throw(new Error(error)))
+              .catch(this.utilities.handleError)
               .subscribe(() => {
                 observer.next(newRepositories);
                 observer.complete();
@@ -104,7 +108,7 @@ export class RepositoriesService {
           repositoryData.selected = true;
           newRepositories.push(repositoryData);
           this.http.put(this.datastoreUrl, newRepositories)
-            .catch(error => Observable.throw(new Error(error)))
+            .catch(this.utilities.handleError)
             .subscribe(() => {
               observer.next(newRepositories);
               observer.complete();

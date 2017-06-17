@@ -4,11 +4,16 @@ import {Observable} from "rxjs";
 import {isArray} from "rxjs/util/isArray";
 import {HttpClientService} from "./http-client.service";
 import * as _ from 'lodash';
+import {UtilitiesService} from './utilities.service';
 
 @Injectable()
 export class MetadataPackageService {
 
-  constructor(private http: Http, private httpClient: HttpClientService) { }
+  constructor(
+    private http: Http,
+    private httpClient: HttpClientService,
+    private utilities: UtilitiesService
+  ) { }
 
   loadAll(urlArray): Observable<any> {
     const urlCallArray: any = urlArray.map(url => {return this.getCallRequest(url)});
@@ -41,13 +46,13 @@ export class MetadataPackageService {
   }
 
   getCallRequest(url): Observable<any> {
-    return this.http.get(url).map(res => res.json()).catch(error => Observable.throw(new Error(error)));
+    return this.http.get(url).map(res => res.json()).catch(this.utilities.handleError);
   }
 
   loadMetadata(metadataDetails: any): Observable<any> {
     return Observable.create(observer => {
       this.http.get(metadataDetails.metadataUrl).map(res => res.json())
-        .catch(error => Observable.throw(new Error(error)))
+        .catch(this.utilities.handleError)
         .subscribe(metadataResponse => {
           observer.next({packageId: metadataDetails.packageId, packageVersion: metadataDetails.packageVersion, metadata: this.getCompiledMetadata(metadataResponse)});
           observer.complete();
@@ -91,13 +96,13 @@ export class MetadataPackageService {
   loadImportedMetadataPackages(): Observable<any> {
     return Observable.create(observer => {
       this.httpClient.get('dataStore/metabase/importedMetadataPackages')
-        .catch(error => Observable.throw(new Error(error)))
+        .catch(this.utilities.handleError)
         .subscribe((importedMetadataPackages: any[]) => {
           observer.next(importedMetadataPackages);
           observer.complete();
         }, error => {
           this.httpClient.post('dataStore/metabase/importedMetadataPackages', [])
-            .catch(error => Observable.throw(new Error(error)))
+            .catch(this.utilities.handleError)
             .subscribe(response => {
               observer.next([]);
               observer.complete();
@@ -114,7 +119,7 @@ export class MetadataPackageService {
         const newImportedPackages: any[] = _.clone(importedPackages);
         newImportedPackages.push(importedMetadataId);
         this.httpClient.put('dataStore/metabase/importedMetadataPackages', newImportedPackages)
-          .catch(error => Observable.throw(new Error(error)))
+          .catch(this.utilities.handleError)
           .subscribe(() => {
             observer.next(newImportedPackages);
             observer.complete();
@@ -123,17 +128,6 @@ export class MetadataPackageService {
           });
       })
     })
-  }
-
-  importMetadata(dryRun: boolean, metadata: any) {
-    let importMode = dryRun ? 'VALIDATE': 'COMMIT';
-    this.http.post('../../../api/metadata?importMode='+ importMode + '&strategy=CREATE_AND_UPDATE', metadata)
-      .map(res => res.json())
-      .subscribe(importResult => {
-        console.log(this.compileImportSummary(importResult))
-      }, error => {
-        console.log(error)
-      });
   }
 
   compileImportSummary(response) {

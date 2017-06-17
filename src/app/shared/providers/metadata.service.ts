@@ -9,11 +9,14 @@ import {CategoryOptionComboService} from './category-option-combo.service';
 import {OrgUnitGroupService} from './org-unit-group.service';
 import {Http, Response} from '@angular/http';
 import {OrganisationunitService} from './organisationunit.service';
+import {HttpClientService} from './http-client.service';
+import {UtilitiesService} from './utilities.service';
 @Injectable()
 export class MetadataService {
 
   constructor(
     private http: Http,
+    private utilities: UtilitiesService,
     private indicatorService: IndicatorService,
     private indicatorTypeService: IndicatorTypeService,
     private dataElementService: DataElementService,
@@ -125,7 +128,7 @@ export class MetadataService {
     }
 
     return Observable.create(observer => {
-      this.http.get(url).map((res: Response) => res.json()).catch(error => Observable.throw(new Error(error)))
+      this.http.get(url).map((res: Response) => res.json()).catch(this.utilities.handleError)
         .subscribe(response => {
           // metadata.inSystemVersion = response;
           observer.next(response);
@@ -280,6 +283,7 @@ export class MetadataService {
       let importMode = dryRun ? 'VALIDATE': 'COMMIT';
       this.http.post('../../../api/25/metadata?importMode='+ importMode + '&strategy=CREATE_AND_UPDATE', metadata)
         .map(res => res.json())
+        .catch(this.utilities.handleError)
         .subscribe(importResult => {
           observer.next(this.compileImportSummary(importResult, dryRun));
           observer.complete()

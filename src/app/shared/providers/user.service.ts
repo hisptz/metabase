@@ -1,12 +1,14 @@
 import { Injectable } from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 import {Http, Response} from '@angular/http';
+import {UtilitiesService} from './utilities.service';
 
 @Injectable()
 export class UserService {
 
   constructor(
-    private http: Http
+    private http: Http,
+    private utilities: UtilitiesService
   ) { }
 
   checkFromSystem(user: any): Observable<any> {
@@ -21,7 +23,7 @@ export class UserService {
     }
 
     return Observable.create(observer => {
-      this.http.get(url).map((res: Response) => res.json()).catch(error => Observable.throw(new Error(error)))
+      this.http.get(url).map((res: Response) => res.json()).catch(this.utilities.handleError)
         .subscribe(response => {
           observer.next(response);
           observer.complete();

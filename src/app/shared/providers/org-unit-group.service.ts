@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 import {Http, Response} from '@angular/http';
+import {HttpClientService} from './http-client.service';
 
 @Injectable()
 export class OrgUnitGroupService {
 
   constructor(
-    private http: Http
+    private http: HttpClientService
   ) { }
 
   checkFromSystem(orgUnitGroup: any): Observable<any> {
@@ -21,7 +22,7 @@ export class OrgUnitGroupService {
     }
 
     return Observable.create(observer => {
-      this.http.get(url).map((res: Response) => res.json()).catch(error => Observable.throw(new Error(error)))
+      this.http.get(url)
         .subscribe(response => {
           observer.next(response);
           observer.complete();
