@@ -14,9 +14,11 @@ import {SharedModule} from "./shared/shared.module";
 import {EffectsModule} from "@ngrx/effects";
 import {RepositoriesEffectService} from "./store/effects/repositories-effect.service";
 import {MetadataPackagesEffectService} from "./store/effects/metadata-packages-effect.service";
+import { WhoTemplateComponent } from './who-template/who-template.component';
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    WhoTemplateComponent
   ],
   imports: [
     BrowserModule,

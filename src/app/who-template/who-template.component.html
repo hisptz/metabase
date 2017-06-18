@@ -1,0 +1,35 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-12" style="padding-top: 20px;">
+      <div class="row">
+        <div class="col-md-11"><h4 style="padding-top:20px;text-align:center;font-weight:bold;font-size:24px;">WHO/International standards	for	DHIS 2</h4></div>
+        <div class="col-md-1" style="margin-left:-10px;"><img src="assets/img/who.png" alt="" height="75px;" width="75px;"></div>
+      </div>
+      <div class="alert alert-info">
+        <i class="fa fa-info-circle" aria-hidden="true"></i>
+        <small>Go to the <a href="http://www.who.int/peh-emf/standards/en/" target="_blank">WHO standards web portal</a>, with detailed information and installation instructions for using these templates and tools.</small>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <table class="table table-bordered package-table">
+        <tr>
+          <th colspan="5" class="bg-primary"><h4>Standard tools and templates</h4></th>
+        </tr>
+        <tr *ngFor="let package of packages;">
+          <td *ngIf="package.rowSpan" [attr.rowspan]="package.rowSpan">{{package.tag}}</td>
+          <td>{{package.name}}</td>
+          <td>{{package.description}}</td>
+          <td>
+            <app-package-version-select [versions]="package.versions" (onVersionSelect)="selectedVersion = $event"></app-package-version-select>
+            <a routerLink="metadata-package/{{selectedVersion}}/{{package.id}}" class="btn btn-default">view</a>
+          </td>
+          <td>
+            <app-import-button [selectedVersion]="selectedVersion" [metadataPackageId]="package.id" [versions]="package.versions"></app-import-button>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>
