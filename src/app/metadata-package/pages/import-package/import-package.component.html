@@ -34,7 +34,7 @@
         <!--conflicts-->
         <div class="row" *ngIf="(currentMetadata$ | async)?.importResult.importConflicts.length > 0">
           <div class="col-md-12">
-            <h4 class="page-header" style="margin-top: 2px;">{{(currentMetadata$ | async)?.importResult.isPreview ? 'Preview' : 'Import'}} conflicts</h4>
+            <h4 class="page-header text-danger" style="margin-top: 2px;">{{(currentMetadata$ | async)?.importResult.isPreview ? 'Preview' : 'Import'}} conflicts</h4>
             <table class="table table-bordered table-hover" *ngIf="(currentMetadata$ | async)?.importResult.importConflicts.length > 0">
               <thead>
               <tr>

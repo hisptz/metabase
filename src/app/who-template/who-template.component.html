@@ -22,11 +22,11 @@
           <td>{{package.name}}</td>
           <td>{{package.description}}</td>
           <td>
-            <app-package-version-select [versions]="package.versions" (onVersionSelect)="selectedVersion = $event"></app-package-version-select>
-            <a routerLink="metadata-package/{{selectedVersion}}/{{package.id}}" class="btn btn-default">view</a>
+            <app-package-version-select [versions]="package.versions" (onVersionSelect)="package.selectedVersion = $event"></app-package-version-select>
+            <a routerLink="metadata-package/{{package.selectedVersion}}/{{package.id}}" class="btn btn-default">view</a>
           </td>
           <td>
-            <app-import-button [selectedVersion]="selectedVersion" [metadataPackageId]="package.id" [versions]="package.versions"></app-import-button>
+            <app-import-button [selectedVersion]="package.selectedVersion" [metadataPackageId]="package.id" [versions]="package.versions"></app-import-button>
           </td>
         </tr>
       </table>

@@ -1,7 +1,7 @@
 {
     "version": "2.0",
-    "name": "Metabase",
-    "description": "Metadata Repository",
+    "name": "WHO metadata repository",
+    "description": "WHO metadata repository",
     "launch_path": "index.html",
     "icons": {
         "16": "assets/img/icon-16x16.png",
