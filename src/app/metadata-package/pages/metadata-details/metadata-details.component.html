@@ -1,9 +1,9 @@
-<div class="row" *ngIf="(metadata$ | async).metadataDetails">
+<div class="row" *ngIf="(metadata$ | async) !== null">
   <div class="{{currentMetadata == null ? 'col-md-12' : 'col-md-5'}}">
       <div class="form-group pull-right">
         <input class="form-control" [(ngModel)]="filterQuery" placeholder="Search by name"/>
       </div>
-    <table class="table table-striped" [mfData]="(metadata$ | async)?.metadataDetails[metadataType] | dataFilter : filterQuery" #mf="mfDataTable" [mfRowsOnPage]="5">
+    <table class="table table-striped" *ngIf="(metadata$ | async).metadataDetails" [mfData]="(metadata$ | async)?.metadataDetails[metadataType] | dataFilter : filterQuery" #mf="mfDataTable" [mfRowsOnPage]="5">
       <thead>
         <tr>
           <th *ngIf="currentMetadata == null" width="5%">#</th>

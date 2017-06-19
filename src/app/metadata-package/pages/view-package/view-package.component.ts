@@ -65,9 +65,11 @@ export class ViewPackageComponent implements OnInit {
       });
 
       this.metadata$.subscribe((metadata: any) => {
-        if(metadata.metadataItems && metadata.metadataItems.length > 0) {
-          if(!params['metadataId']) {
-            this.router.navigate(['metadata-package/' + params['version'] + '/' + params['id'] + '/metadata/' + metadata.metadataItems[0]]);
+        if(metadata !== null) {
+          if(metadata.metadataItems && metadata.metadataItems.length > 0) {
+            if(!params['metadataId']) {
+              this.router.navigate(['metadata-package/' + params['version'] + '/' + params['id'] + '/metadata/' + metadata.metadataItems[0]]);
+            }
           }
         }
       })

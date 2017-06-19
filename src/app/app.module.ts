@@ -29,7 +29,7 @@ import { WhoTemplateComponent } from './who-template/who-template.component';
     StoreModule.provideStore({uiState: uiStateReducer,storeData: storeDataReducer},INITIAL_APPLICATION_STATE),
     EffectsModule.run(RepositoriesEffectService),
     EffectsModule.run(MetadataPackagesEffectService),
-    // StoreDevtoolsModule.instrumentOnlyWithExtension()
+    StoreDevtoolsModule.instrumentOnlyWithExtension()
   ],
   providers: [],
   bootstrap: [AppComponent]

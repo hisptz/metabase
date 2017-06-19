@@ -18,7 +18,6 @@ export class ProgressComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log(this.totalItems, this.loadedItems)
     this.store.select(progressMessagesSelector).subscribe(progressMessages => {
       if (progressMessages.length > 0) {
         this.loadedItems = progressMessages.length;

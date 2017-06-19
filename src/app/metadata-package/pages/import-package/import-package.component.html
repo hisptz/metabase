@@ -1,99 +1,106 @@
-<app-breadcrumb [routeItems]="routeDetails"></app-breadcrumb>
-<app-progress [totalItems]="9"></app-progress>
-<div class="row" *ngIf="(currentMetadata$ | async)?.importResult">
-  <div class="col-md-6">
-    <!--import summary-->
-    <div class="panel panel-default">
-      <div class="panel-body">
-        <h4 class="page-header" style="margin-top: 2px;">{{(currentMetadata$ | async)?.importResult.isPreview ? 'Importing will make the following changes to the system' : 'Importing made the following changes to the system'}}</h4>
-        <table class="table table-bordered">
-          <thead>
-          <tr>
-            <th>#</th>
-            <th>Item</th>
-            <th class="text-success">Add{{(currentMetadata$ | async)?.importResult.isPreview ? '' : 'ed'}}</th>
-            <th class="text-info">Update{{(currentMetadata$ | async)?.importResult.isPreview ? '' : 'd'}}</th>
-          </tr>
-          </thead>
-          <tbody>
-          <tr *ngFor="let importSum of (currentMetadata$ | async)?.importResult.importCountsPerMetadata; let i=index">
-            <td>{{i + 1}}</td>
-            <td>{{importSum.type}}</td>
-            <td class="text-success">{{importSum.count.created}}</td>
-            <td class="text-info">{{importSum.count.updated}}</td>
-          </tr>
-          <tr>
-            <th></th>
-            <th>Total</th>
-            <th class="text-success">{{(currentMetadata$ | async)?.importResult.overallImportCounts.created}}</th>
-            <th class="text-info">{{(currentMetadata$ | async)?.importResult.overallImportCounts.updated}}</th>
-          </tr>
-          </tbody>
-        </table>
+<div class="container-fluid" style="padding-top: 20px;">
+  <app-breadcrumb [routeItems]="routeDetails"></app-breadcrumb>
+  <app-progress [totalItems]="totalItems"></app-progress>
+  <div class="row" *ngIf="(currentMetadata$ | async) !== null">
+    <div class="col-md-6" *ngIf="(currentMetadata$ | async).importResult &&  (currentMetadata$ | async)?.importResult.importCountsPerMetadata.length > 0">
+      <!--import summary-->
+      <div class="panel panel-default">
+        <div class="panel-body">
+          <h4 class="page-header" style="margin-top: 2px;">{{(currentMetadata$ | async).importResult.isPreview ? 'Importing will make the following changes to the system' : 'Importing made the following changes to the system'}}</h4>
+          <table class="table table-bordered">
+            <thead>
+            <tr>
+              <th>#</th>
+              <th>Item</th>
+              <th class="text-success">Add{{(currentMetadata$ | async)?.importResult.isPreview ? '' : 'ed'}}</th>
+              <th class="text-info">Update{{(currentMetadata$ | async)?.importResult.isPreview ? '' : 'd'}}</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let importSum of (currentMetadata$ | async)?.importResult.importCountsPerMetadata; let i=index">
+              <td>{{i + 1}}</td>
+              <td>{{importSum.type}}</td>
+              <td class="text-success">{{importSum.count.created}}</td>
+              <td class="text-info">{{importSum.count.updated}}</td>
+            </tr>
+            <tr>
+              <th></th>
+              <th>Total</th>
+              <th class="text-success">{{(currentMetadata$ | async)?.importResult.overallImportCounts.created}}</th>
+              <th class="text-info">{{(currentMetadata$ | async)?.importResult.overallImportCounts.updated}}</th>
+            </tr>
+            </tbody>
+          </table>
 
-        <!--conflicts-->
-        <div class="row" *ngIf="(currentMetadata$ | async)?.importResult.importConflicts.length > 0">
-          <div class="col-md-12">
-            <h4 class="page-header text-danger" style="margin-top: 2px;">{{(currentMetadata$ | async)?.importResult.isPreview ? 'Preview' : 'Import'}} conflicts</h4>
-            <table class="table table-bordered table-hover" *ngIf="(currentMetadata$ | async)?.importResult.importConflicts.length > 0">
-              <thead>
-              <tr>
-                <th>#</th>
-                <th>Item type</th>
-                <th>Conflicts</th>
-              </tr>
-              </thead>
-              <tbody>
-              <tr *ngFor="let conflict of (currentMetadata$ | async)?.importResult.importConflicts; let i=index">
-                <td>{{i + 1}}</td>
-                <td>{{conflict.type}}</td>
-                <td>
-                  <ol>
-                    <li *ngFor="let description of conflict.description">{{description.message}}</li>
-                  </ol>
-                </td>
-              </tr>
-              </tbody>
-            </table>
+          <!--conflicts-->
+          <div class="row" *ngIf="(currentMetadata$ | async)?.importResult.importConflicts.length > 0">
+            <div class="col-md-12">
+              <h4 class="page-header text-danger" style="margin-top: 2px;">{{(currentMetadata$ | async)?.importResult.isPreview ? 'Preview' : 'Import'}} conflicts</h4>
+              <table class="table table-bordered table-hover" *ngIf="(currentMetadata$ | async)?.importResult.importConflicts.length > 0">
+                <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Item type</th>
+                  <th>Conflicts</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let conflict of (currentMetadata$ | async)?.importResult.importConflicts; let i=index">
+                  <td>{{i + 1}}</td>
+                  <td>{{conflict.type}}</td>
+                  <td>
+                    <ol>
+                      <li *ngFor="let description of conflict.description">{{description.message}}</li>
+                    </ol>
+                  </td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <!--end of conflicts-->
+          <div class="form-group" *ngIf="(currentMetadata$ | async)?.importResult.isPreview && (currentMetadata$ | async)?.importResult.completed">
+            <button class="btn btn-primary" (click)="completeImport()" [disabled]="importing">{{importing ? 'Importing Metadata':'Continue with Import'}}</button>
+            <a class="btn btn-warning" routerLink="/metadata-package/{{packageVersion}}/{{packageId}}">Cancel</a>
           </div>
         </div>
-        <!--end of conflicts-->
-        <div class="form-group" *ngIf="(currentMetadata$ | async)?.importResult.isPreview && (currentMetadata$ | async)?.importResult.completed">
-          <button class="btn btn-primary" (click)="completeImport()" [disabled]="importing">{{importing ? 'Importing Metadata':'Continue with Import'}}</button>
-          <a class="btn btn-warning" routerLink="/metadata-package/{{packageVersion}}/{{packageId}}">Cancel</a>
+      </div>
+      <!--end of import summary-->
+    </div>
+    <div class="{{(currentMetadata$ | async)?.importResult.importCountsPerMetadata.length > 0 ? 'col-md-6' : 'col-md-12'}}" *ngIf="(currentMetadata$ | async).importResult">
+      <div class="panel panel-default">
+        <div class="panel-body">
+          <div class="alert alert-info" *ngIf="(currentMetadata$ | async)?.importResult.importCountsPerMetadata.length === 0">
+            <i class="fa fa-info-circle"></i>
+            Nothing to import, it may be that all dependencies have been imported. Please check metadata result analysis result summary for more info
+          </div>
+          <!--Metadata evaluation summary-->
+          <h4 class="page-header" style="margin-top: 2px;">Metadata Analysis result</h4>
+          <table class="table table-bordered">
+            <thead>
+            <tr>
+              <th>#</th>
+              <th>Type</th>
+              <th>Available in system</th>
+              <th>Dependencies in package</th>
+              <th>Dependencies in system</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let metadataAnalysis of (currentMetadata$ | async)?.progressSummary; let i=index">
+              <td>{{i + 1}}</td>
+              <td>{{metadataAnalysis.metadataType}}</td>
+              <td>{{metadataAnalysis.metadataInSystemCount}} / {{metadataAnalysis.totalMetadataCount}}</td>
+              <td>{{metadataAnalysis.inPackageDependencyCount}} / {{metadataAnalysis.totalDependencyCount}}</td>
+              <td>{{metadataAnalysis.inSystemDependencyCount}} / {{metadataAnalysis.totalDependencyCount}}</td>
+            </tr>
+            </tbody>
+          </table>
+          <!--end of metadata evaluation summary-->
         </div>
       </div>
-    </div>
-    <!--end of import summary-->
-  </div>
-  <div class="col-md-6">
-    <div class="panel panel-default">
-      <div class="panel-body">
-        <!--Metadata evaluation summary-->
-        <h4 class="page-header" style="margin-top: 2px;">Metadata Analysis result</h4>
-        <table class="table table-bordered">
-          <thead>
-          <tr>
-            <th>#</th>
-            <th>Type</th>
-            <th>Available in system</th>
-            <th>Dependencies in package</th>
-            <th>Dependencies in system</th>
-          </tr>
-          </thead>
-          <tbody>
-           <tr *ngFor="let metadataAnalysis of (currentMetadata$ | async)?.progressSummary; let i=index">
-             <td>{{i + 1}}</td>
-             <td>{{metadataAnalysis.metadataType}}</td>
-             <td>{{metadataAnalysis.metadataInSystemCount}} / {{metadataAnalysis.totalMetadataCount}}</td>
-             <td>{{metadataAnalysis.inPackageDependencyCount}} / {{metadataAnalysis.totalDependencyCount}}</td>
-             <td>{{metadataAnalysis.inSystemDependencyCount}} / {{metadataAnalysis.totalDependencyCount}}</td>
-           </tr>
-          </tbody>
-        </table>
-        <!--end of metadata evaluation summary-->
-      </div>
-    </div>
 
+    </div>
   </div>
+
 </div>

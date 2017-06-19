@@ -20,7 +20,7 @@ import {Observable} from 'rxjs/Observable';
 export class ImportPackageComponent implements OnInit {
 
   loadedItems: number = 0;
-  progress: string;
+  totalItems: number = 9;
   routeDetails: any;
   isPreview: boolean = true;
   importablePackage: any;
@@ -38,11 +38,9 @@ export class ImportPackageComponent implements OnInit {
 
   ngOnInit() {
     this.route.parent.params.subscribe(params => {
-      this.loadedItems = 0;
       this.packageId = params['id'];
       this.packageVersion = params['version'];
       this.store.dispatch(new CurrentMetadataPackageChangeAction({id: params['id'], version: params['version']}));
-      this.progress = 'loading metadata details';
       this.store.select(currentMetadataPackageSelector).subscribe(metadataPackage => {
         if(metadataPackage) {
           this.routeDetails = [
@@ -72,9 +70,15 @@ export class ImportPackageComponent implements OnInit {
       });
 
      this.currentMetadata$.subscribe(metadataObject => {
-        if(!metadataObject.importResult) {
-          if(metadataObject.metadataItems) {
-            this.store.dispatch(new CheckMetadataExistenceAction({packageId: this.packageId, metadata: metadataObject, packageVersion: this.packageVersion}))
+        if(metadataObject !== null) {
+          if(!metadataObject.importResult) {
+            if(metadataObject.metadataItems) {
+              this.store.dispatch(new CheckMetadataExistenceAction({packageId: this.packageId, metadata: metadataObject, packageVersion: this.packageVersion}))
+            }
+          } else {
+            if(metadataObject.importResult.importCountsPerMetadata.length == 0) {
+              this.totalItems = 0;
+            }
           }
         }
       });

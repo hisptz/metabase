@@ -1,36 +1,39 @@
-<app-breadcrumb *ngIf="metadataPackage$" [routeItems]="routeDetails"></app-breadcrumb>
-<div class="row" *ngIf="metadataPackage$">
-  <div class="col-md-3">
-    <div class="panel panel-default">
-      <div class="panel-body">
-        <app-package-summary [metadataPackage]="metadataPackage$ | async" [selectedVersion]="selectedVersion"></app-package-summary>
-        <app-metadata-summary *ngIf="metadata$ | async" [metadata]="metadata$ | async"></app-metadata-summary>
-      </div>
-    </div>
-  </div>
-  <div class="col-md-9">
-    <div class="panel panel-default">
-      <div class="panel-body">
-        <div class="row">
-          <div class="col-md-12" style="margin-bottom: 10px;">
-            <h5><b>Description</b></h5>
-            <p class="text-justify">{{(metadataPackage$ | async).description}}</p>
-            <app-import-button [metadataPackageId]="(metadataPackage$ | async).id" [selectedVersion]="selectedVersion" [versions]="(metadataPackage$ | async).versions"></app-import-button>
-          </div>
-        </div>
-        <div class="row" *ngIf="metadata$ | async">
-          <div class="col-md-12">
-            <nav class="navbar navbar-default">
-              <ul class="nav navbar-nav">
-                <li *ngFor="let item of (metadata$ | async).metadataItems; let i=index" routerLinkActive="active">
-                  <a routerLink="metadata/{{item}}">{{item | readableName}}</a>
-                </li>
-              </ul>
-            </nav>
-            <router-outlet></router-outlet>
-          </div>
+<div class="container-fluid" style="padding-top: 20px;">
+  <app-breadcrumb *ngIf="(metadataPackage$ | async) !== null" [routeItems]="routeDetails"></app-breadcrumb>
+  <div class="row">
+    <div class="col-md-3">
+      <div class="panel panel-default">
+        <div class="panel-body">
+          <app-package-summary *ngIf="(metadataPackage$ | async) !== null" [metadataPackage]="metadataPackage$ | async" [selectedVersion]="selectedVersion"></app-package-summary>
+          <app-metadata-summary *ngIf="(metadata$ | async) !== null" [metadata]="metadata$ | async"></app-metadata-summary>
         </div>
       </div>
     </div>
+    <div class="col-md-9">
+      <div class="panel panel-default">
+        <div class="panel-body">
+          <div class="row" *ngIf="(metadataPackage$ | async) !== null">
+            <div class="col-md-12" style="margin-bottom: 10px;">
+              <h5><b>Description</b></h5>
+              <p class="text-justify">{{(metadataPackage$ | async)?.description}}</p>
+              <app-import-button *ngIf="(metadataPackage$ | async) !== null" [metadataPackageId]="(metadataPackage$ | async)?.id" [selectedVersion]="selectedVersion" [versions]="(metadataPackage$ | async)?.versions"></app-import-button>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <nav class="navbar navbar-default" *ngIf="(metadata$ | async) !== null">
+                <ul class="nav navbar-nav">
+                  <li *ngFor="let item of (metadata$ | async).metadataItems; let i=index" routerLinkActive="active">
+                    <a routerLink="metadata/{{item}}">{{item | readableName}}</a>
+                  </li>
+                </ul>
+              </nav>
+              <router-outlet></router-outlet>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
+
 </div>

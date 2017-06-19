@@ -5,7 +5,7 @@ export function currentMetadataPackageSelector(state: ApplicationState) {
   const metadataPackages: any[] = state.storeData.metadataPackages;
 
   if(currentMetadataPackageId == undefined && metadataPackages.length == 0) {
-    return {};
+    return null;
   }
 
   return _.find(metadataPackages, ['id', currentMetadataPackageId]);

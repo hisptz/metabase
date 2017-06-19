@@ -117,7 +117,11 @@ export class MetadataPackageService {
     return Observable.create(observer => {
       this.loadImportedMetadataPackages().subscribe(importedPackages => {
         const newImportedPackages: any[] = _.clone(importedPackages);
-        newImportedPackages.push(importedMetadataId);
+        const existingImportedIndex = _.indexOf(newImportedPackages, importedMetadataId);
+        if(existingImportedIndex !== -1) {
+          newImportedPackages.push(importedMetadataId);
+        }
+
         this.httpClient.put('dataStore/metabase/importedMetadataPackages', newImportedPackages)
           .catch(this.utilities.handleError)
           .subscribe(() => {

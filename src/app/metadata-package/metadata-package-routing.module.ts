@@ -5,12 +5,12 @@ import {ViewPackageComponent} from "./pages/view-package/view-package.component"
 import {MetadataDetailsComponent} from "./pages/metadata-details/metadata-details.component";
 import {ImportPackageComponent} from "./pages/import-package/import-package.component";
 
-const routes: Routes = [{path: '', component: MetadataPackageComponent, children: [
+const routes: Routes = [
   {path: '', component: ViewPackageComponent, children: [
     {path: 'metadata/:metadataId', component: MetadataDetailsComponent},
   ]},
   {path: 'import', component: ImportPackageComponent}
-]}];
+  ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
