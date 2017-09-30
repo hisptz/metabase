@@ -1,4 +1,4 @@
-<div class="container-fluid">
+<div class="container-fluid" id="page-container">
   <div class="row">
     <div class="col-md-12" style="padding-top: 20px;">
       <div class="row">
@@ -13,23 +13,174 @@
   </div>
   <div class="row">
     <div class="col-md-12">
-      <table class="table table-bordered package-table">
-        <tr>
-          <th colspan="5" class="bg-primary"><h4>Standard tools and templates</h4></th>
-        </tr>
-        <tr *ngFor="let package of packages;">
-          <td *ngIf="package.rowSpan" [attr.rowspan]="package.rowSpan">{{package.tag}}</td>
-          <td>{{package.name}}</td>
-          <td>{{package.description}}</td>
-          <td>
-            <app-package-version-select [versions]="package.versions" (onVersionSelect)="package.selectedVersion = $event"></app-package-version-select>
-            <a routerLink="metadata-package/{{package.selectedVersion}}/{{package.id}}" class="btn btn-default">view</a>
-          </td>
-          <td>
-            <app-import-button [selectedVersion]="package.selectedVersion" [metadataPackageId]="package.id" [versions]="package.versions"></app-import-button>
-          </td>
-        </tr>
-      </table>
+      <div class="bg-primary package-header">
+        <h4>Package of reference data standards for countries to improve data quality, analysis and use</h4>
+      </div>
+      <!--<table class="table table-bordered package-table">-->
+        <!--<tr>-->
+          <!--<th colspan="5" class="bg-primary"><h4>Standard tools and templates</h4></th>-->
+        <!--</tr>-->
+        <!--<tr *ngFor="let package of packages;">-->
+          <!--<td *ngIf="package.rowSpan" [attr.rowspan]="package.rowSpan">{{package.tag}}</td>-->
+          <!--<td>{{package.name}}</td>-->
+          <!--<td>{{package.description}}</td>-->
+          <!--<td>-->
+            <!--<app-package-version-select [versions]="package.versions" (onVersionSelect)="package.selectedVersion = $event"></app-package-version-select>-->
+            <!--<a routerLink="metadata-package/{{package.selectedVersion}}/{{package.id}}" class="btn btn-default">view</a>-->
+          <!--</td>-->
+          <!--<td>-->
+            <!--<app-import-button [selectedVersion]="package.selectedVersion" [metadataPackageId]="package.id" [versions]="package.versions"></app-import-button>-->
+          <!--</td>-->
+        <!--</tr>-->
+      <!--</table>-->
+    </div>
+  </div>
+  <div class="row package-category">
+    <div class="col-md-12">
+      <div class="package-category-line"></div>
+    </div>
+    <div class="col-md-4">
+      <h3>Standards for measurements</h3>
+      <ul class="list-unstyled category-list">
+        <li>
+          <h4>
+            <i class="fa fa-angle-right"></i>&nbsp;
+            Core indicators and metadata
+          </h4>
+        </li>
+        <li>
+          <h4>
+            <i class="fa fa-angle-right"></i>&nbsp;
+            Data quality metrics
+          </h4>
+        </li>
+      </ul>
+    </div>
+    <div
+      class="col-md-8"
+    >
+      <div class="row">
+        <div
+          class="col-md-6"
+          *ngFor="let app of apps"
+        >
+          <div
+            class="panel panel-default package-card"
+          >
+            <div class="panel-body text-center">
+              <!--<div class="package-version-block">-->
+                <!--<a class="btn text-muted">-->
+                  <!--V1-->
+                  <!--<i class="fa fa-caret-down"></i>-->
+                <!--</a>-->
+              <!--</div>-->
+              <div class="package-img-block">
+                <img *ngIf="app.icon || app.icon !== ''" [src]="app.icon" alt="">
+                <div *ngIf="!app.icon || app.icon === ''" class="package-default-icon">{{app.name ? app.name[0] : ''}}</div>
+              </div>
+              <h4>{{app.name}}</h4>
+              <a
+                href=""
+                class="btn btn-default"
+                style="margin-top: 20px;"
+                title="Click to open {{app.name}}"
+              >
+                <i class="fa fa-eye"></i>
+              </a>
+              <a
+                [href]="app.downloadUrl"
+                class="btn btn-default"
+                style="margin-top: 20px;"
+                title="Click to download zip file for {{app.name}}"
+              >
+                <i class="fa fa-download"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row package-category">
+    <div class="col-md-12">
+      <div class="package-category-line"></div>
+    </div>
+    <div class="col-md-4">
+      <h3>Health systems and disease-specific modules</h3>
+      <ul class="list-unstyled category-list">
+        <li>
+          <h4>
+            <i class="fa fa-angle-right"></i>&nbsp;
+            Programme specific indicators and data elements
+          </h4>
+        </li>
+        <li>
+          <h4>
+            <i class="fa fa-angle-right"></i>&nbsp;
+            Best practice dashboards, analyses
+          </h4>
+        </li>
+        <li>
+          <h4>
+            <i class="fa fa-angle-right"></i>&nbsp;
+            Aggregate and case-based reporting
+          </h4>
+        </li>
+        <li>
+          <h4>
+            <i class="fa fa-angle-right"></i>&nbsp;
+            Standard data entry  forms/registers
+          </h4>
+        </li>
+      </ul>
+    </div>
+    <div
+      class="col-md-8"
+    >
+      <div class="row">
+        <div
+          class="col-md-6"
+          *ngFor="let metadataPackage of metadataPackages$ | async"
+        >
+          <div
+            class="panel panel-default package-card"
+            title="{{metadataPackage.description}}"
+            (click)="viewMetadataPackage(metadataPackage, $event)"
+          >
+            <div class="panel-body text-center">
+              <!--<div class="package-version-block">-->
+              <!--<a class="btn text-muted">-->
+              <!--V1-->
+              <!--<i class="fa fa-caret-down"></i>-->
+              <!--</a>-->
+              <!--</div>-->
+              <div class="package-img-block">
+                <img *ngIf="metadataPackage.icons || metadataPackage.icons.length > 0" [src]="metadataPackage.icons[0]['128']" alt="">
+                <div
+                  *ngIf="!metadataPackage.icons || metadataPackage.icons.length === 0"
+                  class="package-default-icon">{{metadataPackage.name ? metadataPackage.name[0] : ''}}</div>
+              </div>
+              <h4>{{metadataPackage.name}}</h4>
+              <a
+                class="btn btn-default"
+                style="margin-top: 20px;"
+                (click)="viewMetadataPackage(metadataPackage, $event)"
+                title="Click to view {{metadataPackage.name}}"
+              >
+                <i class="fa fa-eye"></i>
+              </a>
+              <a
+                (click)="importMetadataPackage(metadataPackage, $event)"
+                class="btn btn-default"
+                style="margin-top: 20px;"
+                title="Click to import all metadata that are included in {{metadataPackage.name}}"
+              >
+                <i class="fa fa-download"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>

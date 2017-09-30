@@ -29,7 +29,8 @@ strong,
 b,
 small,
 input,
-select
+select,
+div
 {
   font-family: "Lato";
 }
