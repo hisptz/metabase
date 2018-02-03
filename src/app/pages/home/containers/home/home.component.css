@@ -1,0 +1,38 @@
+.home-wrapper {
+    margin-top: 20px;
+}
+
+.home-header {
+    background-color: #1a91d3;
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    color: #ffffff;
+}
+
+.home-header h2,
+.home-header h4 {
+    margin-top: 3px;
+    margin-bottom: 0;
+}
+
+.home-header h2 {
+    margin-bottom: 5px;
+}
+
+.home-description {
+    text-align: justify;
+    padding: 15px 20px;
+    border-left: solid thin #eee;
+    border-right: solid thin #eee;
+}
+
+.home-package-group-list-container {
+    border-left: solid thin #eee;
+    border-right: solid thin #eee;
+    border-bottom: solid thin #eee;
+}
+
+.home-package-group-list {
+    border-top: solid thin #eee;
+}

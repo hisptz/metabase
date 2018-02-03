@@ -1,0 +1,37 @@
+package-group-container {
+    border-top: solid thin #eee;
+}
+
+.package-group-header {
+    border-bottom: solid thin #eee;
+    padding: 10px 15px;
+}
+
+.package-group-header h5 {
+    color: #666;
+    font-size: 15px;
+}
+
+.package-group-body {
+    border: solid thin #eee;
+}
+
+.package-item-list {
+    padding-right: 15px;
+    padding-left: 15px;
+}
+
+.package-item {
+    padding: 0;
+    border-bottom: solid thin #eee;
+    border-right: solid thin #eee;
+    height: 250px;
+}
+
+@media (max-width: 500px) {
+    .package-item {
+        border: solid thin #eee;
+        height: 300px;
+        width: 100%;
+    }
+}

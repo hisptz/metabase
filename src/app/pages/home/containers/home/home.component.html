@@ -1,0 +1,33 @@
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <div class="home-wrapper">
+                <!--home header-->
+                <div class="home-header">
+                    <div class="home-header-left">
+                        <h2>WHO Health App for DHIS2</h2>
+                        <h4>Data standards for health facility information systems</h4>
+                    </div>
+                    <div class="home-header-right">
+                        <img class="img-fluid" src="assets/img/who.png" alt="">
+                    </div>
+                </div>
+                <!--end of home header-->
+
+                <!--home description-->
+                <div class="home-description">
+                    <h5>{{ pageDescription }}</h5>
+                </div>
+                <!--end of home description-->
+
+                <!--package group list-->
+                <div class="home-package-group-list-container">
+                    <div class="home-package-group-list" *ngFor="let packageGroup of packageGroups$ | async">
+                        <app-package-group [packageGroup]="packageGroup"></app-package-group>
+                    </div>
+                </div>
+                <!--end of package group list-->
+            </div>
+        </div>
+    </div>
+</div>

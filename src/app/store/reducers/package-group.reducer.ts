@@ -38,9 +38,9 @@ export function reducer(
   return state;
 }
 
-export const getPackageGroupLoading = (state: State) => state.loading;
-export const getPackageGroupLoaded = (state: State) => state.loaded;
-export const getCurrentPackageGroup = (state: State) =>
+export const selectPackageGroupLoading = (state: State) => state.loading;
+export const selectPackageGroupLoaded = (state: State) => state.loaded;
+export const selectCurrentPackageGroup = (state: State) =>
   state.currentPackageGroup;
 
 export const {
