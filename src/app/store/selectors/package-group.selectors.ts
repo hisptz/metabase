@@ -1,13 +1,30 @@
 import { createSelector } from '@ngrx/store';
-import { selectPackageGroupState } from '../reducers';
+import * as _ from 'lodash';
+import * as fromRoot from '../reducers';
 import * as fromPackageGroup from '../reducers/package-group.reducer';
+import { PackageGroup, Package } from '@app/core';
 
-export const getPackageGroupEntities = createSelector(
-  selectPackageGroupState,
-  fromPackageGroup.selectPackageGroupEntities
+export const getPackageGroupLoadingStatus = createSelector(
+  fromRoot.getPackageGroupState,
+  fromPackageGroup.getPackageGroupLoading
 );
 
-export const getAllPackageGroups = createSelector(
-  selectPackageGroupState,
-  fromPackageGroup.selectAllPackageGroups
+export const getPackageGroupLoadedStatus = createSelector(
+  fromRoot.getPackageGroupState,
+  fromPackageGroup.getPackageGroupLoaded
+);
+
+export const getPackageGroups = createSelector(
+  fromRoot.getAllPackageGroups,
+  fromRoot.getPackagesEntities,
+  (packageGroups: PackageGroup[], packageEntity: { [id: string]: Package }) =>
+    _.map(packageGroups, (packageGroup: PackageGroup) => {
+      return {
+        ...packageGroup,
+        packages: _.map(
+          packageGroup.packages,
+          (packageId: string) => packageEntity[packageId]
+        )
+      };
+    })
 );

@@ -1,6 +1,7 @@
 import { Package } from '@app/core';
 import { EntityState, EntityAdapter, createEntityAdapter } from '@ngrx/entity';
 import { PackageActions, PackageActionTypes } from '../actions/package.actions';
+import { createFeatureSelector } from '@ngrx/store';
 
 export interface State extends EntityState<Package> {
   currentPackage: string;
@@ -30,10 +31,3 @@ export function reducer(
 export const getPackageLoading = (state: State) => state.loading;
 export const getPackageLoaded = (state: State) => state.loaded;
 export const getCurrentPackage = (state: State) => state.currentPackage;
-
-export const {
-  selectAll: selectAllPackages,
-  selectIds: selectPackagesIds,
-  selectEntities: selectPackagesEntities,
-  selectTotal: selectPackagesTotal
-} = adapter.getSelectors();

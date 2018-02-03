@@ -4,6 +4,7 @@ import {
 } from './../actions/package-group.actions';
 import { EntityState, createEntityAdapter, EntityAdapter } from '@ngrx/entity';
 import { PackageGroup } from '@app/core';
+import { createSelector, createFeatureSelector } from '@ngrx/store';
 
 export interface State extends EntityState<PackageGroup> {
   loading: boolean;
@@ -38,14 +39,7 @@ export function reducer(
   return state;
 }
 
-export const selectPackageGroupLoading = (state: State) => state.loading;
-export const selectPackageGroupLoaded = (state: State) => state.loaded;
-export const selectCurrentPackageGroup = (state: State) =>
+export const getPackageGroupLoading = (state: State) => state.loading;
+export const getPackageGroupLoaded = (state: State) => state.loaded;
+export const getCurrentPackageGroup = (state: State) =>
   state.currentPackageGroup;
-
-export const {
-  selectIds: selectPackageGroupIds,
-  selectAll: selectAllPackageGroups,
-  selectEntities: selectPackageGroupEntities,
-  selectTotal: selectPackageGroupTotal
-} = adapter.getSelectors();

@@ -1,4 +1,9 @@
-import { ActionReducerMap, MetaReducer } from '@ngrx/store';
+import {
+  ActionReducerMap,
+  MetaReducer,
+  createFeatureSelector,
+  createSelector
+} from '@ngrx/store';
 import { environment } from '@env/environment';
 import { storeFreeze } from 'ngrx-store-freeze';
 import * as fromRouterReducer from '@ngrx/router-store';
@@ -27,11 +32,48 @@ export const reducers: ActionReducerMap<State> = {
 };
 
 export const selectCurrentUserState = (state: State) => state.currentUser;
-export const selectPackageGroupState = (state: State) => state.packageGroup;
-export const selectPackageState = (state: State) => state.packageObject;
 export const selectMetadataPackageState = (state: State) =>
   state.metadataPackage;
 export const selectAppPackageState = (state: State) => state.appPackage;
+
+/**
+ * Global selectors for package groups
+ */
+export const getPackageGroupState = createFeatureSelector<
+  fromPackageGroup.State
+>('packageGroup');
+
+export const getPackageGroupEntitiesState = createSelector(
+  getPackageGroupState,
+  state => state
+);
+
+export const {
+  selectIds: getPackageGroupIds,
+  selectAll: getAllPackageGroups,
+  selectEntities: getPackageGroupEntities,
+  selectTotal: getPackageGroupTotal
+} = fromPackageGroup.adapter.getSelectors(getPackageGroupEntitiesState);
+
+/**
+ * Global selectors for packages
+ */
+
+export const getPackageState = createFeatureSelector<fromPackage.State>(
+  'packageObject'
+);
+
+export const getPackageEntitiesState = createSelector(
+  getPackageState,
+  state => state
+);
+
+export const {
+  selectAll: getAllPackages,
+  selectIds: getPackagesIds,
+  selectEntities: getPackagesEntities,
+  selectTotal: getPackagesTotal
+} = fromPackage.adapter.getSelectors(getPackageEntitiesState);
 
 export const metaReducers: MetaReducer<State>[] = !environment.production
   ? [storeFreeze]

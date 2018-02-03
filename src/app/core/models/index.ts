@@ -8,3 +8,4 @@ export * from './app-developer';
 export * from './app-image';
 export * from './app-package';
 export * from './app-version';
+export * from './package-group-vm';

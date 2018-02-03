@@ -23,16 +23,29 @@
 .home-description {
     text-align: justify;
     padding: 15px 20px;
-    border-left: solid thin #eee;
-    border-right: solid thin #eee;
+    border-left: solid thin #cecece;
+    border-right: solid thin #cecece;
 }
 
 .home-package-group-list-container {
-    border-left: solid thin #eee;
-    border-right: solid thin #eee;
-    border-bottom: solid thin #eee;
+    border-left: solid thin #cecece;
+    border-right: solid thin #cecece;
+    border-bottom: solid thin #cecece;
 }
 
 .home-package-group-list {
-    border-top: solid thin #eee;
+    border-top: solid thin #cecece;
+}
+
+.home-footer {
+    padding: 20px 15px;
+}
+
+.package-group-loading-container {
+    padding: 15px;
+}
+
+.loader-block {
+    height: 7px;
+    margin-bottom: 3px;
 }

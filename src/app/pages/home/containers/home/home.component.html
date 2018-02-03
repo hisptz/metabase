@@ -8,25 +8,48 @@
                         <h2>WHO Health App for DHIS2</h2>
                         <h4>Data standards for health facility information systems</h4>
                     </div>
-                    <div class="home-header-right">
-                        <img class="img-fluid" src="assets/img/who.png" alt="">
-                    </div>
+                    <div class="home-header-right"><img class="img-fluid" src="assets/img/who.png" alt=""></div>
                 </div>
                 <!--end of home header-->
-
                 <!--home description-->
                 <div class="home-description">
-                    <h5>{{ pageDescription }}</h5>
+                    <h5> {{ pageDescription }}
+
+                    </h5>
                 </div>
                 <!--end of home description-->
 
                 <!--package group list-->
                 <div class="home-package-group-list-container">
+
+                    <!-- package group loading -->
+                    <div class="package-group-loading-container" *ngIf="packageGroupLoading$ | async">
+                        <div class="loader-block" style="width: 100%;">
+                            <app-progress-loader></app-progress-loader>
+                        </div>
+                        <div class="loader-block" style="width: 90%;">
+                            <app-progress-loader></app-progress-loader>
+                        </div>
+                        <div class="loader-block" style="width: 80%;">
+                            <app-progress-loader></app-progress-loader>
+                        </div>
+                        <div class="loader-block" style="width: 70%;">
+                            <app-progress-loader></app-progress-loader>
+                        </div>
+                    </div>
+                    <!-- end of package group loading -->
+
+
                     <div class="home-package-group-list" *ngFor="let packageGroup of packageGroups$ | async">
                         <app-package-group [packageGroup]="packageGroup"></app-package-group>
                     </div>
                 </div>
                 <!--end of package group list-->
+                <!-- home footer -->
+                <div class="home-footer">
+                    <div class="text-center">Footer</div>
+                </div>
+                <!-- end of home footer -->
             </div>
         </div>
     </div>
