@@ -9,3 +9,4 @@ export * from './app-image';
 export * from './app-package';
 export * from './app-version';
 export * from './package-group-vm';
+export * from './package-vm';

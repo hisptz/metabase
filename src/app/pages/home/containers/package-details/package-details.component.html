@@ -25,17 +25,61 @@
     </div>
     <!-- end of full screen header-->
 
+    <!-- package detail body -->
+    <div class="package-details-body">
+        <div class="package-details-tabs">
+            <a *ngFor="let packageTab of packageTabList" [ngClass]="{'package-tab-item': true, 'selected-tab': currentTab === packageTab.id
+            }" (click)="setCurrentTab($event, packageTab.id)">{{ packageTab.name }}</a>
+        </div>
+        <div class="package-details-content-area">
+
+            <!-- package overview section -->
+            <div class="package-overview" *ngIf="currentTab === 'overview'">
+                <div class="package-overview-image-block">
+                    <div style="background-color: #dddddd; width: 100%; height: 400px;"></div>
+                </div>
+                <div class="package-overview-description">
+                    <div [innerHtml]="(currentPackage$ | async)?.description"></div>
+                </div>
+            </div>
+            <!-- end of package overview section -->
+
+            <!-- package resources section  -->
+            <div class="package-resources" *ngIf="currentTab === 'resources'">
+                Resources
+            </div>
+            <!-- end of package resources section  -->
+
+            <!-- package resources section  -->
+            <div class="package-links" *ngIf="currentTab === 'links'">
+                Links
+            </div>
+            <!-- end of package resources section  -->
+        </div>
+    </div>
+    <!-- end of package detail body -->
+
     <!--full screen footer-->
     <div class="package-details-footer">
-        <div class="package-details-left-view">
-            <a class="package-details-left-btn">
-                <img src="assets/icons/arrow-left.png" alt="">
-            </a>
+        <div class="package-footer-title">
+            Downloads
         </div>
-        <div class="package-details-right-view">
-            <a class="package-details-right-btn">
-                <img src="assets/icons/arrow-right.png" alt="">
-            </a>
+        <div class="package-footer-content">
+            <div class="package-footer-content-item" *ngFor="let metadataPackage of (currentPackage$ | async)?.metadataPackages">
+                <div class="package-footer-content-item-title">
+                    <img src="assets/icons/eye.png" alt="">
+                    <span>{{metadataPackage.name}}</span>
+                </div>
+                <div class="package-footer-content-item-body">
+                    {{ metadataPackage.description }}
+                </div>
+                <div class="package-footer-content-item-footer">
+                    <button class="btn btn-outline-secondary package-footer-btn">
+                    <img src="assets/icons/download.png" alt="">
+                  </button>
+                    <button class="btn btn-outline-secondary package-footer-btn"><img src="assets/icons/eye.png" alt=""></button>
+                </div>
+            </div>
         </div>
     </div>
     <!--end of full screen footer-->

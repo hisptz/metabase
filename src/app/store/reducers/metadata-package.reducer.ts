@@ -45,10 +45,3 @@ export const getCurrentMetadataPackage = (state: State) =>
   state.currentMetadataPackage;
 export const getCurrentMetadataPackageVersion = (state: State) =>
   state.currentMetadataPackageVersion;
-
-export const {
-  selectIds: selectMetadataPackageIds,
-  selectEntities: selectMetadataPackageEntities,
-  selectAll: selectAllMetadataPackages,
-  selectTotal: selectMetadataPackageTotal
-} = adapter.getSelectors();

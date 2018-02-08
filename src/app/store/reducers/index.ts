@@ -32,8 +32,6 @@ export const reducers: ActionReducerMap<State> = {
 };
 
 export const selectCurrentUserState = (state: State) => state.currentUser;
-export const selectMetadataPackageState = (state: State) =>
-  state.metadataPackage;
 export const selectAppPackageState = (state: State) => state.appPackage;
 
 /**
@@ -70,6 +68,24 @@ export const {
   selectEntities: getPackagesEntities,
   selectTotal: getPackagesTotal
 } = fromPackage.adapter.getSelectors(getPackageEntitiesState);
+
+/**
+ * Global selectors for metadata packages
+ */
+
+export const getMetadataPackageState = (state: State) => state.metadataPackage;
+
+export const getMetadataPackageEntitiesState = createSelector(
+  getMetadataPackageState,
+  state => state
+);
+
+export const {
+  selectAll: getAllMetadataPackages,
+  selectIds: getMetadataPackagesIds,
+  selectEntities: getMetadataPackagesEntities,
+  selectTotal: getMetadataPackagesTotal
+} = fromMetadataPackage.adapter.getSelectors(getMetadataPackageEntitiesState);
 
 export const metaReducers: MetaReducer<State>[] = !environment.production
   ? [storeFreeze]
