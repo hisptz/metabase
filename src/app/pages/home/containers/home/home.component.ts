@@ -3,6 +3,7 @@ import { Store } from '@ngrx/store';
 import * as fromRoot from '@app/store';
 import { PackageGroupVm } from '@app/core';
 import { Observable } from 'rxjs/Observable';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -13,7 +14,7 @@ export class HomeComponent implements OnInit {
   pageDescription: string;
   packageGroups$: Observable<PackageGroupVm[]>;
   packageGroupLoading$: Observable<boolean>;
-  constructor(private store: Store<fromRoot.State>) {
+  constructor(private store: Store<fromRoot.State>, private router: Router) {
     this.packageGroups$ = store.select(fromRoot.getPackageGroups);
     this.packageGroupLoading$ = store.select(
       fromRoot.getPackageGroupLoadingStatus
@@ -25,4 +26,9 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit() {}
+
+  viewPackageDetails(packageId: string | number) {
+    this.store.dispatch(new fromRoot.SetCurrentPackageAction(packageId));
+    this.router.navigate([`package-details/${packageId}`]);
+  }
 }

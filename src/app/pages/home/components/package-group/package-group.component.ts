@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { PackageGroup } from '@app/core';
 
 @Component({
@@ -8,7 +8,16 @@ import { PackageGroup } from '@app/core';
 })
 export class PackageGroupComponent implements OnInit {
   @Input() packageGroup: PackageGroup;
+  @Output()
+  setCurrentPackage: EventEmitter<string | number> = new EventEmitter<
+    string | number
+  >();
   constructor() {}
 
   ngOnInit() {}
+
+  onSetCurrentPackage(e, packageId: string | number) {
+    e.stopPropagation();
+    this.setCurrentPackage.emit(packageId);
+  }
 }

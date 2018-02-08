@@ -39,9 +39,7 @@ export const selectAppPackageState = (state: State) => state.appPackage;
 /**
  * Global selectors for package groups
  */
-export const getPackageGroupState = createFeatureSelector<
-  fromPackageGroup.State
->('packageGroup');
+export const getPackageGroupState = (state: State) => state.packageGroup;
 
 export const getPackageGroupEntitiesState = createSelector(
   getPackageGroupState,
@@ -59,9 +57,7 @@ export const {
  * Global selectors for packages
  */
 
-export const getPackageState = createFeatureSelector<fromPackage.State>(
-  'packageObject'
-);
+export const getPackageState = (state: State) => state.packageObject;
 
 export const getPackageEntitiesState = createSelector(
   getPackageState,

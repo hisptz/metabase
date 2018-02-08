@@ -1,6 +1,11 @@
 <div class="container">
     <div class="row">
         <div class="col-12">
+            <router-outlet></router-outlet>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
             <div class="home-wrapper">
                 <!--home header-->
                 <div class="home-header">
@@ -41,7 +46,7 @@
 
 
                     <div class="home-package-group-list" *ngFor="let packageGroup of packageGroups$ | async">
-                        <app-package-group [packageGroup]="packageGroup"></app-package-group>
+                        <app-package-group [packageGroup]="packageGroup" (setCurrentPackage)="viewPackageDetails($event)"></app-package-group>
                     </div>
                 </div>
                 <!--end of package group list-->

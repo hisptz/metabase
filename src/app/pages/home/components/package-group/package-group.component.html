@@ -8,7 +8,7 @@
         </div>
     </div>
     <div class="row package-item-list">
-        <div class="col-md-3 col-sm-6 package-item" *ngFor="let packageItem of packageGroup.packages">
+        <div class="col-md-3 col-sm-6 package-item" *ngFor="let packageItem of packageGroup.packages" (click)="onSetCurrentPackage($event, packageItem.id)">
             <app-package-item [packageItem]="packageItem"></app-package-item>
         </div>
     </div>

@@ -1,0 +1,43 @@
+<div class="package-details">
+    <!--full screen header-->
+    <div class="package-details-header">
+        <div class="package-details-title">
+            <div class="title-image">
+
+            </div>
+            <div class="title-content">
+                <div class="title">{{ (currentPackage$ | async)?.name }}</div>
+                <div class="tag-block">
+                    <img src="assets/icons/tag.png" alt="">
+                    <div>
+                        <a href="">tags</a>
+                        <span>, </span>
+                        <a href="">tags</a>
+                        <span>, </span>
+                        <a href="">tags</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <a class="package-details-close" (click)="closePackageItem($event)">
+            <img src="assets/icons/close.png" alt="Close">
+        </a>
+    </div>
+    <!-- end of full screen header-->
+
+    <!--full screen footer-->
+    <div class="package-details-footer">
+        <div class="package-details-left-view">
+            <a class="package-details-left-btn">
+                <img src="assets/icons/arrow-left.png" alt="">
+            </a>
+        </div>
+        <div class="package-details-right-view">
+            <a class="package-details-right-btn">
+                <img src="assets/icons/arrow-right.png" alt="">
+            </a>
+        </div>
+    </div>
+    <!--end of full screen footer-->
+
+</div>
