@@ -1,0 +1,48 @@
+<div class="metadata-package-details">
+    <!--full screen header-->
+    <div class="metadata-package-details-header">
+        <div class="metadata-package-details-title">
+            <div class="title-image">
+
+            </div>
+            <div class="title-content">
+                <div class="title">{{(currentMetadataPackage$ | async)?.name}}</div>
+                <div class="tag-block">
+                    <img src="assets/icons/tag.png" alt="">
+                    <div>
+                        <a href="">tags</a>
+                        <span>, </span>
+                        <a href="">tags</a>
+                        <span>, </span>
+                        <a href="">tags</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div>
+            <div class="metadata-package-details-close">
+                <a (click)="closeMetadataPackageItem($event)">
+                    <img src="assets/icons/close.png" alt="Close">
+                </a>
+            </div>
+            <div class="metadata-package-version-selector">
+                <select name="" class="form-control form-control-sm">
+              <option value="">Version 1</option>
+              <option value="">1.0</option>
+              <option value="">1.0</option>
+            </select>
+            </div>
+        </div>
+    </div>
+    <!-- end of full screen header-->
+
+    <!-- metadata package detail body -->
+    <div class="metadata-package-details-body">
+        <!-- metadata package description -->
+        <div class="metadata-package-description">
+            {{(currentMetadataPackage$ | async)?.description}}
+        </div>
+        <!-- end of metadata package description -->
+    </div>
+    <!-- end metadata package detail body -->
+</div>

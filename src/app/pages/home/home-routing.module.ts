@@ -1,3 +1,4 @@
+import { MetadataPackageDetailsComponent } from './containers/metadata-package-details/metadata-package-details.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from './containers/home/home.component';
@@ -11,6 +12,10 @@ const routes: Routes = [
       {
         path: 'package-details/:id',
         component: PackageDetailsComponent
+      },
+      {
+        path: 'metadata-package-details/:id',
+        component: MetadataPackageDetailsComponent
       }
     ]
   }

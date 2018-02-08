@@ -114,7 +114,8 @@
 }
 
 .package-details-content-area {
-    max-height: 40vh;
+    min-height: 40vh;
+    max-height: 50vh;
     overflow: auto;
 }
 
