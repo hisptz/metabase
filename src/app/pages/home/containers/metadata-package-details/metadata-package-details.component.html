@@ -25,11 +25,10 @@
                     <img src="assets/icons/close.png" alt="Close">
                 </a>
             </div>
-            <div class="metadata-package-version-selector">
-                <select name="" class="form-control form-control-sm">
-              <option value="">Version 1</option>
-              <option value="">1.0</option>
-              <option value="">1.0</option>
+            <div class="metadata-package-actions">
+                <button class="btn btn-outline-secondary btn-sm import-btn">Preview and import</button>
+                <select [(ngModel)]="currentMetadataPackageVersion" (ngModelChange)="setCurrentVersion()" class="form-control form-control-sm">
+              <option *ngFor="let metadataPackageVersion of (currentMetadataPackage$ | async)?.versions" [value]="metadataPackageVersion.version">Version {{metadataPackageVersion.version}}</option>
             </select>
             </div>
         </div>
@@ -43,6 +42,12 @@
             {{(currentMetadataPackage$ | async)?.description}}
         </div>
         <!-- end of metadata package description -->
+
+        <!-- matadata list -->
+        <div class="metadata-list">
+            <app-metadata-list></app-metadata-list>
+        </div>
+        <!-- end of metadata list -->
     </div>
     <!-- end metadata package detail body -->
 </div>

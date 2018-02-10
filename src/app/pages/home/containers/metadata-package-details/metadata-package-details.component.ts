@@ -12,10 +12,16 @@ import { MetadataPackage } from '@app/core';
 })
 export class MetadataPackageDetailsComponent implements OnInit {
   currentMetadataPackage$: Observable<MetadataPackage>;
+  currentMetadataPackageVersion: number;
   constructor(private store: Store<fromRoot.State>) {
     this.currentMetadataPackage$ = store.select(
       fromRoot.getCurrentMetadataPackage
     );
+    store
+      .select(fromRoot.getCurrentMetadataPackageVersion)
+      .subscribe(selectedVersion => {
+        this.currentMetadataPackageVersion = selectedVersion;
+      });
   }
 
   ngOnInit() {}
@@ -23,5 +29,13 @@ export class MetadataPackageDetailsComponent implements OnInit {
   closeMetadataPackageItem(e) {
     e.stopPropagation();
     this.store.dispatch(new fromRoot.Back());
+  }
+
+  setCurrentVersion() {
+    this.store.dispatch(
+      new fromRoot.SetCurrentMetadataPackageVersionAction(
+        this.currentMetadataPackageVersion
+      )
+    );
   }
 }

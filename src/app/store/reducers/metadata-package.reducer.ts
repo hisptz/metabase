@@ -36,7 +36,9 @@ export function reducer(
         loaded: true
       });
     case MetadataPackageActionTypes.SET_CURRENT_METADATA_PACKAGE:
-      return { ...state, currentMetadataPackage: action.payload };
+      return { ...state, ...action.payload };
+    case MetadataPackageActionTypes.SET_CURRENT_METADATA_PACKAGE_VERSION:
+      return { ...state, currentMetadataPackageVersion: action.payload };
   }
   return state;
 }
@@ -45,5 +47,5 @@ export const getMetadataPackageLoading = (state: State) => state.loading;
 export const getMetadataPackageLoaded = (state: State) => state.loaded;
 export const getCurrentMetadataPackageState = (state: State) =>
   state.currentMetadataPackage;
-export const getCurrentMetadataPackageVersion = (state: State) =>
+export const getCurrentMetadataPackageVersionState = (state: State) =>
   state.currentMetadataPackageVersion;

@@ -4,7 +4,7 @@ import { Store } from '@ngrx/store';
 import { Component, OnInit } from '@angular/core';
 import * as fromRoot from '@app/store';
 import { Observable } from 'rxjs/Observable';
-import { PackageVm } from '@app/core';
+import * as fromCore from '@app/core';
 
 @Component({
   selector: 'app-package-details',
@@ -12,7 +12,7 @@ import { PackageVm } from '@app/core';
   styleUrls: ['./package-details.component.css']
 })
 export class PackageDetailsComponent implements OnInit {
-  currentPackage$: Observable<PackageVm>;
+  currentPackage$: Observable<fromCore.PackageVm>;
   currentTab: string;
   packageTabList: Array<{ id: string; name: string }>;
   constructor(private store: Store<fromRoot.State>) {
@@ -38,14 +38,26 @@ export class PackageDetailsComponent implements OnInit {
     this.currentTab = tabId;
   }
 
-  viewMetadataPackage(e, metadataPackageId) {
+  viewMetadataPackage(e, metadataPackage: fromCore.MetadataPackage) {
     e.stopPropagation();
+
+    const latestVersion = fromCore.getLatestVersion(metadataPackage.versions);
+
+    /**
+     * Set current metadata package
+     */
     this.store.dispatch(
-      new fromRoot.SetCurrentMetadataPackageAction(metadataPackageId)
+      new fromRoot.SetCurrentMetadataPackageAction({
+        currentMetadataPackage: metadataPackage.id,
+        currentMetadataPackageVersion: latestVersion
+      })
     );
+
     this.store.dispatch(
       new fromRoot.Go({
-        path: [`/metadata-package-details/${metadataPackageId}`]
+        path: [
+          `/metadata-package-details/${metadataPackage.id}/${latestVersion}`
+        ]
       })
     );
   }

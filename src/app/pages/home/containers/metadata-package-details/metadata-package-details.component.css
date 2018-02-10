@@ -44,9 +44,14 @@
     height: 25px;
 }
 
-.metadata-package-version-selector {
+.metadata-package-actions {
     margin-top: 10px;
     padding: 10px;
+    display: flex;
+}
+
+.import-btn {
+    margin-right: 5px;
 }
 
 .metadata-package-details-title {

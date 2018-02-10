@@ -65,7 +65,7 @@
             Downloads
         </div>
         <div class="package-footer-content">
-            <div class="package-footer-content-item" *ngFor="let metadataPackage of (currentPackage$ | async)?.metadataPackages" (click)="viewMetadataPackage($event, metadataPackage.id)">
+            <div class="package-footer-content-item" *ngFor="let metadataPackage of (currentPackage$ | async)?.metadataPackages" (click)="viewMetadataPackage($event, metadataPackage)">
                 <div class="package-footer-content-item-title">
                     <img src="assets/icons/eye.png" alt="">
                     <span>{{metadataPackage.name}}</span>
@@ -77,7 +77,7 @@
                     <button class="btn btn-outline-secondary package-footer-btn">
                     <img src="assets/icons/download.png" alt="">
                   </button>
-                    <button class="btn btn-outline-secondary package-footer-btn" (click)="viewMetadataPackage($event, metadataPackage.id)"><img src="assets/icons/eye.png" alt=""></button>
+                    <button class="btn btn-outline-secondary package-footer-btn" (click)="viewMetadataPackage($event, metadataPackage)"><img src="assets/icons/eye.png" alt=""></button>
                 </div>
             </div>
         </div>

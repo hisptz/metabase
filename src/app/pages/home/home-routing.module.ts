@@ -14,7 +14,7 @@ const routes: Routes = [
         component: PackageDetailsComponent
       },
       {
-        path: 'metadata-package-details/:id',
+        path: 'metadata-package-details/:id/:version',
         component: MetadataPackageDetailsComponent
       }
     ]

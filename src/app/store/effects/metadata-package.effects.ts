@@ -32,7 +32,10 @@ export class MetadataPackageEffects {
           ) {
             if (currentPackage === '') {
               this.store.dispatch(
-                new fromActions.SetCurrentMetadataPackageAction(splitedUrl[2])
+                new fromActions.SetCurrentMetadataPackageAction({
+                  currentMetadataPackage: splitedUrl[2],
+                  currentMetadataPackageVersion: parseFloat(splitedUrl[3])
+                })
               );
             }
           }

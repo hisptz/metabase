@@ -8,3 +8,4 @@ export * from './services';
 export * from './modules';
 export * from './utils';
 export * from './models';
+export * from './helpers';
