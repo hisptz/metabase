@@ -43,8 +43,8 @@ export function reducer(
   return state;
 }
 
-export const getMetadataPackageLoading = (state: State) => state.loading;
-export const getMetadataPackageLoaded = (state: State) => state.loaded;
+export const getMetadataPackageLoadingState = (state: State) => state.loading;
+export const getMetadataPackageLoadedState = (state: State) => state.loaded;
 export const getCurrentMetadataPackageState = (state: State) =>
   state.currentMetadataPackage;
 export const getCurrentMetadataPackageVersionState = (state: State) =>

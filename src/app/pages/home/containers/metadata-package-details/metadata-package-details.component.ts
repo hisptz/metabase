@@ -12,10 +12,15 @@ import { MetadataPackage } from '@app/core';
 })
 export class MetadataPackageDetailsComponent implements OnInit {
   currentMetadataPackage$: Observable<MetadataPackage>;
+  metadataPackageLoaded$: Observable<boolean>;
   currentMetadataPackageVersion: number;
   constructor(private store: Store<fromRoot.State>) {
     this.currentMetadataPackage$ = store.select(
       fromRoot.getCurrentMetadataPackage
+    );
+
+    this.metadataPackageLoaded$ = store.select(
+      fromRoot.getMetadataPackageLoaded
     );
     store
       .select(fromRoot.getCurrentMetadataPackageVersion)

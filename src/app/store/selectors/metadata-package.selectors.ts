@@ -7,6 +7,11 @@ export const getCurrentMetadataPackageId = createSelector(
   fromMetadataPackage.getCurrentMetadataPackageState
 );
 
+export const getMetadataPackageLoaded = createSelector(
+  fromRoot.getMetadataPackageState,
+  fromMetadataPackage.getMetadataPackageLoadedState
+);
+
 export const getCurrentMetadataPackageVersion = createSelector(
   fromRoot.getMetadataPackageState,
   fromMetadataPackage.getCurrentMetadataPackageVersionState

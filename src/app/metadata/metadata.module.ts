@@ -5,6 +5,8 @@ import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 
 import * as fromContainers from './containers';
+import * as fromComponents from './components';
+import * as fromServices from './services';
 import { reducers, effects } from './store';
 
 @NgModule({
@@ -21,7 +23,8 @@ import { reducers, effects } from './store';
      */
     EffectsModule.forFeature(effects)
   ],
-  declarations: [...fromContainers.containers],
-  exports: [...fromContainers.containers]
+  declarations: [...fromContainers.containers, ...fromComponents.components],
+  exports: [...fromContainers.containers],
+  providers: [...fromServices.services]
 })
 export class MetadataModule {}

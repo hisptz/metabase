@@ -1,0 +1,7 @@
+<div class="metadata-container">
+    <div class="metadata-item-list" *ngIf="(currentMetadata$ | async)?.loaded">
+        <div class="metadata-item-block" *ngFor="let metadataItem of (currentMetadata$ | async)?.metadataItems">
+            <app-metadata-item></app-metadata-item>
+        </div>
+    </div>
+</div>

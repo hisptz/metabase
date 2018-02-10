@@ -1,1 +1,2 @@
-export const effects: any[] = [];
+import { MetadataEffects } from './metadata.effects';
+export const effects: any[] = [MetadataEffects];

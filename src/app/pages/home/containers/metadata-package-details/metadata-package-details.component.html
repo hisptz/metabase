@@ -44,8 +44,8 @@
         <!-- end of metadata package description -->
 
         <!-- matadata list -->
-        <div class="metadata-list">
-            <app-metadata-list></app-metadata-list>
+        <div class="metadata-list" *ngIf="metadataPackageLoaded$ | async">
+            <app-metadata [id]="(currentMetadataPackage$ | async)?.id" [currentVersion]="currentMetadataPackageVersion" [versions]="(currentMetadataPackage$ | async)?.versions"></app-metadata>
         </div>
         <!-- end of metadata list -->
     </div>

@@ -1,2 +1,3 @@
-import { MetadataListComponent } from './metadata-list/metadata-list.component';
-export const containers: any[] = [MetadataListComponent];
+import { MetadataComponent } from './metadata/metadata.component';
+
+export const containers: any[] = [MetadataComponent];
