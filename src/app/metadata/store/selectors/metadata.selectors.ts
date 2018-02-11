@@ -1,9 +1,11 @@
 import { createSelector } from '@ngrx/store';
 import * as _ from 'lodash';
 
+import * as helpers from '@app/core';
 import { Metadata } from './../../models/metadata';
 import * as fromRoot from '../reducers';
 import * as fromMetadata from '../reducers/metadata.reducer';
+import * as fromConstants from '../../constants';
 
 export const getCurrentMetadataId = createSelector(
   fromRoot.getMetadataObjectState,
@@ -24,7 +26,8 @@ export const getCurrentMetadata = createSelector(
             metadataItemKey => {
               return {
                 id: metadataItemKey,
-                name: metadataItemKey,
+                name: helpers.convertCamelCaseToReadable(metadataItemKey),
+                icon: fromConstants.METADATA_ICONS[metadataItemKey],
                 items: currentMetadata.metadataItems[metadataItemKey]
               };
             }
