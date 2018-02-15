@@ -15,24 +15,43 @@ export const getCurrentMetadataId = createSelector(
 export const getCurrentMetadata = createSelector(
   fromRoot.getMetadataEntitiesState,
   getCurrentMetadataId,
-  (metadataEntity: { [id: string]: Metadata }, currentMetadataId: string) => {
+  (metadataEntity: {[id: string]: Metadata}, currentMetadataId: string) => {
     const currentMetadata: Metadata = metadataEntity[currentMetadataId];
 
     return currentMetadata
       ? {
-          ...currentMetadata,
-          metadataItems: _.map(
-            _.keys(currentMetadata.metadataItems),
-            metadataItemKey => {
-              return {
-                id: metadataItemKey,
-                name: helpers.convertCamelCaseToReadable(metadataItemKey),
-                icon: fromConstants.METADATA_ICONS[metadataItemKey],
-                items: currentMetadata.metadataItems[metadataItemKey]
-              };
-            }
-          )
-        }
+        ...currentMetadata,
+        metadataItems: _.map(
+          _.keys(currentMetadata.metadataItems),
+          metadataItemKey => {
+            return {
+              id: metadataItemKey,
+              name: helpers.convertCamelCaseToReadable(metadataItemKey),
+              icon: fromConstants.METADATA_ICONS[metadataItemKey],
+              items: currentMetadata.metadataItems[metadataItemKey]
+            };
+          }
+        )
+      }
       : null;
+  }
+);
+
+export const getCurrentMetadataItemId = createSelector(
+  fromRoot.getMetadataObjectState,
+  fromMetadata.getCurrentMetadataItemState
+);
+
+export const getCurrentMetadataItem = createSelector(
+  fromRoot.getMetadataEntitiesState,
+  getCurrentMetadataId,
+  getCurrentMetadataItemId,
+  (metadataEntity, currentMetadataId, currentMetadataItemId) => {
+    const currentMetadata: Metadata = metadataEntity[currentMetadataId];
+    return currentMetadataItemId !== '' ? {
+      id: currentMetadataItemId,
+      name: helpers.convertCamelCaseToReadable(currentMetadataItemId),
+      items: currentMetadata.metadataItems[currentMetadataItemId]
+    } : null;
   }
 );

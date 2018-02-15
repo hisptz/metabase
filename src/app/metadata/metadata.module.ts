@@ -1,8 +1,8 @@
-import { containers } from './containers/index';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 import * as fromContainers from './containers';
 import * as fromComponents from './components';
@@ -12,6 +12,7 @@ import { reducers, effects } from './store';
 @NgModule({
   imports: [
     CommonModule,
+    NgxPaginationModule,
 
     /**
      * Reducers
@@ -27,4 +28,5 @@ import { reducers, effects } from './store';
   exports: [...fromContainers.containers],
   providers: [...fromServices.services]
 })
-export class MetadataModule {}
+export class MetadataModule {
+}

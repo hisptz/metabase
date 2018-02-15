@@ -1,0 +1,13 @@
+.current-metadata-breadcrumb,
+.current-metadata-item-list {
+  padding: 10px;
+}
+
+.breadcrumb-item > a {
+  cursor: pointer;
+}
+
+.metadata-item-pagination {
+  display: flex;
+  justify-content: flex-end;
+}

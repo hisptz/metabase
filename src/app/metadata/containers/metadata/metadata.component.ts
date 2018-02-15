@@ -1,13 +1,12 @@
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/take';
-import { getCurrentMetadata } from './../../store/selectors/metadata.selectors';
 import { Store } from '@ngrx/store';
 import { Component, OnInit, Input } from '@angular/core';
 import * as _ from 'lodash';
 
 import { MetadataPackageVersion } from '@app/core';
 import * as fromMetadata from '../../store';
-import { MetadataVm } from './../../models';
+import { MetadataVm } from '../../models';
 
 @Component({
   selector: 'app-metadata',
@@ -19,8 +18,11 @@ export class MetadataComponent implements OnInit {
   @Input() currentVersion: number;
   @Input() versions: MetadataPackageVersion[];
   currentMetadata$: Observable<MetadataVm>;
+  currentMetadataItem$: Observable<any>;
+
   constructor(private store: Store<fromMetadata.State>) {
     this.currentMetadata$ = store.select(fromMetadata.getCurrentMetadata);
+    this.currentMetadataItem$ = store.select(fromMetadata.getCurrentMetadataItem);
   }
 
   ngOnInit() {
@@ -51,5 +53,14 @@ export class MetadataComponent implements OnInit {
         });
       }
     }
+  }
+
+  setCurrentMetadataItem(e, currentMetadataItem: string) {
+    e.stopPropagation();
+    this.store.dispatch(new fromMetadata.SetCurrentMetadataItemAction(currentMetadataItem));
+  }
+
+  clearCurrentMetadataItem() {
+    this.store.dispatch(new fromMetadata.ClearCurrentMetadataItemAction());
   }
 }

@@ -1,7 +1,21 @@
 <div class="metadata-container">
-    <div class="metadata-item-list" *ngIf="(currentMetadata$ | async)?.loaded">
-        <div class="metadata-item-block" *ngFor="let metadataItem of (currentMetadata$ | async)?.metadataItems">
-            <app-metadata-item [metadataItem]="metadataItem"></app-metadata-item>
-        </div>
+  <!--metadata item list-->
+  <div class="metadata-item-list" *ngIf="(currentMetadata$ | async)?.loaded && !(currentMetadataItem$ | async)">
+    <div
+      class="metadata-item-block"
+      *ngFor="let metadataItem of (currentMetadata$ | async)?.metadataItems"
+      (click)="setCurrentMetadataItem($event, metadataItem.id)">
+      <app-metadata-item [metadataItem]="metadataItem"></app-metadata-item>
     </div>
+  </div>
+  <!--end of metadata item list-->
+
+  <!--current metadata item block-->
+  <div class="current-metadata-item" *ngIf="currentMetadataItem$ | async">
+    <app-current-metadata-item
+      [currentMetadataItem]="currentMetadataItem$ | async"
+      (onCloseCurrentMetadataItem)="clearCurrentMetadataItem()"
+    ></app-current-metadata-item>
+  </div>
+  <!--end of current metadata item block-->
 </div>

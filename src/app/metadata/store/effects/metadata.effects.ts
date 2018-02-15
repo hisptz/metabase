@@ -24,11 +24,15 @@ export class MetadataEffects {
         this.metadataService.getMetadata(action.payload.url).subscribe(
           (metadataInfo: any) => {
             const metadataItems = {};
+            // _.each(_.keys(metadataInfo), metadataKey => {
+            //   metadataItems[metadataKey] = _.map(
+            //     metadataInfo[metadataKey],
+            //     metadata => metadata.id
+            //   );
+            // });
+
             _.each(_.keys(metadataInfo), metadataKey => {
-              metadataItems[metadataKey] = _.map(
-                metadataInfo[metadataKey],
-                metadata => metadata.id
-              );
+              metadataItems[metadataKey] = metadataInfo[metadataKey];
             });
 
             /**
@@ -44,6 +48,11 @@ export class MetadataEffects {
                 }
               })
             );
+
+            /**
+             * Update specific metadata info
+             */
+            // TODO FIND BEST WAY TO SEPARATE METADATA ITEMS BASED ON THEIR TYPES
           },
           error => {
             console.error(error);

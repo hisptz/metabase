@@ -43,7 +43,7 @@
         </div>
         <!-- end of metadata package description -->
 
-        <!-- matadata list -->
+        <!-- metadata list -->
         <div class="metadata-list" *ngIf="metadataPackageLoaded$ | async">
             <app-metadata [id]="(currentMetadataPackage$ | async)?.id" [currentVersion]="currentMetadataPackageVersion" [versions]="(currentMetadataPackage$ | async)?.versions"></app-metadata>
         </div>
