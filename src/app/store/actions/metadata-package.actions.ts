@@ -4,7 +4,8 @@ import { Action } from '@ngrx/store';
 export enum MetadataPackageActionTypes {
   ADD_METADATA_PACKAGES = '[MetadataPackage] Add metadata packages',
   SET_CURRENT_METADATA_PACKAGE = '[MetadataPackage] Set current metadata packages',
-  SET_CURRENT_METADATA_PACKAGE_VERSION = '[MetadataPackage] Set current metadata package version'
+  SET_CURRENT_METADATA_PACKAGE_VERSION = '[MetadataPackage] Set current metadata package version',
+  UPDATE_METADATA_PACKAGE_IMPORT_STATUS = '[Metadata] update metadata package import status',
 }
 
 export class AddMetadataPackagesAction implements Action {
@@ -27,7 +28,18 @@ export class SetCurrentMetadataPackageVersionAction implements Action {
   constructor(public payload: number) {}
 }
 
+export class UpdateMetadataPackageImportStatusAction implements Action {
+  readonly type = MetadataPackageActionTypes.UPDATE_METADATA_PACKAGE_IMPORT_STATUS;
+
+  constructor(public payload: {
+    id: string;
+    changes: Partial<MetadataPackage>;
+  }) {
+  }
+}
+
 export type MetadataPackageActions =
   | AddMetadataPackagesAction
   | SetCurrentMetadataPackageAction
-  | SetCurrentMetadataPackageVersionAction;
+  | SetCurrentMetadataPackageVersionAction
+  | UpdateMetadataPackageImportStatusAction;

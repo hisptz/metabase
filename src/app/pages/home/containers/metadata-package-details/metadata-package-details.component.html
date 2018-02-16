@@ -26,10 +26,33 @@
                 </a>
             </div>
             <div class="metadata-package-actions">
-                <button class="btn btn-outline-secondary btn-sm import-btn">Preview and import</button>
-                <select [(ngModel)]="currentMetadataPackageVersion" (ngModelChange)="setCurrentVersion()" class="form-control form-control-sm">
-              <option *ngFor="let metadataPackageVersion of (currentMetadataPackage$ | async)?.versions" [value]="metadataPackageVersion.version">Version {{metadataPackageVersion.version}}</option>
-            </select>
+              <button class="btn btn-sm btn-success import-btn" *ngIf="(currentMetadataPackage$ | async)?.imported">
+                Imported
+              </button>
+                <button
+                  class="btn btn-outline-secondary btn-sm import-btn"
+                  (click)="previewMetadata($event)"
+                  [disabled]="(currentMetadataPackage$ | async)?.importing"
+                >
+                  <span class="importing-block" *ngIf="(currentMetadataPackage$ | async)?.importing">
+                    <img src="assets/icons/balls-5.svg" alt="">
+                    Importing metadata...
+                  </span>
+                  <span class="import-block" *ngIf="!(currentMetadataPackage$ | async)?.importing">
+                    {{((currentMetadataPackage$ | async)?.imported) ? 'Import anyway' : 'Preview and import'}}
+                  </span>
+                </button>
+                <select
+                  *ngIf="!(currentMetadataPackage$ | async)?.importing"
+                  [(ngModel)]="currentMetadataPackageVersion"
+                  (ngModelChange)="setCurrentVersion()"
+                  class="form-control form-control-sm">
+                  <option
+                    *ngFor="let metadataPackageVersion of (currentMetadataPackage$ | async)?.versions"
+                    [value]="metadataPackageVersion.version">
+                    Version {{metadataPackageVersion.version}}
+                  </option>
+                </select>
             </div>
         </div>
     </div>
@@ -45,7 +68,11 @@
 
         <!-- metadata list -->
         <div class="metadata-list" *ngIf="metadataPackageLoaded$ | async">
-            <app-metadata [id]="(currentMetadataPackage$ | async)?.id" [currentVersion]="currentMetadataPackageVersion" [versions]="(currentMetadataPackage$ | async)?.versions"></app-metadata>
+            <app-metadata
+              [id]="(currentMetadataPackage$ | async)?.id"
+              [currentVersion]="currentMetadataPackageVersion"
+              [versions]="(currentMetadataPackage$ | async)?.versions"
+            ></app-metadata>
         </div>
         <!-- end of metadata list -->
     </div>

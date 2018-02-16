@@ -1,8 +1,9 @@
 import { Store } from '@ngrx/store';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 
 import * as fromRoot from '@app/store';
 import { Observable } from 'rxjs/Observable';
+import { MetadataComponent } from '@app/metadata';
 import { MetadataPackage } from '@app/core';
 
 @Component({
@@ -14,6 +15,10 @@ export class MetadataPackageDetailsComponent implements OnInit {
   currentMetadataPackage$: Observable<MetadataPackage>;
   metadataPackageLoaded$: Observable<boolean>;
   currentMetadataPackageVersion: number;
+
+  @ViewChild(MetadataComponent)
+  metadata: MetadataComponent;
+
   constructor(private store: Store<fromRoot.State>) {
     this.currentMetadataPackage$ = store.select(
       fromRoot.getCurrentMetadataPackage
@@ -22,14 +27,13 @@ export class MetadataPackageDetailsComponent implements OnInit {
     this.metadataPackageLoaded$ = store.select(
       fromRoot.getMetadataPackageLoaded
     );
-    store
-      .select(fromRoot.getCurrentMetadataPackageVersion)
-      .subscribe(selectedVersion => {
-        this.currentMetadataPackageVersion = selectedVersion;
-      });
+    store.select(fromRoot.getCurrentMetadataPackageVersion).subscribe(selectedVersion => {
+      this.currentMetadataPackageVersion = selectedVersion;
+    });
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+  }
 
   closeMetadataPackageItem(e) {
     e.stopPropagation();
@@ -42,5 +46,29 @@ export class MetadataPackageDetailsComponent implements OnInit {
         this.currentMetadataPackageVersion
       )
     );
+  }
+
+  previewMetadata(e) {
+    e.stopPropagation();
+
+    /**
+     * Trigger import operation in metadata module
+     */
+    if (this.metadata) {
+      this.metadata.importMetadata();
+    }
+
+    /**
+     * Set import status for the selected metadata package
+     */
+    this.currentMetadataPackage$.take(1).subscribe((currentMetadataPackage) => {
+      this.store.dispatch(new fromRoot.UpdateMetadataPackageImportStatusAction({
+        id: currentMetadataPackage.id,
+        changes: {
+          importing: true
+        }
+      }));
+    });
+
   }
 }

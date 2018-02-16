@@ -13,9 +13,7 @@ export interface State extends EntityState<MetadataPackage> {
   currentMetadataPackageVersion: number;
 }
 
-export const adapter: EntityAdapter<MetadataPackage> = createEntityAdapter<
-  MetadataPackage
->();
+export const adapter: EntityAdapter<MetadataPackage> = createEntityAdapter<MetadataPackage>();
 
 export const initialState: State = adapter.getInitialState({
   loaded: false,
@@ -24,10 +22,8 @@ export const initialState: State = adapter.getInitialState({
   currentMetadataPackageVersion: 0
 });
 
-export function reducer(
-  state: State = initialState,
-  action: MetadataPackageActions
-): State {
+export function reducer(state: State = initialState,
+  action: MetadataPackageActions): State {
   switch (action.type) {
     case MetadataPackageActionTypes.ADD_METADATA_PACKAGES:
       return adapter.addAll(action.payload, {
@@ -35,10 +31,19 @@ export function reducer(
         loading: false,
         loaded: true
       });
+
+    case MetadataPackageActionTypes.UPDATE_METADATA_PACKAGE_IMPORT_STATUS:
+      return adapter.updateOne(
+        {
+          id: action.payload.id,
+          changes: action.payload.changes
+        },
+        state
+      );
     case MetadataPackageActionTypes.SET_CURRENT_METADATA_PACKAGE:
-      return { ...state, ...action.payload };
+      return {...state, ...action.payload};
     case MetadataPackageActionTypes.SET_CURRENT_METADATA_PACKAGE_VERSION:
-      return { ...state, currentMetadataPackageVersion: action.payload };
+      return {...state, currentMetadataPackageVersion: action.payload};
   }
   return state;
 }

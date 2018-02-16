@@ -1,7 +1,7 @@
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/take';
 import { Store } from '@ngrx/store';
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import * as _ from 'lodash';
 
 import { MetadataPackageVersion } from '@app/core';
@@ -17,6 +17,8 @@ export class MetadataComponent implements OnInit {
   @Input() id: string;
   @Input() currentVersion: number;
   @Input() versions: MetadataPackageVersion[];
+
+  @Output() onMetadataImportStatusUpdate: EventEmitter<boolean> = new EventEmitter<boolean>();
   currentMetadata$: Observable<MetadataVm>;
   currentMetadataItem$: Observable<any>;
 
@@ -45,6 +47,7 @@ export class MetadataComponent implements OnInit {
                 url: currentVersionObject.url,
                 loading: true,
                 loaded: false,
+                importing: false,
                 imported: false,
                 metadataItems: {}
               })
@@ -62,5 +65,26 @@ export class MetadataComponent implements OnInit {
 
   clearCurrentMetadataItem() {
     this.store.dispatch(new fromMetadata.ClearCurrentMetadataItemAction());
+  }
+
+  importMetadata() {
+    this.currentMetadata$.take(1).subscribe((metadata: any) => {
+
+      // TODO this is a temporary solution for importing
+      const groupedItems = _.groupBy(metadata.metadataItems, 'id');
+      const groupedKeys = _.keys(groupedItems);
+      const metadataToImport = {};
+      _.each(groupedKeys, key => {
+        const groupedItem = groupedItems[key][0];
+        metadataToImport[key] = groupedItem ? groupedItem.items : [];
+      });
+
+      this.store.dispatch(new fromMetadata.ImportMetadataAction({
+        dryRun: true,
+        metadata: metadataToImport,
+        id: metadata.id
+      }));
+    });
+
   }
 }

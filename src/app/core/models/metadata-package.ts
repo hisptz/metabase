@@ -7,6 +7,9 @@ export interface MetadataPackage {
   description: string;
   created: string;
   lastUpdated: string;
+  importing: boolean;
+  imported: boolean;
+  importedVersions: Array<string>;
   license: MetadataPackageLicense;
   status?: string;
   owner?: string;

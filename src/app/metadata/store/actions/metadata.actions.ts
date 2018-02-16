@@ -1,6 +1,5 @@
 import { Action } from '@ngrx/store';
 import { Metadata } from '../../models/metadata';
-import { Update } from '@ngrx/entity';
 
 export enum MetadataActionTypes {
   INITIALIZE_METADATA = '[Metadata] Initialize metadata',
@@ -10,6 +9,9 @@ export enum MetadataActionTypes {
   SET_CURRENT_METADATA = '[Metadata] Set current metadata',
   SET_CURRENT_METADATA_ITEM = '[Metadata] Set current metadata item',
   CLEAR_CURRENT_METADATA_ITEM = '[Metadata] Clear current metadata item',
+  IMPORT_METADATA = '[Metadata] import metadata',
+  IMPORT_METADATA_SUCCESS = '[Metadata] import metadata success',
+  IMPORT_METADATA_FAIL = '[Metadata] import metadata fail',
 }
 
 export class InitializeMetadataAction implements Action {
@@ -61,11 +63,36 @@ export class ClearCurrentMetadataItemAction implements Action {
   readonly type = MetadataActionTypes.CLEAR_CURRENT_METADATA_ITEM;
 }
 
+export class ImportMetadataAction implements Action {
+  readonly type = MetadataActionTypes.IMPORT_METADATA;
+  constructor(public payload: {
+    id: string;
+    dryRun: boolean;
+    metadata: any;
+  }) {}
+}
+
+export class ImportMetadataSuccessAction implements Action {
+  readonly type = MetadataActionTypes.IMPORT_METADATA_SUCCESS;
+  constructor(public payload: {
+    id: string;
+    changes: Partial<Metadata>;
+  }) {}
+}
+
+export class ImportMetadataFailAction implements Action {
+  readonly type = MetadataActionTypes.IMPORT_METADATA_FAIL;
+  constructor(public payload: any) {}
+}
+
 export type MetadataAction =
   | InitializeMetadataAction
   | LoadMetadataAction
   | LoadMetadataSuccessAction
-  | LoadMetadataAction
+  | LoadMetadataFailAction
   | SetCurrentMetadataAction
   | SetCurrentMetadataItemAction
-  | ClearCurrentMetadataItemAction;
+  | ClearCurrentMetadataItemAction
+  | ImportMetadataAction
+  | ImportMetadataSuccessAction
+  | ImportMetadataFailAction;

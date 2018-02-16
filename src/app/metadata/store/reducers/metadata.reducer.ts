@@ -24,6 +24,7 @@ export function reducer(state: State = initialState,
     case MetadataActionTypes.LOAD_METADATA:
       return adapter.addOne(action.payload, state);
     case MetadataActionTypes.LOAD_METADATA_SUCCESS:
+    case MetadataActionTypes.IMPORT_METADATA_SUCCESS:
       return adapter.updateOne(
         {
           id: action.payload.id,
