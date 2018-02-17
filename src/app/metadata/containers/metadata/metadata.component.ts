@@ -49,6 +49,8 @@ export class MetadataComponent implements OnInit {
                 loaded: false,
                 importing: false,
                 imported: false,
+                importSummary: null,
+                showImportSummary: false,
                 metadataItems: {}
               })
             );
@@ -80,11 +82,22 @@ export class MetadataComponent implements OnInit {
       });
 
       this.store.dispatch(new fromMetadata.ImportMetadataAction({
-        dryRun: true,
+        dryRun: false,
         metadata: metadataToImport,
         id: metadata.id
       }));
     });
 
+  }
+
+  toggleMetadataImportSummary() {
+    this.currentMetadata$.take(1).subscribe((metadata: any) => {
+      this.store.dispatch(new fromMetadata.ToggleMetadataImportSummaryAction({
+        id: metadata.id,
+        changes: {
+          showImportSummary: !metadata.showImportSummary
+        }
+      }));
+    });
   }
 }

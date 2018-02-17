@@ -1,0 +1,74 @@
+<div class="metadata-import-summary">
+  <!--import summary breadcrumb-->
+  <div class="metadata-import-summary-breadcrumb">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a (click)="closeMetadataImportSummary($event)">Metadata List</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Import summary</li>
+      </ol>
+    </nav>
+  </div>
+  <!--end of import summary breadcrumb-->
+
+  <!--import summary-->
+  <div class="import-summary" *ngIf="importSummary">
+    <h5 class="page-header">
+      {{importResult?.isPreview ? 'Importing will make the following changes to the system' :
+      'Importing made the following changes to the system'}}
+    </h5>
+    <table class="table table-hover">
+      <thead>
+      <tr>
+        <th>#</th>
+        <th>Item</th>
+        <th class="text-success">Add{{importSummary?.isPreview ? '' : 'ed'}}</th>
+        <th class="text-info">Update{{importSummary?.isPreview ? '' : 'd'}}</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let importSum of importSummary?.importCountsPerMetadata  | paginate: { itemsPerPage: 5, currentPage: importListPage }; let i=index">
+        <td>{{i + 1}}</td>
+        <td>{{importSum.type}}</td>
+        <td class="text-success">{{importSum.count.created}}</td>
+        <td class="text-info">{{importSum.count.updated}}</td>
+      </tr>
+      <tr>
+        <th></th>
+        <th>Total</th>
+        <th class="text-success">{{importSummary?.overallImportCounts.created}}</th>
+        <th class="text-info">{{importSummary?.overallImportCounts.updated}}</th>
+      </tr>
+      </tbody>
+    </table>
+    <div class="metadata-import-summary-pagination" *ngIf="importSummary?.importCountsPerMetadata.length > 5">
+      <pagination-controls (pageChange)="importListPage = $event"></pagination-controls>
+    </div>
+  </div>
+  <!--end of import summary-->
+
+  <!--import conflicts-->
+  <div class="import-conflict" *ngIf="importSummary && importSummary?.importConflicts.length > 0">
+    <h5 class="page-header" style="margin-top: 2px;">{{importSummary?.isPreview ? 'Preview' : 'Import'}} conflicts</h5>
+    <table class="table table-condensed table-hover">
+      <thead>
+      <tr>
+        <th>#</th>
+        <th>Item type</th>
+        <th>Conflicts</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let conflict of importSummary.importConflicts; let i=index">
+        <td>{{i + 1}}</td>
+        <td>{{conflict.type}}</td>
+        <td>
+          <ol>
+            <li *ngFor="let description of conflict.description">{{description.message}}</li>
+          </ol>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+  <!--end of import conflicts-->
+</div>

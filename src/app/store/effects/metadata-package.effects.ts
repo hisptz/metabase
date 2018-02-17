@@ -44,8 +44,23 @@ export class MetadataPackageEffects {
   importSuccess$ = this.actions$.ofType(fromMetadataActions.MetadataActionTypes.IMPORT_METADATA_SUCCESS).pipe(
     tap(
       (action: any) => {
-        const splitedMetadataId = action.payload.id.split('_')
+        const splitedMetadataId = action.payload.id.split('_');
         this.store.dispatch(new fromActions.UpdateMetadataPackageImportStatusAction(
-          {id: splitedMetadataId[0], changes: {importing: false, imported: true}}));
+          {
+            id: splitedMetadataId[0],
+            changes: {importing: false, imported: true, importedVersion: parseFloat(splitedMetadataId[1])}
+          }));
+      }));
+
+  @Effect({dispatch: false})
+  importFail$ = this.actions$.ofType(fromMetadataActions.MetadataActionTypes.IMPORT_METADATA_FAIL).pipe(
+    tap(
+      (action: any) => {
+        const splitedMetadataId = action.payload.id.split('_');
+        this.store.dispatch(new fromActions.UpdateMetadataPackageImportStatusAction(
+          {
+            id: splitedMetadataId[0],
+            changes: {importing: false, imported: false, importError: action.payload.importError}
+          }));
       }));
 }

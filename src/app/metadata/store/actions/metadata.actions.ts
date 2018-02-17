@@ -12,6 +12,7 @@ export enum MetadataActionTypes {
   IMPORT_METADATA = '[Metadata] import metadata',
   IMPORT_METADATA_SUCCESS = '[Metadata] import metadata success',
   IMPORT_METADATA_FAIL = '[Metadata] import metadata fail',
+  TOGGLE_METADATA_IMPORT_SUMMARY = '[Metadata] show/hide metadata import summary',
 }
 
 export class InitializeMetadataAction implements Action {
@@ -85,6 +86,16 @@ export class ImportMetadataFailAction implements Action {
   constructor(public payload: any) {}
 }
 
+export class ToggleMetadataImportSummaryAction implements Action {
+  readonly type = MetadataActionTypes.TOGGLE_METADATA_IMPORT_SUMMARY;
+
+  constructor(public payload: {
+    id: string;
+    changes: Partial<Metadata>;
+  }) {
+  }
+}
+
 export type MetadataAction =
   | InitializeMetadataAction
   | LoadMetadataAction
@@ -95,4 +106,5 @@ export type MetadataAction =
   | ClearCurrentMetadataItemAction
   | ImportMetadataAction
   | ImportMetadataSuccessAction
-  | ImportMetadataFailAction;
+  | ImportMetadataFailAction
+  | ToggleMetadataImportSummaryAction;

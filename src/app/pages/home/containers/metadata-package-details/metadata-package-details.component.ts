@@ -1,7 +1,7 @@
 import { Store } from '@ngrx/store';
 import { Component, OnInit, ViewChild } from '@angular/core';
 
-import * as fromRoot from '@app/store';
+import * as fromRoot from '@app/store'
 import { Observable } from 'rxjs/Observable';
 import { MetadataComponent } from '@app/metadata';
 import { MetadataPackage } from '@app/core';
@@ -48,7 +48,7 @@ export class MetadataPackageDetailsComponent implements OnInit {
     );
   }
 
-  previewMetadata(e) {
+  importMetadata(e) {
     e.stopPropagation();
 
     /**
@@ -65,10 +65,20 @@ export class MetadataPackageDetailsComponent implements OnInit {
       this.store.dispatch(new fromRoot.UpdateMetadataPackageImportStatusAction({
         id: currentMetadataPackage.id,
         changes: {
-          importing: true
+          importing: true,
+          imported: false,
+          importError: null
         }
       }));
     });
 
+  }
+
+  toggleImportSummary(e) {
+    e.stopPropagation();
+
+    if(this.metadata) {
+      this.metadata.toggleMetadataImportSummary();
+    }
   }
 }

@@ -1,6 +1,10 @@
 <div class="metadata-container">
   <!--metadata item list-->
-  <div class="metadata-item-list" *ngIf="(currentMetadata$ | async)?.loaded && !(currentMetadataItem$ | async)">
+  <div
+    class="metadata-item-list"
+    *ngIf="(currentMetadata$ | async)?.loaded &&
+    !(currentMetadata$ | async)?.showImportSummary &&
+    !(currentMetadataItem$ | async)">
     <div
       class="metadata-item-block"
       *ngFor="let metadataItem of (currentMetadata$ | async)?.metadataItems"
@@ -11,11 +15,21 @@
   <!--end of metadata item list-->
 
   <!--current metadata item block-->
-  <div class="current-metadata-item" *ngIf="currentMetadataItem$ | async">
+  <div class="current-metadata-item"
+       *ngIf="(currentMetadataItem$ | async) && !(currentMetadata$ | async)?.showImportSummary">
     <app-current-metadata-item
       [currentMetadataItem]="currentMetadataItem$ | async"
       (onCloseCurrentMetadataItem)="clearCurrentMetadataItem()"
     ></app-current-metadata-item>
   </div>
   <!--end of current metadata item block-->
+
+  <!--metadata import summary block-->
+  <div class="metadata-import-summary-block">
+    <app-metadata-import-summary
+      [importSummary]="(currentMetadata$ | async)?.importSummary"
+      (onImportSummaryClose)="toggleMetadataImportSummary()"
+    ></app-metadata-import-summary>
+  </div>
+  <!--end of metadata import summary block-->
 </div>

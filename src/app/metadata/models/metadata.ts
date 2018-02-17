@@ -5,6 +5,7 @@ export interface Metadata {
   loaded: boolean;
   importing: boolean;
   imported: boolean;
-  importSummary?: any;
+  importSummary: any;
+  showImportSummary: boolean;
   metadataItems: { [name: string]: Array<string> };
 }

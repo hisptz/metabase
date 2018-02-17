@@ -4,6 +4,9 @@ export interface MetadataVm {
   loading: boolean;
   loaded: boolean;
   imported: boolean;
+  importing: boolean;
+  showImportSummary: boolean;
+  importSummary: boolean;
   metadataItems: Array<{
     id: string;
     name: string;

@@ -1,0 +1,13 @@
+.metadata-import-summary-breadcrumb,
+.import-summary {
+  padding: 5px 10px;
+}
+
+.breadcrumb-item > a {
+  cursor: pointer;
+}
+
+.metadata-import-summary-pagination {
+  display: flex;
+  justify-content: flex-end;
+}
