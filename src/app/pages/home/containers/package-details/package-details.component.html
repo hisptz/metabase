@@ -3,20 +3,18 @@
     <div class="package-details-header">
         <div class="package-details-title">
             <div class="title-image">
-
+              <img *ngIf="(currentPackage$ | async).icons" [src]="(currentPackage$ | async)?.icons[0][48]" alt="" class="img-fluid">
             </div>
             <div class="title-content">
                 <div class="title">{{ (currentPackage$ | async)?.name }}</div>
-                <div class="tag-block">
-                    <img src="assets/icons/tag.png" alt="">
-                    <div>
-                        <a href="">tags</a>
-                        <span>, </span>
-                        <a href="">tags</a>
-                        <span>, </span>
-                        <a href="">tags</a>
-                    </div>
+              <div class="tag-block">
+                <img src="assets/icons/tag.png" alt="" title="Package tags">
+                <div>
+                  <a *ngFor="let metadataTag of (currentPackage$ | async)?.tags">
+                    <span class="tag-item">{{metadataTag}}</span>
+                  </a>
                 </div>
+              </div>
             </div>
         </div>
         <a class="package-details-close" (click)="closePackageItem($event)">
@@ -36,7 +34,7 @@
             <!-- package overview section -->
             <div class="package-overview" *ngIf="currentTab === 'overview'">
                 <div class="package-overview-image-block">
-                    <div style="background-color: #dddddd; width: 100%; height: 400px;"></div>
+                  <img *ngIf="(currentPackage$ | async).icons" [src]="(currentPackage$ | async)?.icons[0][48]" alt="" class="img-fluid">
                 </div>
                 <div class="package-overview-description">
                     <div [innerHtml]="(currentPackage$ | async)?.description"></div>

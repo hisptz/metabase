@@ -1,18 +1,27 @@
 .package-item-container {
-    padding: 5px;
+  padding: 5px;
 }
 
 .package-item-image {
-    background-color: #eeeeee;
-    height: 200px;
+  border: solid thin #eeeeee;
+  display: flex;
+  height: 200px;
+}
+
+.package-item-image img {
+  height: 200px;
 }
 
 .package-item-text {
-    margin-top: 8px;
+  margin-top: 8px;
 }
 
 @media (max-width: 500px) {
-    .package-item-image {
-        height: 250px;
-    }
+  .package-item-image {
+    height: 250px;
+  }
+
+  .package-item-image img {
+    height: 250px;
+  }
 }

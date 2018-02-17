@@ -3,18 +3,16 @@
   <div class="metadata-package-details-header">
     <div class="metadata-package-details-title">
       <div class="title-image">
-
+        <img [src]="(currentMetadataPackage$ | async)?.icons[0][48]" alt="" class="img-fluid">
       </div>
       <div class="title-content">
         <div class="title">{{(currentMetadataPackage$ | async)?.name}}</div>
         <div class="tag-block">
-          <img src="assets/icons/tag.png" alt="">
+          <img src="assets/icons/tag.png" alt="" title="metadata package tags">
           <div>
-            <a href="">tags</a>
-            <span>, </span>
-            <a href="">tags</a>
-            <span>, </span>
-            <a href="">tags</a>
+            <a *ngFor="let metadataTag of (currentMetadataPackage$ | async)?.tags">
+              <span class="tag-item">{{metadataTag}}</span>
+            </a>
           </div>
         </div>
       </div>

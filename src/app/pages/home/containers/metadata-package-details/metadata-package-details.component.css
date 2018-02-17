@@ -71,9 +71,11 @@
 
 .title-image {
   height: 70px;
-  width: 90px;
-  background-color: #eeeeee;
   margin-right: 5px;
+}
+
+.title-image img {
+  height: 70px;
 }
 
 .title {
@@ -94,6 +96,13 @@
 
 .tag-block a:hover {
   color: #333;
+}
+
+.tag-item {
+  background-color: #eeeeee;
+  font-size: 13px;
+  padding: 4px 5px;
+  border-radius: 14px;
 }
 
 .tag-block img {

@@ -50,8 +50,12 @@
 .title-image {
     height: 70px;
     width: 90px;
-    background-color: #eeeeee;
+    border: solid thin #eeeeee;
     margin-right: 5px;
+}
+
+.title-image img {
+  height: 70px;
 }
 
 .title {
@@ -80,6 +84,13 @@
     margin-right: 5px;
     /*margin: auto;*/
     height: 19px;
+}
+
+.tag-item {
+  background-color: #eeeeee;
+  font-size: 13px;
+  padding: 4px 5px;
+  border-radius: 14px;
 }
 
 .package-footer-title {

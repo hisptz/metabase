@@ -25,7 +25,8 @@
   <!--end of current metadata item block-->
 
   <!--metadata import summary block-->
-  <div class="metadata-import-summary-block">
+  <div class="metadata-import-summary-block"
+       *ngIf="(currentMetadata$ | async)?.showImportSummary">
     <app-metadata-import-summary
       [importSummary]="(currentMetadata$ | async)?.importSummary"
       (onImportSummaryClose)="toggleMetadataImportSummary()"
