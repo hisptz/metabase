@@ -10,9 +10,11 @@ export class MetadataImportSummaryComponent implements OnInit {
   @Input() importSummary: any;
   @Output() onImportSummaryClose: EventEmitter<any> = new EventEmitter<any>();
   importListPage: number;
+  importConflictPage; number;
 
   constructor() {
     this.importListPage = 1;
+    this.importConflictPage = 1;
   }
 
   ngOnInit() {

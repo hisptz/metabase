@@ -58,7 +58,7 @@
       </tr>
       </thead>
       <tbody>
-      <tr *ngFor="let conflict of importSummary.importConflicts; let i=index">
+      <tr *ngFor="let conflict of importSummary.importConflicts  | paginate: { itemsPerPage: 5, currentPage: importConflictPage }; let i=index">
         <td>{{i + 1}}</td>
         <td>{{conflict.type}}</td>
         <td>
@@ -69,6 +69,9 @@
       </tr>
       </tbody>
     </table>
+    <div class="metadata-import-summary-pagination" *ngIf="importSummary.importConflicts.length > 5">
+      <pagination-controls (pageChange)="importConflictPage = $event"></pagination-controls>
+    </div>
   </div>
   <!--end of import conflicts-->
 </div>
