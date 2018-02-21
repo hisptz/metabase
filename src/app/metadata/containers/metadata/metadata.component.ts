@@ -18,13 +18,18 @@ export class MetadataComponent implements OnInit {
   @Input() currentVersion: number;
   @Input() versions: MetadataPackageVersion[];
 
-  @Output() onMetadataImportStatusUpdate: EventEmitter<boolean> = new EventEmitter<boolean>();
+  @Output()
+  onMetadataImportStatusUpdate: EventEmitter<boolean> = new EventEmitter<
+    boolean
+  >();
   currentMetadata$: Observable<MetadataVm>;
   currentMetadataItem$: Observable<any>;
 
   constructor(private store: Store<fromMetadata.State>) {
     this.currentMetadata$ = store.select(fromMetadata.getCurrentMetadata);
-    this.currentMetadataItem$ = store.select(fromMetadata.getCurrentMetadataItem);
+    this.currentMetadataItem$ = store.select(
+      fromMetadata.getCurrentMetadataItem
+    );
   }
 
   ngOnInit() {
@@ -62,7 +67,9 @@ export class MetadataComponent implements OnInit {
 
   setCurrentMetadataItem(e, currentMetadataItem: string) {
     e.stopPropagation();
-    this.store.dispatch(new fromMetadata.SetCurrentMetadataItemAction(currentMetadataItem));
+    this.store.dispatch(
+      new fromMetadata.SetCurrentMetadataItemAction(currentMetadataItem)
+    );
   }
 
   clearCurrentMetadataItem() {
@@ -71,7 +78,6 @@ export class MetadataComponent implements OnInit {
 
   importMetadata() {
     this.currentMetadata$.take(1).subscribe((metadata: any) => {
-
       // TODO this is a temporary solution for importing
       const groupedItems = _.groupBy(metadata.metadataItems, 'id');
       const groupedKeys = _.keys(groupedItems);
@@ -81,23 +87,26 @@ export class MetadataComponent implements OnInit {
         metadataToImport[key] = groupedItem ? groupedItem.items : [];
       });
 
-      this.store.dispatch(new fromMetadata.ImportMetadataAction({
-        dryRun: false,
-        metadata: metadataToImport,
-        id: metadata.id
-      }));
+      this.store.dispatch(
+        new fromMetadata.ImportMetadataAction({
+          dryRun: false,
+          metadata: metadataToImport,
+          id: metadata.id
+        })
+      );
     });
-
   }
 
   toggleMetadataImportSummary() {
     this.currentMetadata$.take(1).subscribe((metadata: any) => {
-      this.store.dispatch(new fromMetadata.ToggleMetadataImportSummaryAction({
-        id: metadata.id,
-        changes: {
-          showImportSummary: !metadata.showImportSummary
-        }
-      }));
+      this.store.dispatch(
+        new fromMetadata.ToggleMetadataImportSummaryAction({
+          id: metadata.id,
+          changes: {
+            showImportSummary: !metadata.showImportSummary
+          }
+        })
+      );
     });
   }
 }

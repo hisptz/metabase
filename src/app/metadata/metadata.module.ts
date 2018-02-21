@@ -8,10 +8,12 @@ import * as fromContainers from './containers';
 import * as fromComponents from './components';
 import * as fromServices from './services';
 import { reducers, effects } from './store';
+import { SharedModule } from '@app/shared';
 
 @NgModule({
   imports: [
     CommonModule,
+    SharedModule,
     NgxPaginationModule,
 
     /**
@@ -28,5 +30,4 @@ import { reducers, effects } from './store';
   exports: [...fromContainers.containers],
   providers: [...fromServices.services]
 })
-export class MetadataModule {
-}
+export class MetadataModule {}
