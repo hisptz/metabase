@@ -10,6 +10,7 @@ export interface MetadataPackage {
   importing: boolean;
   imported: boolean;
   importError: any;
+  hasConflictOnImport?: boolean;
   importedVersion: number;
   license: MetadataPackageLicense;
   status?: string;

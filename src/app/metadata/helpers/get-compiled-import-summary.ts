@@ -1,13 +1,15 @@
 export function getCompiledImportSummary(response, dryRun) {
-
   return {
     isPreview: dryRun,
     completed: true,
+    status: response.status,
     overallImportCounts: response.stats ? response.stats : response.importCount,
     importCountsPerMetadata: getImportCountPerMetadata(
-      response.typeReports ? response.typeReports : response.importTypeSummaries),
+      response.typeReports ? response.typeReports : response.importTypeSummaries
+    ),
     importConflicts: getCompiledImportConflicts(
-      response.typeReports ? response.typeReports : response.importTypeSummaries)
+      response.typeReports ? response.typeReports : response.importTypeSummaries
+    )
   };
 }
 
@@ -16,7 +18,9 @@ function getImportCountPerMetadata(importSummary) {
   if (importSummary) {
     importSummary.forEach((summaryItem, summaryKey) => {
       compiledImportCount[summaryKey] = {
-        type: summaryItem.klass ? summaryItem.klass.split('.')[4] : summaryItem.type,
+        type: summaryItem.klass
+          ? summaryItem.klass.split('.')[4]
+          : summaryItem.type,
         count: summaryItem.stats ? summaryItem.stats : summaryItem.importCount
       };
     });
@@ -28,7 +32,7 @@ function getCompiledImportConflicts(importSummary) {
   const conflicts: Array<any> = [];
   // Get conflict summary if exist
   if (importSummary) {
-    importSummary.forEach((summaryItem) => {
+    importSummary.forEach(summaryItem => {
       if (summaryItem.importConflicts) {
         summaryItem.importConflicts.forEach((conflict, summaryKey) => {
           conflicts[summaryKey] = {

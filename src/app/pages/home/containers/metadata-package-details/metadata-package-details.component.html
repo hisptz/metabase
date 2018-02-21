@@ -24,29 +24,32 @@
         </a>
       </div>
       <div class="metadata-package-actions">
-        <button
-          class="btn btn-sm btn-success import-btn"
-          (click)="toggleImportSummary($event)"
-          title="This package was imported, click to view import summary"
-          *ngIf="(currentMetadataPackage$ | async)?.imported &&
-                (currentMetadataPackage$ | async)?.importedVersion === currentMetadataPackageVersion">
-          Imported
-        </button>
-        <button
-          class="btn btn-outline-warning btn-sm import-btn"
-          *ngIf="(currentMetadataPackage$ | async)?.importError"
-          [disabled]="true"
-        >
+
+
+        <button class="btn btn-outline-success btn-sm import-btn" (click)="toggleImportSummary($event)" *ngIf="((currentMetadataPackage$ | async)?.imported && !(currentMetadataPackage$ | async)?.hasConflictOnImport)"
+          title="Importation was successfully, click view summary button to view more details">
           <span class="importing-block">
-            Import failed, (Code: {{(currentMetadataPackage$ | async)?.importError.status}}):
-            {{(currentMetadataPackage$ | async)?.importError.message}}
+            <img src="assets/icons/ciricle-tick.png" alt="">
           </span>
         </button>
-        <button
-          class="btn btn-outline-secondary btn-sm import-btn"
-          (click)="importMetadata($event)"
-          [disabled]="(currentMetadataPackage$ | async)?.importing"
-        >
+        <button class="btn btn-outline-danger btn-sm import-btn" (click)="toggleImportSummary($event)" *ngIf="(currentMetadataPackage$ | async)?.imported && (currentMetadataPackage$ | async)?.hasConflictOnImport"
+          title="There are confilcting during importation, click view summary button to view more details">
+          <span class="importing-block">
+            <img src="assets/icons/error.png" alt="">
+          </span>
+        </button>
+
+        <!-- <button class="btn btn-sm btn-info import-btn" (click)="toggleImportSummary($event)" title="This package was imported, click to view import summary"
+          *ngIf="(currentMetadataPackage$ | async)?.imported &&
+                (currentMetadataPackage$ | async)?.importedVersion == currentMetadataPackageVersion">
+          View summary
+        </button> -->
+        <button class="btn btn-outline-danger btn-sm import-btn" *ngIf="(currentMetadataPackage$ | async)?.importError" [disabled]="true">
+          <span class="importing-block">
+            Import failed, (Code: {{(currentMetadataPackage$ | async)?.importError.status}}): {{(currentMetadataPackage$ | async)?.importError.message}}
+          </span>
+        </button>
+        <button class="btn btn-outline-secondary btn-sm import-btn" (click)="importMetadata($event)" [disabled]="(currentMetadataPackage$ | async)?.importing">
           <span class="importing-block" *ngIf="(currentMetadataPackage$ | async)?.importing">
             <img src="assets/icons/balls-5.svg" alt="">Importing metadata...
           </span>
@@ -58,14 +61,9 @@
             Try again
           </span>
         </button>
-        <select
-          *ngIf="!(currentMetadataPackage$ | async)?.importing"
-          [(ngModel)]="currentMetadataPackageVersion"
-          (ngModelChange)="setCurrentVersion()"
-          class="form-control form-control-sm">
-          <option
-            *ngFor="let metadataPackageVersion of (currentMetadataPackage$ | async)?.versions"
-            [value]="metadataPackageVersion.version">
+        <select *ngIf="!(currentMetadataPackage$ | async)?.importing" [(ngModel)]="currentMetadataPackageVersion" (ngModelChange)="setCurrentVersion()"
+          class="form-control">
+          <option *ngFor="let metadataPackageVersion of (currentMetadataPackage$ | async)?.versions" [value]="metadataPackageVersion.version">
             Version {{metadataPackageVersion.version}}
           </option>
         </select>
@@ -84,11 +82,7 @@
 
     <!-- metadata list -->
     <div class="metadata-list" *ngIf="metadataPackageLoaded$ | async">
-      <app-metadata
-        [id]="(currentMetadataPackage$ | async)?.id"
-        [currentVersion]="currentMetadataPackageVersion"
-        [versions]="(currentMetadataPackage$ | async)?.versions"
-      ></app-metadata>
+      <app-metadata [id]="(currentMetadataPackage$ | async)?.id" [currentVersion]="currentMetadataPackageVersion" [versions]="(currentMetadataPackage$ | async)?.versions"></app-metadata>
     </div>
     <!-- end of metadata list -->
   </div>

@@ -1,7 +1,7 @@
 import { Store } from '@ngrx/store';
 import { Component, OnInit, ViewChild } from '@angular/core';
 
-import * as fromRoot from '@app/store'
+import * as fromRoot from '@app/store';
 import { Observable } from 'rxjs/Observable';
 import { MetadataComponent } from '@app/metadata';
 import { MetadataPackage } from '@app/core';
@@ -16,24 +16,23 @@ export class MetadataPackageDetailsComponent implements OnInit {
   metadataPackageLoaded$: Observable<boolean>;
   currentMetadataPackageVersion: number;
 
-  @ViewChild(MetadataComponent)
-  metadata: MetadataComponent;
+  @ViewChild(MetadataComponent) metadata: MetadataComponent;
 
   constructor(private store: Store<fromRoot.State>) {
     this.currentMetadataPackage$ = store.select(
       fromRoot.getCurrentMetadataPackage
     );
-
     this.metadataPackageLoaded$ = store.select(
       fromRoot.getMetadataPackageLoaded
     );
-    store.select(fromRoot.getCurrentMetadataPackageVersion).subscribe(selectedVersion => {
-      this.currentMetadataPackageVersion = selectedVersion;
-    });
+    store
+      .select(fromRoot.getCurrentMetadataPackageVersion)
+      .subscribe(selectedVersion => {
+        this.currentMetadataPackageVersion = selectedVersion;
+      });
   }
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   closeMetadataPackageItem(e) {
     e.stopPropagation();
@@ -61,23 +60,24 @@ export class MetadataPackageDetailsComponent implements OnInit {
     /**
      * Set import status for the selected metadata package
      */
-    this.currentMetadataPackage$.take(1).subscribe((currentMetadataPackage) => {
-      this.store.dispatch(new fromRoot.UpdateMetadataPackageImportStatusAction({
-        id: currentMetadataPackage.id,
-        changes: {
-          importing: true,
-          imported: false,
-          importError: null
-        }
-      }));
+    this.currentMetadataPackage$.take(1).subscribe(currentMetadataPackage => {
+      this.store.dispatch(
+        new fromRoot.UpdateMetadataPackageImportStatusAction({
+          id: currentMetadataPackage.id,
+          changes: {
+            importing: true,
+            imported: false,
+            importError: null
+          }
+        })
+      );
     });
-
   }
 
   toggleImportSummary(e) {
     e.stopPropagation();
 
-    if(this.metadata) {
+    if (this.metadata) {
       this.metadata.toggleMetadataImportSummary();
     }
   }
