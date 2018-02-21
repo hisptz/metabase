@@ -55,7 +55,7 @@
 }
 
 .title-image img {
-  height: 70px;
+    height: 70px;
 }
 
 .title {
@@ -87,15 +87,15 @@
 }
 
 .tag-item {
-  background-color: #eeeeee;
-  font-size: 13px;
-  padding: 4px 5px;
-  border-radius: 14px;
+    background-color: #eeeeee;
+    font-size: 13px;
+    padding: 4px 5px;
+    border-radius: 14px;
 }
 
 .package-footer-title {
     padding: 15px;
-    border-bottom: solid thin#eeeeee;
+    border-bottom: solid thin #eeeeee;
 }
 
 .package-details-tabs {
