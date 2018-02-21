@@ -36,7 +36,14 @@ export class MetadataPackageDetailsComponent implements OnInit {
 
   closeMetadataPackageItem(e) {
     e.stopPropagation();
-    this.store.dispatch(new fromRoot.Back());
+    this.store.select(fromRoot.getCurrentPackage).take(1).subscribe((currentPackage: any) => {
+      if (!currentPackage) {
+        this.store.dispatch(new fromRoot.Go({path: ['']}));
+      } else {
+        this.store.dispatch(new fromRoot.Go({path: [`/package-details/${currentPackage.id}`]}));
+      }
+    });
+
   }
 
   setCurrentVersion() {

@@ -18,7 +18,7 @@ export const getCurrentPackage = createSelector(
     currentPackageId: string | number
   ) => {
     const packageObject: any = packageEntities[currentPackageId];
-    return {
+    return packageObject ? {
       ...packageObject,
       metadataPackages: _.filter(
         _.map(
@@ -28,6 +28,6 @@ export const getCurrentPackage = createSelector(
         ),
         metadataPackage => metadataPackage
       )
-    };
+    } : null;
   }
 );
