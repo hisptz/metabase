@@ -49,12 +49,13 @@
             Import failed, (Code: {{(currentMetadataPackage$ | async)?.importError.status}}): {{(currentMetadataPackage$ | async)?.importError.message}}
           </span>
         </button>
-        <button class="btn btn-outline-secondary btn-sm import-btn" (click)="importMetadata($event)" [disabled]="(currentMetadataPackage$ | async)?.importing">
+        <button class="btn btn-outline-info btn-sm import-btn" (click)="importMetadata($event)" [disabled]="(currentMetadataPackage$ | async)?.importing">
           <span class="importing-block" *ngIf="(currentMetadataPackage$ | async)?.importing">
             <img src="assets/icons/balls-5.svg" alt="">Importing metadata...
           </span>
           <span class="import-block" *ngIf="!(currentMetadataPackage$ | async)?.importing &&
           !(currentMetadataPackage$ | async)?.importError">
+            <img src="assets/icons/download.png" alt="">
             {{((currentMetadataPackage$ | async)?.imported) ? 'Import anyway' : 'Import'}}
           </span>
           <span *ngIf="(currentMetadataPackage$ | async)?.importError">

@@ -1,21 +1,36 @@
 .metadata-item-container {
-    height: 200px;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border: solid thin #ddd;
+  height: 200px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: solid thin #ddd;
+  border-radius: 5px;
+  -webkit-transition: all 0.2s ease-in-out;
+  -moz-transition: all 0.2s ease-in-out;
+  -o-transition: all 0.2s ease-in-out;
+  -ms-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
+}
+
+.metadata-item-container:hover {
+  background-color: rgba(241, 241, 241, 0.6);
+  -webkit-transform: scale(1.04);
+  -moz-transform: scale(1.04);
+  -o-transform: scale(1.04);
+  -ms-transform: scale(1.04);
+  transform: scale(1.04);
 }
 
 .metadata-item {
-    text-align: center;
+  text-align: center;
 }
 
 .metadata-item img {
-    height: 60px;
-    margin-bottom: 10px;
+  height: 60px;
+  margin-bottom: 10px;
 }
 
 .metadata-item-name {
-    /* text-transform: capitalize; */
+  /* text-transform: capitalize; */
 }
