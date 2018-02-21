@@ -1,0 +1,27 @@
+.metadata-item-container {
+  width: 100%;
+  display: flex;
+  padding: 15px;
+  cursor: pointer;
+  -webkit-transition: all .2s ease-in-out;
+  -moz-transition: all .2s ease-in-out;
+  -o-transition: all .2s ease-in-out;
+  -ms-transition: all .2s ease-in-out;
+  transition: all .2s ease-in-out;
+}
+
+.metadata-item-container:hover {
+  -webkit-transform: scale(1.04);
+  -moz-transform: scale(1.04);
+  -o-transform: scale(1.04);
+  -ms-transform: scale(1.04);
+  transform: scale(1.04)
+}
+
+.metadata-item {
+  margin-left: 7px;
+}
+
+.metadata-icon img {
+  height: 50px;
+}

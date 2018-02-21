@@ -3,4 +3,5 @@ export interface MetadataPackageVersion {
   lastUpdated: string;
   version: number;
   url: string;
+  href?: string;
 }

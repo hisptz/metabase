@@ -1,0 +1,18 @@
+.metadata-package-import-block {
+  margin-top: 90px;
+}
+
+.metadata-package-progress-preview-item {
+padding: 15px;
+}
+.progress-preview-header {
+  display: flex;
+  justify-content: space-between;
+}
+.progress-preview-title {
+  font-size: 25px;
+}
+
+.dependency-item {
+  margin-right: 10px;
+}

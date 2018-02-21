@@ -10,8 +10,10 @@ export interface MetadataPackage {
   importing: boolean;
   imported: boolean;
   importError: any;
+  organisation: string;
+  url: string;
   importedVersion: number;
-  license: MetadataPackageLicense;
+  license?: MetadataPackageLicense;
   status?: string;
   owner?: string;
   tags: Array<string>;

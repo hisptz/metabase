@@ -9,7 +9,10 @@ import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core
 export class MetadataPackageItemComponent implements OnInit {
 
   @Input() metadataPackage: any;
-  constructor() { }
+  @Input() showTags: boolean;
+  constructor() {
+    this.showTags = true;
+  }
 
   ngOnInit() {
   }

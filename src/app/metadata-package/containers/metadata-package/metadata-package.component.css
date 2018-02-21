@@ -1,0 +1,22 @@
+.metadata-package-block {
+  margin-top: 90px;
+}
+
+.metadata-package-info {
+
+}
+.metadata-package-info-details {
+  display: flex;
+  width: 100%;
+  font-size: 15px;
+  padding-top: 7px;
+  padding-bottom: 7px;
+}
+
+.metadata-package-info-title {
+  padding-bottom: 5px;
+}
+
+.info-item {
+  flex: 1;
+}

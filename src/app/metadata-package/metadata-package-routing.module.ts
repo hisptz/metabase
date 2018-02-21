@@ -10,6 +10,10 @@ const routes: Routes = [
     children: [
 
     ]
+  },
+  {
+    path: 'preview-and-import',
+    component: fromContainers.MetadataPackageImportComponent
   }
 ];
 

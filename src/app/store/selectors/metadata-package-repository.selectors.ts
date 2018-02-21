@@ -5,7 +5,7 @@ import * as fromRoot from '../reducers';
 import * as fromMetadataPackageRepository from '../reducers/metadata-package-repository.reducer';
 
 export const getAllMetadataPackageRepositories = createSelector(
-  fromRoot.getAllMetadataPackageRepositories,
+  fromRoot.getAllMetadataPackageRepositoriesState,
   (state: MetadataPackageRepository[]) => state
 );
 

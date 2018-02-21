@@ -1,3 +1,56 @@
-<p>
-  metadata-package works!
-</p>
+<div class="container-fluid metadata-package-block">
+  <div class="row">
+    <div class="col-9 offset-1">
+      <div class="row">
+        <div class="col-md-9">
+          <!--current metadata package breadcrumb-->
+          <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a href="#">Home</a></li>
+              <li class="breadcrumb-item active" aria-current="page">{{(currentMetadataPackage$ | async)?.name}}</li>
+            </ol>
+          </nav>
+          <!--end of current metadata package breadcrumb-->
+
+          <!--metadata package header-->
+          <div class="metadata-package-header">
+            <app-metadata-package-item
+              [metadataPackage]="currentMetadataPackage$ | async"
+              [showTags]="false"
+            >
+            </app-metadata-package-item>
+          </div>
+          <!--end of metadata package header-->
+
+          <!-- metadata list -->
+          <div class="metadata-list">
+            <app-metadata></app-metadata>
+          </div>
+          <!-- end of metadata list -->
+        </div>
+        <div class="col-md-3">
+          <div class="metadata-package-info">
+            <h5 class="border-bottom metadata-package-info-title">Information</h5>
+            <div class="metadata-package-info-details">
+              Package by:&nbsp;
+              <a class="font-italic" href="{{(currentMetadataPackage$ | async)?.url}}" target="_blank">{{(currentMetadataPackage$ | async)?.organization}}</a>
+            </div>
+            <div class="metadata-package-info-details">
+              License:&nbsp;
+              <a href="{{(currentMetadataPackage$ | async)?.license.url}}" target="_blank">{{(currentMetadataPackage$ | async)?.license.name}}</a>
+            </div>
+            <div class="metadata-package-info-details">
+              <app-tag-list [tags]="(currentMetadataPackage$ | async)?.tags"></app-tag-list>
+            </div>
+
+            <div class="metadata-package-info-details">
+              <a [routerLink]="'preview-and-import'" class="btn btn-block btn-outline-secondary">
+                <i class="fa fa-cloud-download"></i> Preview and Import
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

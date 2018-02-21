@@ -36,7 +36,7 @@ export const getMetadataPackageRepositoryState = createSelector(
 );
 
 export const {
-  selectAll: getAllMetadataPackageRepositories,
+  selectAll: getAllMetadataPackageRepositoriesState,
   selectIds: getMetadataPackageRepositoriesIds,
   selectEntities: getMetadataPackageRepositoryEntities,
   selectTotal: getMetadataPackageRepositoryTotal

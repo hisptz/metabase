@@ -33,16 +33,6 @@ export class HomeComponent implements OnInit {
     const latestVersion = fromCore.getLatestVersion(metadataPackage.versions);
 
     /**
-     * Set current metadata package
-     */
-    this.store.dispatch(
-      new fromRoot.SetCurrentMetadataPackageAction(
-        metadataPackage.id,
-        parseFloat(latestVersion)
-      )
-    );
-
-    /**
      * Route to the selected metadata package
      */
     this.store.dispatch(

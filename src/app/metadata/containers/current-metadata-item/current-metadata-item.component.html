@@ -1,0 +1,34 @@
+<div class="current-metadata-item-container">
+  <div class="current-metadata-breadcrumb">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a (click)="closeCurrentMetadataItem($event)">All</a></li>
+        <li class="breadcrumb-item active" aria-current="page">{{ currentMetadataItem?.name }}</li>
+      </ol>
+    </nav>
+  </div>
+  <div class="current-metadata-item-list">
+    <div class="text-warning text-center" *ngIf="currentMetadataItem?.items.length === 0">
+      No items
+    </div>
+    <table class="table table-responsive-sm table-hover" *ngIf="currentMetadataItem?.items.length > 0">
+      <thead>
+      <tr>
+        <th>#</th>
+        <th>Name</th>
+        <th>&nbsp;</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let item of currentMetadataItem?.items | paginate: { itemsPerPage: 5, currentPage: currentMetadataListPage }; let i = index;">
+        <td>{{ i + 1}}</td>
+        <td>{{ item.name }}</td>
+        <td>&nbsp;</td>
+      </tr>
+      </tbody>
+    </table>
+    <div class="metadata-item-pagination" *ngIf="currentMetadataItem?.items.length > 5">
+      <pagination-controls (pageChange)="currentMetadataListPage = $event"></pagination-controls>
+    </div>
+  </div>
+</div>

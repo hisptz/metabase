@@ -7,6 +7,7 @@
   </div>
   <div class="text-justify">{{ metadataPackage?.description }}</div>
   <app-tag-list
+    *ngIf="showTags"
     [tags]="metadataPackage?.tags"
   >
   </app-tag-list>

@@ -1,0 +1,39 @@
+<div class="container-fluid metadata-package-import-block">
+  <div class="row">
+    <div class="col-9 offset-1">
+      <!--current metadata package breadcrumb-->
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="#">Home</a></li>
+          <li class="breadcrumb-item" aria-current="page">
+            <a [routerLink]="'/metadata-package/' +
+            (currentMetadataPackage$ | async)?.id +
+            '/' + (currentMetadataPackageVersion$ | async)">{{(currentMetadataPackage$ | async)?.name}}</a>
+          </li>
+          <li class="breadcrumb-item active">Preview and import</li>
+        </ol>
+      </nav>
+      <!--end of current metadata package breadcrumb-->
+
+      <!--metadata preview progress view-->
+      <div class="metadata-package-progress-preview-list">
+        <div class="border-bottom metadata-package-progress-preview-item" *ngFor="let metadataPreviewProgress of [{}, {},{}]">
+          <div class="progress-preview-header">
+            <div class="progress-preview-title">
+              Metadata name
+            </div>
+            <div class="progress-preview-info">
+              processing 0 of 100(0%)
+            </div>
+          </div>
+          <div class="dependency-preview-info">
+            <span class="dependency-item">dependencies preview: processing 10 of 23(60%)</span>
+            <!--<span class="dependency-item text-primary">found: 20</span>-->
+            <!--<span class="dependency-item text-danger">missing: 20</span>-->
+          </div>
+        </div>
+      </div>
+      <!--end metadata preview progress view-->
+    </div>
+  </div>
+</div>

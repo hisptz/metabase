@@ -1,0 +1,20 @@
+.metadata-import-summary-breadcrumb {
+  padding: 5px 10px;
+}
+
+.import-summary,
+.import-conflict {
+  margin: 5px 10px;
+  padding: 10px;
+  border: solid thin #eeeeee;
+  border-radius: 3px;
+}
+
+.breadcrumb-item > a {
+  cursor: pointer;
+}
+
+.metadata-import-summary-pagination {
+  display: flex;
+  justify-content: flex-end;
+}
