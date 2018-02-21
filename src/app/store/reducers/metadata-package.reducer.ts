@@ -25,25 +25,27 @@ export const initialState: State = adapter.getInitialState({
 export function reducer(state: State = initialState,
   action: MetadataPackageActions): State {
   switch (action.type) {
-    case MetadataPackageActionTypes.ADD_METADATA_PACKAGES:
-      return adapter.addAll(action.payload, {
-        ...state,
-        loading: false,
-        loaded: true
-      });
+    case MetadataPackageActionTypes.LOAD_METADATA_PACKAGES:
+      return {...state, loading: true, loaded: false};
+    case MetadataPackageActionTypes.ADD_METADATA_PACKAGE:
+      return adapter.addOne(action.metadataPackage, state);
 
     case MetadataPackageActionTypes.UPDATE_METADATA_PACKAGE_IMPORT_STATUS:
       return adapter.updateOne(
         {
-          id: action.payload.id,
-          changes: action.payload.changes
+          id: action.id,
+          changes: action.changes
         },
         state
       );
     case MetadataPackageActionTypes.SET_CURRENT_METADATA_PACKAGE:
-      return {...state, ...action.payload};
+      return {
+        ...state,
+        currentMetadataPackage: action.currentMetadataPackage,
+        currentMetadataPackageVersion: action.currentMetadataPackageVersion
+      };
     case MetadataPackageActionTypes.SET_CURRENT_METADATA_PACKAGE_VERSION:
-      return {...state, currentMetadataPackageVersion: action.payload};
+      return {...state, currentMetadataPackageVersion: action.metadataPackageVersion};
   }
   return state;
 }

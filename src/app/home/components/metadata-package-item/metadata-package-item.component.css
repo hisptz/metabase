@@ -1,0 +1,19 @@
+
+.metadata-package-body {
+  padding: 25px 5px 20px 10px;
+  border-bottom: solid 1px #eeeeee;
+}
+
+.metadata-package-title-block {
+  /*display: flex;*/
+}
+
+.metadata-package-title-block img {
+  height: 50px;
+}
+
+.metadata-package-name {
+  padding-top: 10px;
+  font-size: 18px;
+  font-weight: 600;
+}

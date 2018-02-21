@@ -1,0 +1,56 @@
+<div class="container-fluid header-container">
+  <div class="row header-block">
+    <div class="col-1 header-brand">
+      <img src="assets/icons/icon-64x64.png"
+           alt="Metabase">
+    </div>
+    <div class="col-md-8 col-11">
+      <div class="row">
+        <div class="col-12">
+          <div class="header-search">
+            <app-metadata-package-search></app-metadata-package-search>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-auto mr-auto">
+          <app-tag-list
+            [navFormat]="true"
+          >
+          </app-tag-list>
+        </div>
+        <div class="col-auto">
+          <nav class="nav nav-tabs settings-nav">
+            <a href="" class="nav-link">Settings</a>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-8 offset-md-1 col-sm-11 offset-sm-1">
+      <div class="metadata-package-list-block">
+        <div class="row">
+          <div
+            class="col-md-6"
+            *ngFor="let metadataPackage of (metadataPackages$ | async); trackBy: trackByFn"
+          >
+            <div
+              class="metadata-package-item"
+              (click)="onMetadataPackageClick(metadataPackage, $event)"
+            >
+              <app-metadata-package-item
+                [metadataPackage]="metadataPackage"
+              >
+              </app-metadata-package-item>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

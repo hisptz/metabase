@@ -1,83 +1,55 @@
-import {
-  ActionReducerMap,
-  MetaReducer,
-  createFeatureSelector,
-  createSelector
-} from '@ngrx/store';
+import { ActionReducerMap, createSelector, MetaReducer } from '@ngrx/store';
 import { environment } from '@env/environment';
 import { storeFreeze } from 'ngrx-store-freeze';
 import * as fromRouterReducer from '@ngrx/router-store';
-import * as fromCurrentUser from './current-user.reducer';
-import * as fromPackageGroup from './package-group.reducer';
-import * as fromPackage from './package.reducer';
+import * as fromCurrentUserReducer from './current-user.reducer';
+import * as fromMetadataPackageRepository from './metadata-package-repository.reducer';
 import * as fromMetadataPackage from './metadata-package.reducer';
-import * as fromAppPackage from './app-package.reducer';
 
 export interface State {
   route: fromRouterReducer.RouterReducerState;
-  currentUser: fromCurrentUser.State;
-  packageGroup: fromPackageGroup.State;
-  packageObject: fromPackage.State;
+  currentUser: fromCurrentUserReducer.CurrentUserState;
+  metadataPackageRepository: fromMetadataPackageRepository.State;
   metadataPackage: fromMetadataPackage.State;
-  appPackage: fromAppPackage.State;
 }
 
 export const reducers: ActionReducerMap<State> = {
   route: fromRouterReducer.routerReducer,
-  currentUser: fromCurrentUser.reducer,
-  packageGroup: fromPackageGroup.reducer,
-  packageObject: fromPackage.reducer,
-  metadataPackage: fromMetadataPackage.reducer,
-  appPackage: fromAppPackage.reducer
+  currentUser: fromCurrentUserReducer.currentUserReducer,
+  metadataPackageRepository: fromMetadataPackageRepository.reducer,
+  metadataPackage: fromMetadataPackage.reducer
 };
 
-export const selectCurrentUserState = (state: State) => state.currentUser;
-export const selectAppPackageState = (state: State) => state.appPackage;
+export const metaReducers: MetaReducer<State>[] = !environment.production
+  ? [storeFreeze]
+  : [];
+
+export const getAppState = (state: State) => state;
 
 /**
- * Global selectors for package groups
+ * Global selectors for metadata package repositories
  */
-export const getPackageGroupState = (state: State) => state.packageGroup;
 
-export const getPackageGroupEntitiesState = createSelector(
-  getPackageGroupState,
-  state => state
+export const getMetadataPackageRepositoryState = createSelector(
+  getAppState,
+  (state: State) => state.metadataPackageRepository
 );
 
 export const {
-  selectIds: getPackageGroupIds,
-  selectAll: getAllPackageGroups,
-  selectEntities: getPackageGroupEntities,
-  selectTotal: getPackageGroupTotal
-} = fromPackageGroup.adapter.getSelectors(getPackageGroupEntitiesState);
+  selectAll: getAllMetadataPackageRepositories,
+  selectIds: getMetadataPackageRepositoriesIds,
+  selectEntities: getMetadataPackageRepositoryEntities,
+  selectTotal: getMetadataPackageRepositoryTotal
+} = fromMetadataPackageRepository.adapter.getSelectors(getMetadataPackageRepositoryState);
 
-/**
- * Global selectors for packages
- */
-
-export const getPackageState = (state: State) => state.packageObject;
-
-export const getPackageEntitiesState = createSelector(
-  getPackageState,
-  state => state
-);
-
-export const {
-  selectAll: getAllPackages,
-  selectIds: getPackagesIds,
-  selectEntities: getPackagesEntities,
-  selectTotal: getPackagesTotal
-} = fromPackage.adapter.getSelectors(getPackageEntitiesState);
 
 /**
  * Global selectors for metadata packages
  */
 
-export const getMetadataPackageState = (state: State) => state.metadataPackage;
-
-export const getMetadataPackageEntitiesState = createSelector(
-  getMetadataPackageState,
-  state => state
+export const getMetadataPackageState = createSelector(
+  getAppState,
+  (state: State) => state.metadataPackage
 );
 
 export const {
@@ -85,8 +57,4 @@ export const {
   selectIds: getMetadataPackagesIds,
   selectEntities: getMetadataPackagesEntities,
   selectTotal: getMetadataPackagesTotal
-} = fromMetadataPackage.adapter.getSelectors(getMetadataPackageEntitiesState);
-
-export const metaReducers: MetaReducer<State>[] = !environment.production
-  ? [storeFreeze]
-  : [];
+} = fromMetadataPackage.adapter.getSelectors(getMetadataPackageState);

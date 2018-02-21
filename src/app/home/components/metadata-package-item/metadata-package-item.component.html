@@ -1,0 +1,13 @@
+<div class="metadata-package-body">
+  <div class="metadata-package-title-block">
+    <img
+      [src]="metadataPackage?.icons[0][48]"
+      alt="logo">
+    <span class="metadata-package-name">{{ metadataPackage?.name }}</span>
+  </div>
+  <div class="text-justify">{{ metadataPackage?.description }}</div>
+  <app-tag-list
+    [tags]="metadataPackage?.tags"
+  >
+  </app-tag-list>
+</div>

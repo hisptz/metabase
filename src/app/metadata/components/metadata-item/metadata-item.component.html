@@ -1,8 +1,0 @@
-<div class="metadata-item-container">
-    <div class="metadata-item">
-        <img [src]="metadataItem?.icon" alt="">
-        <div class="metadata-item-name"> {{ metadataItem?.name }}</div>
-        <small class="text-muted" *ngIf="metadataItem?.items.length > 0">({{metadataItem?.items.length}} item{{metadataItem?.items.length > 1 ? 's' : ''}} available)</small>
-        <small class="text-warning" *ngIf="metadataItem?.items.length === 0">No items</small>
-    </div>
-</div>

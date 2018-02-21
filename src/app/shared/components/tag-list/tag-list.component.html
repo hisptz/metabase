@@ -1,0 +1,20 @@
+<nav
+  class="nav nav-tabs tag-list-nav"
+  *ngIf="navFormat"
+>
+  <a class="nav-link active" href="#">All</a>
+  <a class="nav-link" href="#">Dashboard</a>
+  <a class="nav-link" href="#">Malaria</a>
+  <a class="nav-link" href="#">More</a>
+</nav>
+
+<div
+  *ngIf="!navFormat"
+  class="tag-list"
+>
+  <a title="tags for some package"><i class="fa fa-tags"></i></a>
+  <a
+    *ngFor="let tag of tags; let i = index"
+    (click)="onTagClick(tag, $event)"
+  >{{ tag }}{{ i < tags.length - 1 ? ', ' : ''  }}</a>
+</div>

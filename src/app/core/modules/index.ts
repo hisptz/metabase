@@ -1,4 +1,6 @@
-import { MenuModule } from './menu/menu.module';
+import {MenuModule} from './menu/menu.module';
 
 export * from './menu/menu.module';
-export const modules: any[] = [MenuModule];
+export const modules: any[] = [
+  MenuModule
+]

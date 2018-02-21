@@ -1,25 +1,8 @@
 import { createSelector } from '@ngrx/store';
 import * as fromRoot from '../reducers';
-import * as fromMetadataPackage from '../reducers/metadata-package.reducer';
+import { MetadataPackage } from '@app/core';
 
-export const getCurrentMetadataPackageId = createSelector(
-  fromRoot.getMetadataPackageState,
-  fromMetadataPackage.getCurrentMetadataPackageState
-);
-
-export const getMetadataPackageLoaded = createSelector(
-  fromRoot.getMetadataPackageState,
-  fromMetadataPackage.getMetadataPackageLoadedState
-);
-
-export const getCurrentMetadataPackageVersion = createSelector(
-  fromRoot.getMetadataPackageState,
-  fromMetadataPackage.getCurrentMetadataPackageVersionState
-);
-
-export const getCurrentMetadataPackage = createSelector(
-  fromRoot.getMetadataPackagesEntities,
-  getCurrentMetadataPackageId,
-  (metadataPackageEntity, metadataPackageId: string | number) =>
-    metadataPackageEntity[metadataPackageId]
+export const getMetadataPackages = createSelector(
+  fromRoot.getAllMetadataPackages,
+  ((metadataPackages: MetadataPackage[]) => metadataPackages)
 );

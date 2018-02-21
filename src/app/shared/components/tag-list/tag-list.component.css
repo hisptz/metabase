@@ -1,0 +1,39 @@
+.tag-list-nav {
+  border-bottom-style: none;
+  margin-bottom: -15px;
+}
+.tag-list-nav a {
+  font-size: 13px;
+  color: #7F7F7F;
+}
+
+.tag-list-nav a:hover {
+  border-color: transparent;
+  background-color: transparent;
+  color: #2e2e2e;
+}
+
+.tag-list-nav a:focus {
+  border-color: transparent;
+  background-color: transparent;
+}
+.tag-list-nav a.active {
+  border-style: none;
+  color: #4584F4;
+  font-weight: 600;
+  border-bottom: solid 2px #4584F4;
+  border-radius: 0px;
+  background-color: transparent;
+}
+
+.tag-list > a {
+  font-style: italic;
+  cursor: pointer;
+  font-size: 13px;
+  text-decoration: none;
+  color: #7F7F7F;
+}
+
+.tag-list > a:hover {
+  color: #2e2e2e;
+}

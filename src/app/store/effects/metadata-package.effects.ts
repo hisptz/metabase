@@ -1,66 +1,36 @@
-import { Store } from '@ngrx/store';
-import { Actions, Effect } from '@ngrx/effects';
 import { Injectable } from '@angular/core';
-import { ROUTER_NAVIGATION } from '@ngrx/router-store';
-import { map, tap } from 'rxjs/operators';
+import { Actions, Effect } from '@ngrx/effects';
+import { catchError, flatMap, map, tap } from 'rxjs/operators';
+import { of } from 'rxjs/observable/of';
+import { Store } from '@ngrx/store';
+import * as _ from 'lodash';
 
+import * as fromCore from '@app/core';
 import * as fromRoot from '../reducers';
-import * as fromActions from '../actions';
-import * as fromMetadataActions from '@app/metadata';
+import * as fromActions from '../actions/metadata-package.actions';
+
+
 
 @Injectable()
 export class MetadataPackageEffects {
-  constructor(private actions$: Actions,
-    private store: Store<fromRoot.State>) {
+  constructor(private actions$: Actions, private store: Store<fromRoot.State>,  private metadataPackageService: fromCore.MetadataPackageService) {
   }
 
-  @Effect({dispatch: false})
-  routerNavigation$ = this.actions$.ofType(ROUTER_NAVIGATION).withLatestFrom(this.store).pipe(
-    tap(([action, state]: [any, fromRoot.State]) => {
-      const currentPackage = state.packageObject.currentPackage;
-      const routeUrl = state.route.state;
-
-      if (routeUrl && routeUrl.url) {
-        const splitedUrl = routeUrl.url.split('/');
-
-        if (
-          splitedUrl.length > 2 &&
-          splitedUrl[1] === 'metadata-package-details'
-        ) {
-          if (currentPackage === '') {
-            this.store.dispatch(
-              new fromActions.SetCurrentMetadataPackageAction({
-                currentMetadataPackage: splitedUrl[2],
-                currentMetadataPackageVersion: parseFloat(splitedUrl[3])
-              })
-            );
-          }
-        }
-      }
-    })
-  );
+  @Effect()
+  loadMetadataPackages$ = this.actions$.ofType(fromActions.MetadataPackageActionTypes.LOAD_METADATA_PACKAGES).pipe(
+    flatMap((action: fromActions.LoadMetadataPackagesAction) => this.metadataPackageService.load(
+      action.metadataPackageRepositoryUrl).pipe(
+      map((metadataPackages: fromCore.MetadataPackage[]) => new fromActions.LoadMetadataPackagesSuccessAction(
+        metadataPackages)),
+      catchError((error) => of(new fromActions.LoadMetadataPackagesFailAction()))
+    )));
 
   @Effect({dispatch: false})
-  importSuccess$ = this.actions$.ofType(fromMetadataActions.MetadataActionTypes.IMPORT_METADATA_SUCCESS).pipe(
-    tap(
-      (action: any) => {
-        const splitedMetadataId = action.payload.id.split('_');
-        this.store.dispatch(new fromActions.UpdateMetadataPackageImportStatusAction(
-          {
-            id: splitedMetadataId[0],
-            changes: {importing: false, imported: true, importedVersion: parseFloat(splitedMetadataId[1])}
-          }));
-      }));
-
-  @Effect({dispatch: false})
-  importFail$ = this.actions$.ofType(fromMetadataActions.MetadataActionTypes.IMPORT_METADATA_FAIL).pipe(
-    tap(
-      (action: any) => {
-        const splitedMetadataId = action.payload.id.split('_');
-        this.store.dispatch(new fromActions.UpdateMetadataPackageImportStatusAction(
-          {
-            id: splitedMetadataId[0],
-            changes: {importing: false, imported: false, importError: action.payload.importError}
-          }));
-      }));
+  loadMetadataPackageSuccess$ = this.actions$.ofType(
+    fromActions.MetadataPackageActionTypes.LOAD_METADATA_PACKAGES_SUCCESS).
+    pipe(tap((action: fromActions.LoadMetadataPackagesSuccessAction) => {
+      _.each(action.metadataPackages, (metadataPackage: fromCore.MetadataPackage) => {
+        this.store.dispatch(new fromActions.AddMetadataPackageAction(metadataPackage));
+      });
+    }));
 }
