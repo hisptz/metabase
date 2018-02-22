@@ -1,18 +1,38 @@
 <div class="metadata-item-container">
     <div class="metadata-item">
-        <img [src]="metadataItem?.icon" alt="">
-        <div class="metadata-item-name"> {{ metadataItem?.name }}</div>
-        <small class="text-muted" *ngIf="metadataItem?.items.length > 0">({{metadataItem?.items.length}} item{{metadataItem?.items.length > 1 ? 's' : ''}} available)</small>
-        <small class="text-warning" *ngIf="metadataItem?.items.length === 0">No items</small>
-        <div class="text-justify" *ngIf="(metadataItem?.imported || metadataItem?.previewed) && metadataItem.importResult && !metadataItem?.importing && !metadataItem?.previewing">
-          <small class="{{metadataItem?.imported ? 'text-success' : 'text-warning'}}">
-            {{metadataItem.importResult.created}}&nbsp;created<br/>
-            {{metadataItem.importResult.updated}}&nbsp;updated<br/>
-            {{metadataItem.importResult.ignored}}&nbsp;ignored
-          </small>
-        </div>
-        <div class="import-progress" *ngIf="metadataItem?.importing || metadataItem?.previewing">
-          <img src="assets/icons/balls-5.svg" alt="">
+        <div class="text-center">
+          <img [src]="metadataItem?.icon" alt="">
+          <div class="metadata-item-name"> {{ metadataItem?.name }}</div>
+          <small class="text-muted" *ngIf="metadataItem?.items.length > 0">({{metadataItem?.items.length}} item{{metadataItem?.items.length > 1 ? 's' : ''}} available)</small>
+          <small class="text-warning" *ngIf="metadataItem?.items.length === 0">No items</small>
+          <div class="import-progress" *ngIf="metadataItem?.importing || metadataItem?.previewing">
+            <img src="assets/icons/balls-5.svg" alt="">
+          </div>
         </div>
     </div>
+  <div class="import-result-list" *ngIf="(metadataItem?.imported || metadataItem?.previewed) && metadataItem.importResult && !metadataItem?.importing && !metadataItem?.previewing">
+    <div
+      class="text-success import-result-item"
+      title="{{metadataItem.importResult.created}} items added"
+    >
+      <div class="import-result-count">{{metadataItem.importResult.created}}&nbsp;<img src="assets/icons/plus.png" alt=""></div>
+      <div><small>Added</small></div>
+    </div>
+    <div class="import-result-separator"></div>
+    <div
+      class="text-info import-result-item"
+      title="{{metadataItem.importResult.updated}} items updated"
+    >
+      <div class="import-result-count">{{metadataItem.importResult.updated}}&nbsp;<img src="assets/icons/edit.png" alt=""></div>
+      <div><small>Updated</small></div>
+    </div>
+    <div class="import-result-separator"></div>
+    <div
+      class="text-warning import-result-item"
+      title="{{metadataItem.importResult.ignored}} items ignored"
+    >
+      <div class="import-result-count">{{metadataItem.importResult.ignored}}&nbsp;<img src="assets/icons/not-allowed.png" alt=""></div>
+      <div><small>Ignored</small></div>
+    </div>
+  </div>
 </div>

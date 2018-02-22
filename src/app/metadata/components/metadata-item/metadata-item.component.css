@@ -1,9 +1,6 @@
 .metadata-item-container {
-  height: 200px;
+  height: auto;
   width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   border: solid thin #ddd;
   border-radius: 5px;
   -webkit-transition: all 0.2s ease-in-out;
@@ -11,6 +8,7 @@
   -o-transition: all 0.2s ease-in-out;
   -ms-transition: all 0.2s ease-in-out;
   transition: all 0.2s ease-in-out;
+  padding: 15px 10px;
 }
 
 .metadata-item-container:hover {
@@ -24,6 +22,9 @@
 
 .metadata-item {
   text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .metadata-item img {
@@ -33,4 +34,30 @@
 
 .import-progress img {
   height: 40px;
+}
+
+.import-result-list {
+  display: flex;
+  justify-content: space-around;
+  padding: 5px;
+}
+
+.import-result-item {
+  font-size: 12px;
+  padding: 7px;
+  text-align: center;
+}
+
+.import-result-item img {
+  margin-top: 3px;
+  height: 11px;
+}
+
+.import-result-separator {
+  border-left: solid thin #eeeeee;
+}
+
+.import-result-count {
+  display: flex;
+  justify-content: center;
 }
