@@ -1,23 +1,11 @@
 <div class="metadata-container">
 
-  <div *ngIf="!(currentMetadata$ | async)?.loaded" style="height :30%;">
-    <div class="metadata-progress">
-      <div style="width: 100%">
-        <app-progress-loader></app-progress-loader>
-      </div>
-      <div style="width: 90%">
-        <app-progress-loader></app-progress-loader>
-      </div>
-      <div style="width: 80%">
-        <app-progress-loader></app-progress-loader>
-      </div>
-      <div style="width: 90%">
-        <app-progress-loader></app-progress-loader>
-      </div>
-      <div style="width: 100%">
-        <app-progress-loader></app-progress-loader>
-      </div>
-    </div>
+  <div *ngIf="!(currentMetadata$ | async)?.loaded" class="metadata-progress">
+    <div style="width: 100%"><app-progress-loader></app-progress-loader></div>
+    <div style="width: 90%"><app-progress-loader></app-progress-loader></div>
+    <div style="width: 85%"><app-progress-loader></app-progress-loader></div>
+    <div style="width: 75%"><app-progress-loader></app-progress-loader></div>
+    <div style="width: 65%"><app-progress-loader></app-progress-loader></div>
   </div>
   <!--metadata item list-->
   <div class="metadata-item-list" *ngIf="(currentMetadata$ | async)?.loaded &&

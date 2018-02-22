@@ -159,9 +159,14 @@
 .package-footer-content-item {
     height: 200px;
     width: 25%;
+    cursor: pointer;
     border-right: solid thin #eeeeee;
     border-bottom: solid thin #eeeeee;
     position: relative;
+}
+
+.package-footer-content-item:hover {
+    background-color: #eeeeee;
 }
 
 .package-footer-content-item-title {
@@ -185,17 +190,24 @@
 }
 
 .package-footer-content-item-footer {
-    display: none;
+    display: flex;
+    /*display: none;*/
     position: absolute;
     bottom: 5px;
     right: 5px;
 }
 
-.package-footer-content-item:hover .package-footer-content-item-footer {
-    display: flex;
+.package-footer-btn-title {
+    display: none;
+    margin-left: 5px;
+}
+
+.package-footer-content-item:hover .package-footer-btn-title {
+    display: block;
 }
 
 .package-footer-btn {
+    display: flex;
     padding: 4px;
     margin: 2px;
     cursor: pointer;

@@ -64,6 +64,10 @@
   height: 30px;
 }
 
+.import-block img {
+  height: 20px;
+}
+
 .metadata-package-details-title {
   display: flex;
   padding: 15px;

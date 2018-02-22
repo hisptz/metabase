@@ -6,9 +6,14 @@
 .metadata-item-block {
   width: 20%;
   padding: 10px;
+  cursor: pointer;
 }
 
+.metadata-progress {
+  padding: 10px;
+}
 .metadata-progress div {
   height: 10px;
+  display: block;
   margin-top: 3px;
 }
