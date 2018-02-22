@@ -69,7 +69,10 @@ export class MetadataEffects {
           id: action.payload.id,
           changes: {
             importSummary: fromHelpers.getCompiledImportSummary(importResult, action.payload.dryRun),
-            imported: true
+            imported: !action.payload.dryRun,
+            previewing: false,
+            importing: false,
+            previewed: action.payload.dryRun
           }
         })),
         catchError((error) => of(new fromActions.ImportMetadataFailAction({

@@ -1,4 +1,4 @@
-import { createSelector } from '@ngrx/store';
+import * as _ from 'lodash';
 import {
   MetadataAction,
   MetadataActionTypes
@@ -38,9 +38,20 @@ export function reducer(state: State = initialState,
 
     case MetadataActionTypes.SET_CURRENT_METADATA_ITEM:
       return {...state, currentMetadataItem: action.payload};
-
     case MetadataActionTypes.CLEAR_CURRENT_METADATA_ITEM:
       return {...state, currentMetadataItem: ''};
+    case MetadataActionTypes.IMPORT_METADATA:
+      const currentMetadata: Metadata = state.entities[action.payload.id];
+      return currentMetadata ? adapter.updateOne(
+        {
+          id: action.payload.id,
+          changes: {
+            importing: !action.payload.dryRun,
+            previewing: action.payload.dryRun
+          }
+        },
+        state
+      ) : state;
   }
 
   return state;

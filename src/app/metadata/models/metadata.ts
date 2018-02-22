@@ -4,7 +4,9 @@ export interface Metadata {
   loading: boolean;
   loaded: boolean;
   importing: boolean;
+  previewing: boolean;
   imported: boolean;
+  previewed: boolean;
   importSummary: any;
   showImportSummary: boolean;
   metadataItems: { [name: string]: Array<string> };

@@ -4,5 +4,15 @@
         <div class="metadata-item-name"> {{ metadataItem?.name }}</div>
         <small class="text-muted" *ngIf="metadataItem?.items.length > 0">({{metadataItem?.items.length}} item{{metadataItem?.items.length > 1 ? 's' : ''}} available)</small>
         <small class="text-warning" *ngIf="metadataItem?.items.length === 0">No items</small>
+        <div class="text-justify" *ngIf="(metadataItem?.imported || metadataItem?.previewed) && metadataItem.importResult && !metadataItem?.importing && !metadataItem?.previewing">
+          <small class="{{metadataItem?.imported ? 'text-success' : 'text-warning'}}">
+            {{metadataItem.importResult.created}}&nbsp;created<br/>
+            {{metadataItem.importResult.updated}}&nbsp;updated<br/>
+            {{metadataItem.importResult.ignored}}&nbsp;ignored
+          </small>
+        </div>
+        <div class="import-progress" *ngIf="metadataItem?.importing || metadataItem?.previewing">
+          <img src="assets/icons/balls-5.svg" alt="">
+        </div>
     </div>
 </div>

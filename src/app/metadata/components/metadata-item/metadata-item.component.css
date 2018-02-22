@@ -31,6 +31,6 @@
   margin-bottom: 10px;
 }
 
-.metadata-item-name {
-  /* text-transform: capitalize; */
+.import-progress img {
+  height: 40px;
 }

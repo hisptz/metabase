@@ -53,6 +53,7 @@ export class MetadataComponent implements OnInit {
                 loading: true,
                 loaded: false,
                 importing: false,
+                previewing: false,
                 imported: false,
                 importSummary: null,
                 showImportSummary: false,
