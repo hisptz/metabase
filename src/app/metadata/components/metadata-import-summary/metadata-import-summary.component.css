@@ -18,3 +18,8 @@
   display: flex;
   justify-content: flex-end;
 }
+
+.import-summary-total {
+  font-size: 1rem;
+  float: right;
+}
