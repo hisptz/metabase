@@ -76,7 +76,7 @@ export class MetadataComponent implements OnInit {
     this.store.dispatch(new fromMetadata.ClearCurrentMetadataItemAction());
   }
 
-  importMetadata() {
+  importMetadata(dryRun: boolean = false) {
     this.currentMetadata$.take(1).subscribe((metadata: any) => {
       // TODO this is a temporary solution for importing
       const groupedItems = _.groupBy(metadata.metadataItems, 'id');
@@ -89,7 +89,7 @@ export class MetadataComponent implements OnInit {
 
       this.store.dispatch(
         new fromMetadata.ImportMetadataAction({
-          dryRun: false,
+          dryRun: dryRun,
           metadata: metadataToImport,
           id: metadata.id
         })

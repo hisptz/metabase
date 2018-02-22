@@ -54,14 +54,14 @@ export class MetadataPackageDetailsComponent implements OnInit {
     );
   }
 
-  importMetadata(e) {
+  importMetadata(e, preview: boolean = false) {
     e.stopPropagation();
 
     /**
      * Trigger import operation in metadata module
      */
     if (this.metadata) {
-      this.metadata.importMetadata();
+      this.metadata.importMetadata(preview);
     }
 
     /**
@@ -72,9 +72,12 @@ export class MetadataPackageDetailsComponent implements OnInit {
         new fromRoot.UpdateMetadataPackageImportStatusAction({
           id: currentMetadataPackage.id,
           changes: {
-            importing: true,
+            importing: !preview,
+            previewing: preview,
             imported: false,
-            importError: null
+            previewed: false,
+            importError: null,
+            isPreview: preview
           }
         })
       );
