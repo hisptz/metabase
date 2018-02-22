@@ -26,14 +26,20 @@
       <div class="metadata-package-actions">
 
 
-        <button class="btn btn-outline-success btn-sm import-btn" (click)="toggleImportSummary($event)" *ngIf="((currentMetadataPackage$ | async)?.imported && !(currentMetadataPackage$ | async)?.hasConflictOnImport)"
-          title="Importation was successfully, click view summary button to view more details">
+        <button
+          class="btn btn-outline-success btn-sm import-btn"
+          (click)="toggleImportSummary($event)"
+          *ngIf="(((currentMetadataPackage$ | async)?.imported || (currentMetadataPackage$ | async)?.previewed) && !(currentMetadataPackage$ | async)?.hasConflictOnImport)"
+          title="{{ (currentMetadataPackage$ | async)?.previewed ? 'Metadata preview' : 'Metadata import'}} was successfully, click view summary button to view more details">
           <span class="importing-block">
             <img src="assets/icons/ciricle-tick.png" alt="">
           </span>
         </button>
-        <button class="btn btn-outline-danger btn-sm import-btn" (click)="toggleImportSummary($event)" *ngIf="(currentMetadataPackage$ | async)?.imported && (currentMetadataPackage$ | async)?.hasConflictOnImport"
-          title="There are confilcting during importation, click view summary button to view more details">
+        <button
+          class="btn btn-outline-danger btn-sm import-btn"
+          (click)="toggleImportSummary($event)"
+          *ngIf="((currentMetadataPackage$ | async)?.imported || (currentMetadataPackage$ | async)?.previewed) && (currentMetadataPackage$ | async)?.hasConflictOnImport"
+          title="There are conflicts during {{(currentMetadataPackage$ | async)?.previewed ? 'metadata preview': 'metadata import'}}, click view summary button to view more details">
           <span class="importing-block">
             <img src="assets/icons/error.png" alt="">
           </span>
@@ -49,14 +55,34 @@
             Import failed, (Code: {{(currentMetadataPackage$ | async)?.importError.status}}): {{(currentMetadataPackage$ | async)?.importError.message}}
           </span>
         </button>
-        <button class="btn btn-outline-info btn-sm import-btn" (click)="importMetadata($event)" [disabled]="(currentMetadataPackage$ | async)?.importing">
-          <span class="importing-block" *ngIf="(currentMetadataPackage$ | async)?.importing">
+
+        <!--preview import-->
+        <button
+          class="btn btn-outline-info btn-sm import-btn"
+          (click)="importMetadata($event, true)"
+          [disabled]="(currentMetadataPackage$ | async)?.importing  || (currentMetadataPackage$ | async)?.previewing">
+          <span class="importing-block" *ngIf="(currentMetadataPackage$ | async)?.previewing">
+            <img src="assets/icons/balls-5.svg" alt="">Previewing metadata import...
+          </span>
+          <span class="import-block" *ngIf="!(currentMetadataPackage$ | async)?.previewing &&
+          !(currentMetadataPackage$ | async)?.importError">
+            <img src="assets/icons/eye.png" alt="">&nbsp;Preview
+          </span>
+          <span *ngIf="(currentMetadataPackage$ | async)?.importError">
+            Try again
+          </span>
+        </button>
+        <!--end of preview import-->
+        <button
+          class="btn btn-outline-info btn-sm import-btn"
+          (click)="importMetadata($event)"
+          [disabled]="(currentMetadataPackage$ | async)?.importing || (currentMetadataPackage$ | async)?.previewing">
+          <span class="importing-block" *ngIf="(currentMetadataPackage$ | async)?.importing && !(currentMetadataPackage$ | async)?.isPreview">
             <img src="assets/icons/balls-5.svg" alt="">Importing metadata...
           </span>
           <span class="import-block" *ngIf="!(currentMetadataPackage$ | async)?.importing &&
           !(currentMetadataPackage$ | async)?.importError">
-            <img src="assets/icons/download.png" alt="">
-            {{((currentMetadataPackage$ | async)?.imported) ? 'Import anyway' : 'Import'}}
+            <img src="assets/icons/download.png" alt="">&nbsp;Import
           </span>
           <span *ngIf="(currentMetadataPackage$ | async)?.importError">
             Try again

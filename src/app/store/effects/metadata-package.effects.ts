@@ -51,16 +51,16 @@ export class MetadataPackageEffects {
       tap((action: any) => {
         const splitedMetadataId = action.payload.id.split('_');
         const importStatus = action.payload.changes.importSummary.status;
+        const isPreview = action.payload.changes.importSummary.isPreview;
         this.store.dispatch(
           new fromActions.UpdateMetadataPackageImportStatusAction({
             id: splitedMetadataId[0],
             changes: {
               importing: false,
-              imported: true,
-              hasConflictOnImport:
-                importStatus && importStatus.toLowerCase() !== 'ok'
-                  ? true
-                  : false,
+              previewing: false,
+              previewed: isPreview,
+              imported: !isPreview,
+              hasConflictOnImport: importStatus !== 'OK',
               importedVersion: parseFloat(splitedMetadataId[1])
             }
           })

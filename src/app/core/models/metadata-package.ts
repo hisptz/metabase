@@ -9,6 +9,9 @@ export interface MetadataPackage {
   lastUpdated: string;
   importing: boolean;
   imported: boolean;
+  isPreview?: boolean;
+  previewing?: boolean;
+  previewed?: boolean;
   importError: any;
   hasConflictOnImport?: boolean;
   importedVersion: number;
