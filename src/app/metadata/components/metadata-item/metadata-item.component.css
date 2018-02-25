@@ -9,6 +9,7 @@
   -ms-transition: all 0.2s ease-in-out;
   transition: all 0.2s ease-in-out;
   padding: 15px 10px;
+  position: relative;
 }
 
 .metadata-item-container:hover {
@@ -20,6 +21,11 @@
   transform: scale(1.04);
 }
 
+.metadata-item-import-select {
+  position: absolute;
+  right: 2px;
+  top: 2px;
+}
 .metadata-item {
   text-align: center;
   display: flex;
