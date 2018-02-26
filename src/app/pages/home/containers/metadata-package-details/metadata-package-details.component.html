@@ -19,20 +19,19 @@
     </div>
     <div>
       <div class="metadata-package-details-close">
-        <a (click)="closeMetadataPackageItem($event)">
-          <img src="assets/icons/close.png" alt="Close">
+        <a (click)="closeMetadataPackageItem($event)" class="btn btn-sm btn-outline-secondary">
+          <img src="assets/icons/back.png" alt="Close"> Back
         </a>
       </div>
       <div class="metadata-package-actions">
-
-
         <button
           class="btn btn-outline-success btn-sm import-btn"
           (click)="toggleImportSummary($event)"
           *ngIf="(((currentMetadataPackage$ | async)?.imported || (currentMetadataPackage$ | async)?.previewed) && !(currentMetadataPackage$ | async)?.hasConflictOnImport)"
           title="{{ (currentMetadataPackage$ | async)?.previewed ? 'Metadata preview' : 'Metadata import'}} was successfully, click view summary button to view more details">
           <span class="importing-block">
-            <img src="assets/icons/ciricle-tick.png" alt="">
+            <img src="assets/icons/circle-tick.png" alt="">
+            {{ (currentMetadataPackage$ | async)?.previewed ? 'Preview' : 'Import'}} Success
           </span>
         </button>
         <button
@@ -42,6 +41,7 @@
           title="There are conflicts during {{(currentMetadataPackage$ | async)?.previewed ? 'metadata preview': 'metadata import'}}, click view summary button to view more details">
           <span class="importing-block">
             <img src="assets/icons/error.png" alt="">
+            {{(currentMetadataPackage$ | async)?.previewed ? 'Preview': 'Import'}} failed
           </span>
         </button>
 
@@ -58,9 +58,11 @@
 
         <!--preview import-->
         <button
-          class="btn btn-outline-info btn-sm import-btn"
+          class="btn btn-sm btn-outline-secondary import-btn"
           (click)="importMetadata($event, true)"
-          [disabled]="(currentMetadataPackage$ | async)?.importing  || (currentMetadataPackage$ | async)?.previewing">
+          title="Preview Metadata: This will only test importing of metadata in order to get a snapshot of how the import will result. Metadata will not be imported after this operation"
+          [disabled]="(currentMetadataPackage$ | async)?.importing  || (currentMetadataPackage$ | async)?.previewing"
+        >
           <span class="importing-block" *ngIf="(currentMetadataPackage$ | async)?.previewing">
             <img src="assets/icons/balls-5.svg" alt="">Previewing metadata import...
           </span>
@@ -73,8 +75,11 @@
           </span>
         </button>
         <!--end of preview import-->
+
+        <!--import metadata btn-->
         <button
-          class="btn btn-outline-info btn-sm import-btn"
+          class="btn btn-sm btn-outline-secondary import-btn"
+          title="Import Metadata: This will add or update metadata in the system"
           (click)="importMetadata($event)"
           [disabled]="(currentMetadataPackage$ | async)?.importing || (currentMetadataPackage$ | async)?.previewing">
           <span class="importing-block" *ngIf="(currentMetadataPackage$ | async)?.importing && !(currentMetadataPackage$ | async)?.isPreview">
@@ -88,10 +93,15 @@
             Try again
           </span>
         </button>
-        <select *ngIf="!(currentMetadataPackage$ | async)?.importing" [(ngModel)]="currentMetadataPackageVersion" (ngModelChange)="setCurrentVersion()"
-          class="form-control">
+        <select
+          *ngIf="!(currentMetadataPackage$ | async)?.importing"
+          [(ngModel)]="currentMetadataPackageVersion"
+          (ngModelChange)="setCurrentVersion()"
+          class="form-control btn-outline-secondary"
+          title="Select metadata package version for import"
+        >
           <option *ngFor="let metadataPackageVersion of (currentMetadataPackage$ | async)?.versions" [value]="metadataPackageVersion.version">
-            Version {{metadataPackageVersion.version}}
+            V{{metadataPackageVersion.version}}
           </option>
         </select>
       </div>

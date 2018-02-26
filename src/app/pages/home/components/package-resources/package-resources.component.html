@@ -1,0 +1,13 @@
+<div class="package-resources-list">
+<div
+  class="package-resource-item"
+  *ngFor="let packageResource of packageResources | filterByField:'type':viewAsLink ? 'LINK' : ''"
+>
+  <div>
+    <img [src]="packageResource.icon" alt="">
+    <div class="package-resource-title">{{packageResource.name}}</div>
+    <a *ngIf="viewAsLink" [href]="packageResource.url" class="btn btn-sm btn-outline-secondary" target="_blank">View</a>
+    <a *ngIf="!viewAsLink" [href]="packageResource.url" class="btn btn-sm btn-outline-secondary" download target="_blank">Download</a>
+  </div>
+</div>
+</div>

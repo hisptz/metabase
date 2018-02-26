@@ -1,6 +1,6 @@
 {
-  "name": "seed-app",
-  "version": "0.0.0",
+  "name": "dhis2-health-app",
+  "version": "1.0.0",
   "license": "MIT",
   "scripts": {
     "ng": "ng",

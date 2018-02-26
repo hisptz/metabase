@@ -44,13 +44,13 @@
 
             <!-- package resources section  -->
             <div class="package-resources" *ngIf="currentTab === 'resources'">
-                Resources
+                <app-package-resources [packageResources]="(currentPackage$ | async).resources"></app-package-resources>
             </div>
             <!-- end of package resources section  -->
 
             <!-- package resources section  -->
             <div class="package-links" *ngIf="currentTab === 'links'">
-                Links
+              <app-package-resources [packageResources]="(currentPackage$ | async).resources" [viewAsLink]="true"></app-package-resources>
             </div>
             <!-- end of package resources section  -->
         </div>

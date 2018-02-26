@@ -41,8 +41,14 @@
   padding: 5px 10px;
 }
 
-.metadata-package-details-close img {
-  height: 25px;
+.metadata-package-details-close > a {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.metadata-package-details-close > a > img {
+  height: 18px;
 }
 
 .metadata-package-actions {
@@ -53,6 +59,7 @@
 
 .import-btn {
   margin-right: 5px;
+  cursor: pointer;
 }
 
 .importing-block {
@@ -118,7 +125,7 @@
 }
 
 .metadata-package-details-body {
-  height: calc(90vh - 100px);
+  height: calc(90vh - 110px);
   overflow: auto;
 }
 
