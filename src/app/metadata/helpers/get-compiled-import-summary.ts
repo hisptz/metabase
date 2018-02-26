@@ -1,3 +1,5 @@
+import * as fromConstants from '../constants';
+
 export function getCompiledImportSummary(response, dryRun) {
   return {
     isPreview: dryRun,
@@ -18,14 +20,21 @@ function getImportCountPerMetadata(importSummary) {
   if (importSummary) {
     importSummary.forEach((summaryItem, summaryKey) => {
       compiledImportCount[summaryKey] = {
-        type: summaryItem.klass
-          ? summaryItem.klass.split('.')[4]
-          : summaryItem.type,
+        type: getImportSummaryType(summaryItem),
         count: summaryItem.stats ? summaryItem.stats : summaryItem.importCount
       };
     });
   }
   return compiledImportCount;
+}
+
+function getImportSummaryType(summaryItem) {
+  const typeKey = summaryItem.klass
+    ? summaryItem.klass.split('.').pop()
+    : summaryItem.type;
+  return fromConstants.METADATA_ALIASES[typeKey]
+    ? fromConstants.METADATA_ALIASES[typeKey]
+    : typeKey;
 }
 
 function getCompiledImportConflicts(importSummary) {

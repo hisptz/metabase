@@ -1,27 +1,32 @@
 .package-item-container {
-  padding: 5px;
+    padding: 5px;
 }
 
 .package-item-image {
-  border: solid thin #eeeeee;
-  display: flex;
-  height: 200px;
+    border: solid thin #eeeeee;
+    display: flex;
+    height: 200px;
+}
+
+.grey-out-package-item-image {
+    opacity: 0.3;
+    filter: alpha(opacity=30);
 }
 
 .package-item-image img {
-  height: 200px;
+    height: 200px;
 }
 
 .package-item-text {
-  margin-top: 8px;
+    margin-top: 8px;
+    margin-bottom: 5px;
 }
 
 @media (max-width: 500px) {
-  .package-item-image {
-    height: 250px;
-  }
-
-  .package-item-image img {
-    height: 250px;
-  }
+    .package-item-image {
+        height: 250px;
+    }
+    .package-item-image img {
+        height: 250px;
+    }
 }
