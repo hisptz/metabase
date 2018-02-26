@@ -1,7 +1,7 @@
 <div class="package-resources-list">
 <div
   class="package-resource-item"
-  *ngFor="let packageResource of packageResources | filterByField:'type':viewAsLink ? 'LINK' : ''"
+  *ngFor="let packageResource of packageResources | filterByField:'type':viewAsLink ? 'LINK' : '':'LINK'"
 >
   <div>
     <img [src]="packageResource.icon" alt="">
