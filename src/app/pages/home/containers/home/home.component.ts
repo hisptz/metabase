@@ -19,9 +19,7 @@ export class HomeComponent implements OnInit {
       fromRoot.getPackageGroupLoadingStatus
     );
     this.pageDescription =
-      'Download data quality tools, metadata for health' +
-      ' systems and disease-specific modules based on WHO recommendations. The ' +
-      'modules include standard forms, validations, indicators, best practice analysis and dashboards.';
+      'Data standards for facility systems based on recommended service delivery and programme guidelines.';
   }
 
   ngOnInit() {}

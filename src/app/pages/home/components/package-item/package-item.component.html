@@ -1,7 +1,7 @@
 <div class="package-item-container">
-    <div class="package-item-image">
-      {{packageItem.icons[48]}}
-      <img [src]="packageItem.icons[0][48]" alt="" class="img-fluid">
+    <div class="package-item-image" [ngClass]="(packageItem.metadataPackages.length == 0) ? 'grey-out-package-item-image':''">
+        {{packageItem.icons[48]}}
+        <img [src]="packageItem.icons[0][48]" alt="" class="img-fluid">
     </div>
     <div class="package-item-text">
         {{ packageItem.name }}
