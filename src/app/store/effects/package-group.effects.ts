@@ -10,6 +10,7 @@ import * as fromPackageGroupActions from '../actions/package-group.actions';
 import * as fromPackageActions from '../actions/package.actions';
 import * as fromMetadataPackageActions from '../actions/metadata-package.actions';
 import * as fromAppPackageActions from '../actions/app-package.actions';
+import * as fromResourcePackageAction from '../actions/package-resource.actions';
 
 @Injectable()
 export class PackageGroupEffects {
@@ -90,7 +91,10 @@ export class PackageGroupEffects {
                   (metadataPackage: any) => metadataPackage.id
                 ),
                 apps: [],
-                resources: []
+                resources:  _.map(
+                  packageObject.resources || [],
+                  (resourcePackage: any) => resourcePackage.id
+                )
               };
             })
           )
@@ -193,6 +197,33 @@ export class PackageGroupEffects {
                     version: appVersion.version
                   };
                 })
+              };
+            })
+          )
+        );
+
+        /**
+         * Retrieve all resources from package list and add them to the store
+         */
+        const resources: any[] = _.uniqBy(
+          _.filter(
+            _.flatten(
+              _.map(packages, (packageObject: any) => packageObject.resources)
+            ),
+            (resource: any) => resource && resource.id
+          ),
+          'id'
+        );
+
+        this.store.dispatch(
+          new fromResourcePackageAction.AddPackageResourcesAction(
+            _.map(resources, (resource: any) => {
+              return {
+                id: resource.id,
+                name: resource.name,
+                type: resource.type,
+                url: resource.url,
+                icon: fromCore.PACKAGE_RESOURCE_ICONS[resource.type]
               };
             })
           )

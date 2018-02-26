@@ -1,7 +1,6 @@
 import {
   ActionReducerMap,
   MetaReducer,
-  createFeatureSelector,
   createSelector
 } from '@ngrx/store';
 import { environment } from '@env/environment';
@@ -12,6 +11,7 @@ import * as fromPackageGroup from './package-group.reducer';
 import * as fromPackage from './package.reducer';
 import * as fromMetadataPackage from './metadata-package.reducer';
 import * as fromAppPackage from './app-package.reducer';
+import * as fromResourcePackage from './package-resource.reducers';
 
 export interface State {
   route: fromRouterReducer.RouterReducerState;
@@ -20,6 +20,7 @@ export interface State {
   packageObject: fromPackage.State;
   metadataPackage: fromMetadataPackage.State;
   appPackage: fromAppPackage.State;
+  resourcePackage: fromResourcePackage.State;
 }
 
 export const reducers: ActionReducerMap<State> = {
@@ -28,8 +29,11 @@ export const reducers: ActionReducerMap<State> = {
   packageGroup: fromPackageGroup.reducer,
   packageObject: fromPackage.reducer,
   metadataPackage: fromMetadataPackage.reducer,
-  appPackage: fromAppPackage.reducer
+  appPackage: fromAppPackage.reducer,
+  resourcePackage: fromResourcePackage.reducer
 };
+
+export const rootState = (state: State) => state;
 
 export const selectCurrentUserState = (state: State) => state.currentUser;
 export const selectAppPackageState = (state: State) => state.appPackage;
@@ -87,6 +91,20 @@ export const {
   selectTotal: getMetadataPackagesTotal
 } = fromMetadataPackage.adapter.getSelectors(getMetadataPackageEntitiesState);
 
-export const metaReducers: MetaReducer<State>[] = !environment.production
-  ? [storeFreeze]
-  : [];
+/**
+ * Global selectors for package resources
+ */
+
+export const getResourcePackageState = createSelector(
+  rootState,
+  state => state.resourcePackage
+);
+
+export const {
+  selectAll: getAllResourcePackages,
+  selectIds: getResourcePackagesIds,
+  selectEntities: getResourcePackagesEntities,
+  selectTotal: getResourcePackagesTotal
+} = fromResourcePackage.adapter.getSelectors(getResourcePackageState);
+
+export const metaReducers: MetaReducer<State>[] = !environment.production ? [storeFreeze] : [];

@@ -2,7 +2,8 @@ import { createSelector } from '@ngrx/store';
 import * as fromRoot from '../reducers';
 import * as _ from 'lodash';
 import * as fromPackage from '../reducers/package.reducer';
-import { Package, MetadataPackage } from '@app/core';
+import { Package, MetadataPackage} from '../../core/';
+import { PackageResource } from '../../core/models/package-resource';
 
 export const getCurrentPackageId = createSelector(
   fromRoot.getPackageState,
@@ -11,10 +12,12 @@ export const getCurrentPackageId = createSelector(
 export const getCurrentPackage = createSelector(
   fromRoot.getPackagesEntities,
   fromRoot.getMetadataPackagesEntities,
+  fromRoot.getResourcePackagesEntities,
   getCurrentPackageId,
   (
     packageEntities: { [id: string]: Package },
     metadataPackageEntities: { [id: string]: MetadataPackage },
+    resourcePackagesEntities: {[id: string]: PackageResource},
     currentPackageId: string | number
   ) => {
     const packageObject: any = packageEntities[currentPackageId];
@@ -27,6 +30,14 @@ export const getCurrentPackage = createSelector(
             metadataPackageEntities[metadataPackageId]
         ),
         metadataPackage => metadataPackage
+      ),
+      resources: _.filter(
+        _.map(
+          packageObject ? packageObject.resources : [],
+          (resourcePackageId: string) =>
+            resourcePackagesEntities[resourcePackageId]
+        ),
+        resourcePackage => resourcePackage
       )
     } : null;
   }
