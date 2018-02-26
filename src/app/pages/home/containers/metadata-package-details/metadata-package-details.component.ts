@@ -5,6 +5,7 @@ import * as fromRoot from '@app/store';
 import { Observable } from 'rxjs/Observable';
 import { MetadataComponent } from '@app/metadata';
 import { MetadataPackage } from '@app/core';
+import { Package } from '../../../../core/models/package';
 
 @Component({
   selector: 'app-metadata-package-details',
@@ -13,6 +14,7 @@ import { MetadataPackage } from '@app/core';
 })
 export class MetadataPackageDetailsComponent implements OnInit {
   currentMetadataPackage$: Observable<MetadataPackage>;
+  currentPackage$: Observable<Package>;
   metadataPackageLoaded$: Observable<boolean>;
   currentMetadataPackageVersion: number;
 
@@ -25,6 +27,7 @@ export class MetadataPackageDetailsComponent implements OnInit {
     this.metadataPackageLoaded$ = store.select(
       fromRoot.getMetadataPackageLoaded
     );
+    this.currentPackage$ = store.select(fromRoot.getCurrentPackage);
     store
       .select(fromRoot.getCurrentMetadataPackageVersion)
       .subscribe(selectedVersion => {
@@ -36,7 +39,7 @@ export class MetadataPackageDetailsComponent implements OnInit {
 
   closeMetadataPackageItem(e) {
     e.stopPropagation();
-    this.store.select(fromRoot.getCurrentPackage).take(1).subscribe((currentPackage: any) => {
+    this.currentPackage$.take(1).subscribe((currentPackage: any) => {
       if (!currentPackage) {
         this.store.dispatch(new fromRoot.Go({path: ['']}));
       } else {
