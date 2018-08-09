@@ -17,8 +17,10 @@ export class MetadataPackageDetailsComponent implements OnInit {
   currentPackage$: Observable<Package>;
   metadataPackageLoaded$: Observable<boolean>;
   currentMetadataPackageVersion: number;
+  metadataPackageConfig: any;
 
-  @ViewChild(MetadataComponent) metadata: MetadataComponent;
+  @ViewChild(MetadataComponent)
+  metadata: MetadataComponent;
 
   constructor(private store: Store<fromRoot.State>) {
     this.currentMetadataPackage$ = store.select(
@@ -33,6 +35,11 @@ export class MetadataPackageDetailsComponent implements OnInit {
       .subscribe(selectedVersion => {
         this.currentMetadataPackageVersion = selectedVersion;
       });
+
+    this.metadataPackageConfig = {
+      showPreviewButton: false,
+      showImportButton: false
+    };
   }
 
   ngOnInit() {}
@@ -41,12 +48,13 @@ export class MetadataPackageDetailsComponent implements OnInit {
     e.stopPropagation();
     this.currentPackage$.take(1).subscribe((currentPackage: any) => {
       if (!currentPackage) {
-        this.store.dispatch(new fromRoot.Go({path: ['']}));
+        this.store.dispatch(new fromRoot.Go({ path: [''] }));
       } else {
-        this.store.dispatch(new fromRoot.Go({path: [`/package-details/${currentPackage.id}`]}));
+        this.store.dispatch(
+          new fromRoot.Go({ path: [`/package-details/${currentPackage.id}`] })
+        );
       }
     });
-
   }
 
   setCurrentVersion() {
